@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard
@@ -33,3 +34,9 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 // Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 // Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 // Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+
+// Profile
+Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('profile', [ProfileController::class, 'store']);
+
+Route::post('update-password', [ProfileController::class, 'updatePass'])->name('update.password');

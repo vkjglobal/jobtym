@@ -15,7 +15,14 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/css/demo_1/style.css') }}">
     <!-- End layout styles -->
     <!-- custom styles -->
+    @notifyCss
     @stack('custom_css')
+
+    <style>
+        .notify {
+            z-index: 999999999 !important;
+        }
+    </style>
 
 </head>
 
@@ -61,6 +68,8 @@
     <script src="{{ asset('admin_assets/js/datepicker.js') }}"></script>
     <!-- end custom js -->
     <!-- custom js -->
+    @notifyJs
+    <x:notify-messages />
     @stack('custom_js')
 
 </body>
