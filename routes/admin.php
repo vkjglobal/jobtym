@@ -43,4 +43,5 @@ Route::post('profile', [ProfileController::class, 'store']);
 Route::post('update-password', [ProfileController::class, 'updatePass'])->name('update.password');
 
 // Employers
+Route::get('employer-change-status', [EmployerController::class, 'changeStatus'])->name('employer.change.status');
 Route::resource('employers', EmployerController::class);

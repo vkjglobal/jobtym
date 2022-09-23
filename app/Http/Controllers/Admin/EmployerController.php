@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EmployerStoreRequest;
+use App\Http\Requests\Admin\EmployerUpdateRequest;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class EmployerController extends Controller
 {
@@ -106,7 +108,12 @@ class EmployerController extends Controller
      */
     public function edit(Employer $employer)
     {
-        return view();
+        $breadcrumbs = [
+            [(__('Dashboard')), route('admin.home')],
+            [(__('Employers')), route('admin.employers.index')],
+            [(__('Edit')), null]
+        ];
+        return view('admin.employers.edit', compact('breadcrumbs', 'employer'));
     }
 
     /**
@@ -116,9 +123,45 @@ class EmployerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployerUpdateRequest $request, Employer $employer)
     {
-        //
+        $validated = $request->validated();
+
+        $employer->name = $validated['name'];
+        $employer->company_name = $validated['company_name'];
+        $employer->email = $validated['email'];
+        $employer->password = Hash::make($validated['email']);
+        $employer->phone = $validated['phone'];
+        $employer->company_phone = $validated['company_phone'];
+        $employer->tin = $validated['tin'];
+        $employer->country = $validated['country'];
+        $employer->address = $validated['address'];
+        $employer->street = $validated['street'];
+        $employer->city = $validated['city'];
+        $employer->about = $validated['about'];
+        $employer->website = $validated['website'];
+        $employer->facebook = $validated['facebook'];
+        $employer->instagram = $validated['instagram'];
+        $employer->linkedin = $validated['linkedin'];
+
+        if ($request->hasFile('image')) {
+            $path =  $request->file('image')->storeAs(
+                'uploads/employers',
+                urlencode(time()) . '_' . uniqid() . '_' . $request->image->getClientOriginalName(),
+                'public'
+            );
+            Storage::delete($employer->image);
+            $employer->image = $path;
+        }
+
+        $res = $employer->save();
+
+        if ($res) {
+            notify()->success(__('Updated successfully'));
+        } else {
+            notify()->error(__('Failed to Update. Please try again'));
+        }
+        return redirect()->back();
     }
 
     /**
@@ -137,5 +180,15 @@ class EmployerController extends Controller
             notify()->error(__('Failed to Delete. Please try again'));
         }
         return redirect()->back();
+    }
+
+    // Change Employer Status
+    public function changeStatus(Request $request)
+    {
+        $employer = Employer::find($request->employer_id);
+        $employer->status = $request->status;
+        $employer->save();
+
+        return response()->json(['success' => 'Status change successfully.']);
     }
 }
