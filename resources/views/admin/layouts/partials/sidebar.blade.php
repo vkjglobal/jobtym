@@ -24,7 +24,7 @@
             <li class="nav-item {{ request()->is('admin/employers*') ? 'active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#employers" role="button" aria-expanded="false"
                     aria-controls="employers">
-                    <i class="link-icon" data-feather="mail"></i>
+                    <i class="link-icon" data-feather="cpu"></i>
                     <span class="link-title">Employers</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
@@ -46,6 +46,33 @@
                 </div>
             </li>
             <!-- Employers End -->
+
+            <!-- Job Seekers / Users -->
+            <li class="nav-item {{ request()->is('admin/users*') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#users" role="button" aria-expanded="false"
+                    aria-controls="users">
+                    <i class="link-icon" data-feather="user"></i>
+                    <span class="link-title">Users</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->is('admin/users*') ? 'show' : '' }}" id="users">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.create') }}"
+                                class="nav-link {{ request()->is('admin/users/create') ? 'active' : '' }}">
+                                Create
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}"
+                                class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}">
+                                List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Job Seekers / Users End -->
 
         </ul>
     </div>

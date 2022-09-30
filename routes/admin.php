@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard
@@ -45,3 +46,7 @@ Route::post('update-password', [ProfileController::class, 'updatePass'])->name('
 // Employers
 Route::get('employer-change-status', [EmployerController::class, 'changeStatus'])->name('employer.change.status');
 Route::resource('employers', EmployerController::class);
+
+// Users
+Route::get('user-status', [UserController::class, 'changeStatus'])->name('user.status');
+Route::resource('users', UserController::class);

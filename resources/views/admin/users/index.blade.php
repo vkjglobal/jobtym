@@ -7,39 +7,36 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Employers</h6>
+                    <h6 class="card-title">Users</h6>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th>Sl #</th>
-                                    <th>Name</th>
-                                    <th>Company</th>
+                                    <th>Sl#</th>
+                                    <th>Full Name</th>
                                     <th>Email</th>
-                                    <th>Company Phone</th>
+                                    <th>Phone</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($employers as $employer)
+                                @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $employer->name }}</td>
-                                        <td>{{ $employer->company_name }}</td>
-                                        <td>{{ $employer->email }}</td>
-                                        <td>{{ $employer->company_phone }}</td>
+                                        <td>{{ $user->getFullName() }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->phone }}</td>
                                         <td>
-                                            <input data-id="{{ $employer->id }}" class="toggle-class" type="checkbox"
+                                            <input data-id="{{ $user->id }}" class="toggle-class" type="checkbox"
                                                 data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                data-on="Active" data-off="InActive"
-                                                {{ $employer->status ? 'checked' : '' }}>
+                                                data-on="Active" data-off="InActive" {{ $user->status ? 'checked' : '' }}>
                                         </td>
                                         <td>
                                             <div class="btn-toolbar" role="toolbar">
                                                 <!-- edit button -->
                                                 <div class="btn-group mr-1" role="group">
-                                                    <a href="{{ route('admin.employers.edit', $employer->id) }}"
+                                                    <a href="{{ route('admin.users.edit', $user->id) }}"
                                                         class="text-warning">
                                                         <i data-feather="edit"></i>
                                                     </a>
@@ -49,11 +46,11 @@
                                                 <div class="btn-group mr-1" role="group">
                                                     <button type="button" class="text-danger"
                                                         onclick="event.preventDefault(); if(confirm('Are you sure to delete ?')){
-                                                        document.getElementById('delete-data-{{ $employer->id }}').submit();}">
+                                                        document.getElementById('delete-data-{{ $user->id }}').submit();}">
                                                         <i data-feather="trash"></i>
                                                     </button>
-                                                    <form id="delete-data-{{ $employer->id }}"
-                                                        action="{{ route('admin.employers.destroy', $employer->id) }}"
+                                                    <form id="delete-data-{{ $user->id }}"
+                                                        action="{{ route('admin.users.destroy', $user->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
@@ -84,16 +81,15 @@
         $(function() {
             $('.toggle-class').change(function() {
                 var status = $(this).prop('checked') == true ? 1 : 0;
-                var employer_id = $(this).data('id');
-                console.log(employer_id);
+                var user_id = $(this).data('id');
 
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: '{{ route("admin.employer.change.status") }}',
+                    url: '{{ route('admin.user.status') }}',
                     data: {
                         'status': status,
-                        'employer_id': employer_id
+                        'user_id': user_id
                     },
                     success: function(data) {
                         console.log(data.success)
