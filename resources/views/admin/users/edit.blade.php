@@ -7,7 +7,7 @@
         <div class="col-md-12 stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">User Create</h6>
+                    <h6 class="card-title">User Edit</h6>
                     <form method="POST" action="{{ route('admin.users.update', $user->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')

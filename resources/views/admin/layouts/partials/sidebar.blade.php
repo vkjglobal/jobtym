@@ -74,6 +74,33 @@
             </li>
             <!-- Job Seekers / Users End -->
 
+            <!-- Packages -->
+            <li class="nav-item {{ request()->is('admin/packages*') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#packages" role="button" aria-expanded="false"
+                    aria-controls="packages">
+                    <i class="link-icon" data-feather="package"></i>
+                    <span class="link-title">packages</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->is('admin/packages*') ? 'show' : '' }}" id="packages">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.packages.create') }}"
+                                class="nav-link {{ request()->is('admin/packages/create') ? 'active' : '' }}">
+                                Create
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.packages.index') }}"
+                                class="nav-link {{ request()->is('admin/packages') ? 'active' : '' }}">
+                                List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Packages End -->
+
         </ul>
     </div>
 </nav>

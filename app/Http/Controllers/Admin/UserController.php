@@ -115,7 +115,7 @@ class UserController extends Controller
         $breadcrumbs = [
             [(__('Dashboard')), route('admin.home')],
             [(__('Users')), route('admin.users.index')],
-            [(__('Create')), null]
+            [(__('Edit')), null]
         ];
 
         return view('admin.users.edit', compact('breadcrumbs', 'user'));

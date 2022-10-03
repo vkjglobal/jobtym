@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -50,3 +51,7 @@ Route::resource('employers', EmployerController::class);
 // Users
 Route::get('user-status', [UserController::class, 'changeStatus'])->name('user.status');
 Route::resource('users', UserController::class);
+
+// Packages
+Route::get('package-status', [PackageController::class, 'changeStatus'])->name('package.status');
+Route::resource('packages', PackageController::class);
