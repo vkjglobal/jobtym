@@ -79,7 +79,7 @@
                 <a class="nav-link" data-toggle="collapse" href="#packages" role="button" aria-expanded="false"
                     aria-controls="packages">
                     <i class="link-icon" data-feather="package"></i>
-                    <span class="link-title">packages</span>
+                    <span class="link-title">Packages</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse {{ request()->is('admin/packages*') ? 'show' : '' }}" id="packages">
@@ -100,6 +100,32 @@
                 </div>
             </li>
             <!-- Packages End -->
+
+            <!-- Reports -->
+            <li class="nav-item {{ request()->is('admin/all-job-report*') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#reports" role="button" aria-expanded="false"
+                    aria-controls="reports">
+                    <i class="link-icon" data-feather="bookmark"></i>
+                    <span class="link-title">Reports</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->is('admin/all-job-report*') ? 'show' : '' }}" id="reports">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.report.allJob') }}"
+                                class="nav-link {{ request()->is('admin/all-job-report') ? 'active' : '' }}">
+                                All Jobs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link {{ request()->is('admin/packages') ? 'active' : '' }}">
+                                Matched Jobs
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Reports End -->
 
         </ul>
     </div>
