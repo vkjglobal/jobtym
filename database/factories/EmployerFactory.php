@@ -19,9 +19,21 @@ class EmployerFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'company_name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'phone' => $this->faker->phoneNumber,
+            'company_phone' => $this->faker->phoneNumber,
+            'country' => $this->faker->country,
+            'tin' => $this->faker->bothify('?###??##'),
+            'address' => $this->faker->address,
+            'street' => $this->faker->streetName,
+            'city' => $this->faker->city,
+            'about' => $this->faker->sentence,
+            'website' => $this->faker->url,
+            'facebook' => $this->faker->url,
+            'instagram' => $this->faker->url,
+            'linkedin' => $this->faker->url,
             'remember_token' => Str::random(10),
         ];
     }
