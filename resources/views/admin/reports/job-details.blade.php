@@ -141,7 +141,6 @@
                                 </div><!-- Col -->
                             </div><!-- Row -->
                         @endif
-
                     </form>
 
                 </div>

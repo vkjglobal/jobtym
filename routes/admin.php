@@ -48,7 +48,7 @@ Route::post('update-password', [ProfileController::class, 'updatePass'])->name('
 // Employers
 Route::get('employer-change-status', [EmployerController::class, 'changeStatus'])->name('employer.change.status');
 Route::get('employer-job-posts/{id}', [EmployerController::class, 'jobs'])->name('employer.jobposts');
-Route::get('job-post/{id}', [EmployerController::class, 'showJob'])->name('employer.jobShow');
+Route::get('jobpost/{id}', [EmployerController::class, 'showJob'])->name('employer.jobShow');
 Route::delete('job-post/{id}', [EmployerController::class, 'deleteJob'])->name('employer.jobDelete');
 Route::resource('employers', EmployerController::class);
 
@@ -62,3 +62,4 @@ Route::resource('packages', PackageController::class);
 
 // Reports
 Route::get('all-job-report', [ReportController::class, 'index'])->name('report.allJob');
+Route::get('job-post/{id}', [ReportController::class, 'viewJob'])->name('report.viewJob');

@@ -35,14 +35,16 @@
 
                                                 <!-- Show details -->
                                                 <a href="{{ route('admin.employer.jobShow', $job->id) }}"
-                                                    class="mr-1 text-warning" data-toggle="tooltip" data-placement="top" title="Show">
+                                                    class="mr-1 text-warning" data-toggle="tooltip" data-placement="top"
+                                                    title="Show">
                                                     <i data-feather="eye"></i>
                                                 </a>
 
                                                 <!-- Delete button -->
                                                 <button type="button" class="text-danger"
                                                     onclick="event.preventDefault(); if(confirm('Are you sure to delete ?')){
-                                                        document.getElementById('delete-data-{{ $job->id }}').submit();}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        document.getElementById('delete-data-{{ $job->id }}').submit();}"
+                                                    data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <i data-feather="trash"></i>
                                                 </button>
                                                 <form id="delete-data-{{ $job->id }}"
