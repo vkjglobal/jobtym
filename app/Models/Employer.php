@@ -70,4 +70,10 @@ class Employer extends Authenticatable
         }
         return $status;
     }
+
+    // Employer Job Posts
+    public function jobs()
+    {
+        return $this->hasMany(JobPost::class);
+    }
 }

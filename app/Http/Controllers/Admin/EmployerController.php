@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EmployerStoreRequest;
 use App\Http\Requests\Admin\EmployerUpdateRequest;
 use App\Models\Employer;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,7 @@ class EmployerController extends Controller
             [(__('Dashboard')), route('admin.home')],
             [(__('Employers')), null],
         ];
-        $employers = Employer::latest()->get();
+        $employers = Employer::with('jobs')->latest()->get();
         return view('admin.employers.index', compact('breadcrumbs', 'employers'));
     }
 
@@ -190,5 +191,49 @@ class EmployerController extends Controller
         $employer->save();
 
         return response()->json(['success' => 'Status change successfully.']);
+    }
+
+    // View Employer Jobs
+    public function jobs($id)
+    {
+        $breadcrumbs = [
+            [(__('Dashboard')), route('admin.home')],
+            [(__('Employers')), route('admin.employers.index')],
+            [(__('Job Posts')), null]
+        ];
+
+        $employer = Employer::with('jobs')->find($id);
+
+        return view('admin.employers.job-posts', compact('breadcrumbs', 'employer'));
+    }
+
+    // View Job Detail
+    public function showJob($id)
+    {
+        $jobPost = JobPost::with('employer')->find($id);
+
+        $breadcrumbs = [
+            [(__('Dashboard')), route('admin.home')],
+            [(__('Employers')), route('admin.employers.index')],
+            [(__('Job Lists')), route('admin.employer.jobposts', $jobPost->employer_id)],
+            [(__('Job Details')), null]
+        ];
+
+        return view('admin.employers.job-details', compact('breadcrumbs', 'jobPost'));
+    }
+
+    // Delete Employer Job
+    public function deleteJob($id)
+    {
+        $jobPost = JobPost::with('employer')->find($id);
+
+        $res = $jobPost->delete();
+
+        if ($res) {
+            notify()->success(__('Deleted successfully'));
+        } else {
+            notify()->error(__('Failed to Delete. Please try again'));
+        }
+        return redirect()->back();
     }
 }

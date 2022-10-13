@@ -36,29 +36,35 @@
                                                 {{ $employer->status ? 'checked' : '' }}>
                                         </td>
                                         <td>
-                                            <div class="btn-toolbar" role="toolbar">
-                                                <!-- edit button -->
-                                                <div class="btn-group mr-1" role="group">
-                                                    <a href="{{ route('admin.employers.edit', $employer->id) }}"
-                                                        class="text-warning">
-                                                        <i data-feather="edit"></i>
-                                                    </a>
-                                                </div>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <!-- Employer Jobs -->
+                                                <a href="{{ route('admin.employer.jobposts', $employer->id) }}"
+                                                    class="mr-1 text-info" data-toggle="tooltip" data-placement="top"
+                                                    title="Show Job Posts">
+                                                    <i data-feather="share"></i>
+                                                </a>
 
-                                                <!-- delete button -->
-                                                <div class="btn-group mr-1" role="group">
-                                                    <button type="button" class="text-danger"
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure to delete ?')){
-                                                        document.getElementById('delete-data-{{ $employer->id }}').submit();}">
-                                                        <i data-feather="trash"></i>
-                                                    </button>
-                                                    <form id="delete-data-{{ $employer->id }}"
-                                                        action="{{ route('admin.employers.destroy', $employer->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </div>
+                                                <!-- Edit button -->
+                                                <a href="{{ route('admin.employers.edit', $employer->id) }}"
+                                                    class="mr-1 text-warning" data-toggle="tooltip" data-placement="top"
+                                                    title="Edit">
+                                                    <i data-feather="edit"></i>
+                                                </a>
+
+                                                <!-- Delete button -->
+                                                <button type="button" class="text-danger"
+                                                    onclick="event.preventDefault(); if(confirm('Are you sure to delete ?')){
+                                                        document.getElementById('delete-data-{{ $employer->id }}').submit();}"
+                                                    data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <i data-feather="trash"></i>
+                                                </button>
+                                                <form id="delete-data-{{ $employer->id }}"
+                                                    action="{{ route('admin.employers.destroy', $employer->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -90,7 +96,7 @@
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: '{{ route("admin.employer.change.status") }}',
+                    url: '{{ route('admin.employer.change.status') }}',
                     data: {
                         'status': status,
                         'employer_id': employer_id
