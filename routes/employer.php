@@ -5,6 +5,7 @@ use App\Http\Controllers\Employer\Auth\LoginController;
 use App\Http\Controllers\Employer\Auth\RegisterController;
 use App\Http\Controllers\Employer\Auth\ResetPasswordController;
 use App\Http\Controllers\Employer\HomeController;
+use App\Http\Controllers\Employer\JobPostController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard
@@ -33,3 +34,7 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 // Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 // Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 // Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+
+// Job Posts
+Route::get('job-status', [JobPostController::class, 'changeStatus'])->name('job.status');
+Route::resource('job-posts', JobPostController::class);

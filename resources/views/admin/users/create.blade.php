@@ -72,9 +72,15 @@
                                         class="form-control text-dark @if ($errors->has('gender')) is-invalid @endif"
                                         required>
                                         <option disabled selected>Choose an option...</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Others</option>
+                                        <option value="male" {{ old('gender') == 'male' ? "selected" : "" }}>
+                                            Male
+                                        </option>
+                                        <option value="female" {{ old('gender') == 'female' ? "selected" : "" }}>
+                                            Female
+                                        </option>
+                                        <option value="other" {{ old('gender') == 'other' ? "selected" : "" }}>
+                                            Others
+                                        </option>
                                     </select>
                                     <div class="invalid-feedback">{{ $errors->first('gender') }}</div>
                                 </div>

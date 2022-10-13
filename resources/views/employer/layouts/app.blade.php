@@ -46,7 +46,7 @@
             </div>
 
             <!-- partial:partials/_footer -->
-            @include('employer.layouts.partials.footer')
+            @include('admin.layouts.partials.footer')
             <!-- partial -->
 
         </div>
