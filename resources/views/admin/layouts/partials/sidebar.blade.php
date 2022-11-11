@@ -127,6 +127,17 @@
             </li>
             <!-- Reports End -->
 
+            <li class="nav-item nav-category">Others</li>
+
+            <!-- categories -->
+            <li class="nav-item {{ request()->is('admin/categories') ? 'active' : '' }}">
+                <a href="{{ route('admin.categories.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Categories</span>
+                </a>
+            </li>
+            <!-- categories End -->
+
         </ul>
     </div>
 </nav>
