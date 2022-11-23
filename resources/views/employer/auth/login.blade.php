@@ -83,6 +83,17 @@
 
                                             </div>
 
+                                            <div class="mt-3">
+
+                                                <!-- Register -->
+                                                @if (Route::has('employer.register'))
+                                                    <a class="btn btn-link"
+                                                        href="{{ route('employer.register') }}">
+                                                        {{ __('Register') }}
+                                                    </a>
+                                                @endif
+                                            </div>
+
                                         </form>
                                     </div>
                                 </div>

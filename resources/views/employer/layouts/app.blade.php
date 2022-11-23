@@ -29,15 +29,19 @@
 <body class="sidebar-dark">
     <div class="main-wrapper">
 
-        <!-- partial:partials/_sidebar -->
-        @include('employer.layouts.partials.sidebar')
-        <!-- partial -->
+        @if (auth()->guard('employer')->user())
+            <!-- partial:partials/_sidebar -->
+            @include('employer.layouts.partials.sidebar')
+            <!-- partial -->
+        @endif
 
         <div class="page-wrapper">
 
-            <!-- partial:partials/_navbar -->
-            @include('employer.layouts.partials.navbar')
-            <!-- partial -->
+            @if (auth()->guard('employer')->user())
+                <!-- partial:partials/_navbar -->
+                @include('employer.layouts.partials.navbar')
+                <!-- partial -->
+            @endif
 
             <div class="page-content">
                 <!-- Main Content -->
@@ -45,9 +49,11 @@
                 <!-- Main Content Ends -->
             </div>
 
-            <!-- partial:partials/_footer -->
-            @include('admin.layouts.partials.footer')
-            <!-- partial -->
+            @if (auth()->guard('employer')->user())
+                <!-- partial:partials/_footer -->
+                @include('admin.layouts.partials.footer')
+                <!-- partial -->
+            @endif
 
         </div>
     </div>
