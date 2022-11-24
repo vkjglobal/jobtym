@@ -47,6 +47,33 @@
             </li>
             <!-- Job Posts End -->
 
+            <!-- Aptitude Tests -->
+            <li class="nav-item {{ request()->is('employer/aptitude-tests*') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#aptitude-tests" role="button" aria-expanded="false"
+                    aria-controls="aptitude-tests">
+                    <i class="link-icon" data-feather="cpu"></i>
+                    <span class="link-title">Aptitude Tests</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->is('employer/aptitude-tests*') ? 'show' : '' }}" id="aptitude-tests">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('employer.aptitude-tests.create') }}"
+                                class="nav-link {{ request()->is('employer/aptitude-tests/create') ? 'active' : '' }}">
+                                Create
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('employer.aptitude-tests.index') }}"
+                                class="nav-link {{ request()->is('employer/aptitude-tests') ? 'active' : '' }}">
+                                List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Aptitude Tests End -->
+
 
         </ul>
     </div>
