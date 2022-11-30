@@ -118,7 +118,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link {{ request()->is('admin/packages') ? 'active' : '' }}">
+                            <a href="{{ route('admin.report.matchedJob') }}" class="nav-link {{ request()->is('admin/packages') ? 'active' : '' }}">
                                 Matched Jobs
                             </a>
                         </li>
