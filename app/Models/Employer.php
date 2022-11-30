@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Employer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    public $table = "employers";
     /**
      * The attributes that are mass assignable.
      *
