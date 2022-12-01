@@ -1,29 +1,8 @@
 @extends('user.layouts.app')
 
 @section('content')
-<div id="main-content" class="site-main clearfix">
 
-    @if (Session::has('message'))
-    <section class="popup">
-        <div class="popup-inner">
-            <div class="popup-content">
-                <div class="img">
-                    <img src="assets/img/popup/popup.jpg" alt="Image">
-                </div>
-                <div class="content text-center">
-
-                    <p class="">{{ Session::get('message') }}</p>
-
-                    <h6 class="heading">REGISTRATION SUCCESSFUL!</h6>
-
-                    <a href="{{ route('login') }}" class="button color-2 login-submit">LOGIN TO YOUR ACCOUNT</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    @endif
-
-</div><!-- /#main-content -->
+<!-- /#main-content -->
     <section>
         <div class="container">
             <div class="row">

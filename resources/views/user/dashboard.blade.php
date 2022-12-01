@@ -17,12 +17,23 @@
         <div class="container">
             <div class="row">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand logo" href="{{ url('user/dashboard') }}">Jobtym</a>
+                    <a class="navbar-brand logo" href="{{ url('user') }}">Jobtym</a>
                     <div class="nav-right">
                         <!-- Button trigger modal -->
                         <ul class="user-menu d-md-flex d-none">
-                            <li class="user-logo"><img src="" alt=""></li>
-                            <li class="user-name">Naveen Jose</li>
+                            <li class="user-logo">
+                                <a class="nav-link user-img" id="" data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="false" style="background: #ffffff;">
+                                    <img src="{{ asset('user_assets/images/user_img.jpg')}}" alt="" style="width: 52px;height: 52px;border-radius: 50%;">
+                                </a>
+                            </li>
+
+                            <?php
+                            // echo "<pre>";
+                            // print_r(Auth::user()->first_name);
+
+
+                            ?>
+                            <li class="user-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </li>
                             <li class="user-menu-item">
                                 <span class="user-drop-btn">
                                     <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,16 +80,16 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home</a>
+                                <a class="nav-link" href="{{ url('user') }}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="find-jobs.html">Find Jobs</a>
+                                <a class="nav-link" href="{{ url('user') }}">Find Jobs</a>
                             </li>                    
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Upload Your Resume</a>
+                                <a class="nav-link" href="{{ url('user') }}">Upload Your Resume</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Hiring?   Post a job for free</a>
+                                <a class="nav-link" href="{{ url('user') }}">Hiring?   Post a job for free</a>
                             </li>
                         </ul>                        
                     </div>
@@ -157,8 +168,14 @@
                 <ul class="user-drop-menu nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item d-block">
                         <ul class="user-menu">
-                            <li class="user-logo"><img src="" alt=""></li>
-                            <li class="user-name">Naveen Jose <a href="" class="btn-typ3 rounded-btn100">View Profile</a></li>
+                            <li class="user-logo">
+                                <a class="nav-link user-img" id="" data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="false" style=" background: #ffffff;">
+                                    <img src="{{ asset('user_assets/images/user_img.jpg')}}" alt="" style="width: 52px;height: 52px;border-radius: 50%;">
+                                </a>
+                            </li>
+                            <li class="user-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} 
+                                <a class="btn-typ3 rounded-btn100" id="" data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="false"> View Profile </a>
+                            </li>
                             <li class="user-menu-item">
                                 <span class="user-drop-btn">
                                     <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -168,6 +185,7 @@
                             </li>
                         </ul>
                     </li>
+                    {{-- Sidebar Dashboard Start --}}
                     <li class="nav-item">
                         <a class="nav-link active" id="" data-toggle="tab" href="#UserDashboard" role="tab" aria-controls="UserDashboard" aria-selected="true">
                             <span>
@@ -178,7 +196,9 @@
                             User Dashboard
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- Sidebar Dashboard End --}}
+                    {{-- Sidebar Profile Start --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" id="" data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="false">
                             <span>
                                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -189,7 +209,10 @@
                             </span>
                             Profile
                         </a>
-                    </li>
+                    </li> --}}
+                    {{-- Sidebar Profile End --}}
+
+                    {{-- Sidebar My Resume Start --}}
                     <li class="nav-item">
                         <a class="nav-link" id="" data-toggle="tab" href="#MyResume" role="tab" aria-controls="MyResume" aria-selected="false">
                             <span>
@@ -200,6 +223,9 @@
                             My Resume
                         </a>
                     </li>
+                    {{-- Sidebar My Resume End --}}
+
+                    {{-- Sidebar Cover Letter Start --}}
                     <li class="nav-item">
                         <a class="nav-link" id="" data-toggle="tab" href="#CoverLetter" role="tab" aria-controls="CoverLetter" aria-selected="false">
                             <span>
@@ -210,7 +236,10 @@
                             Cover Letter
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- Sidebar Cover Letter End --}}
+
+                    {{-- Sidebar My Applied Start --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" id="" data-toggle="tab" href="#MyApplied" role="tab" aria-controls="MyApplied" aria-selected="false">
                             <span>
                                 <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,7 +249,10 @@
                             </span>
                             My Applied
                         </a>
-                    </li>
+                    </li> --}}
+                    {{-- Sidebar My Applied End --}}
+
+                    {{-- Sidebar Shortlist Jobs Start --}}
                     <li class="nav-item">
                         <a class="nav-link" id="" data-toggle="tab" href="#ShortlistJobs" role="tab" aria-controls="ShortlistJobs" aria-selected="false">
                             <span>
@@ -231,7 +263,10 @@
                             Shortlist Jobs
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- Sidebar Shortlist Jobs End --}}
+
+                    {{-- Sidebar Saved Jobs Start --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" id="" data-toggle="tab" href="#SavedJobs" role="tab" aria-controls="SavedJobs" aria-selected="false">
                             <span>
                                 <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -240,7 +275,10 @@
                             </span>
                             Saved Jobs
                         </a>
-                    </li>
+                    </li> --}}
+                    {{-- Sidebar Saved Jobs End --}}
+
+                    {{-- Sidebar Reports Start --}}
                     <li class="nav-item">
                         <a class="nav-link" id="" data-toggle="tab" href="#Reports" role="tab" aria-controls="Reports" aria-selected="false">
                             <span>
@@ -251,7 +289,10 @@
                             Reports
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- Sidebar Reports End --}}
+
+                    {{-- Sidebar Messages Start --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" id="" data-toggle="tab" href="#Messages" role="tab" aria-controls="Messages" aria-selected="false">
                             <span>
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -260,8 +301,11 @@
                             </span>
                             Messages
                         </a>
-                    </li>
-                    <li class="nav-item">
+                    </li> --}}
+                    {{-- Sidebar Messages End --}}
+
+                    {{-- Sidebar Logout Start --}}
+                    {{-- <li class="nav-item">
                         <button class="nav-link">
                             <span>
                                 <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -270,8 +314,11 @@
                             </span> 
                             Logout
                         </button>
-                    </li>
-                    <li class="nav-item">
+                    </li> --}}
+                    {{-- Sidebar Logout End --}}
+
+                    {{-- Sidebar Delete Account Start --}}
+                    {{-- <li class="nav-item">
                         <button type="button" class="nav-link" data-toggle="modal" data-target="#DeleteAccount">
                             <span>
                                 <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -280,9 +327,9 @@
                             </span> 
                             Delete Account
                         </button>
-                        
-                        
-                    </li>
+                    </li> --}}
+                    {{-- Sidebar Delete Account End --}}
+
                     <li class="skill-info d-none">
                         <div><strong>Skills Percentage: <span class="value">8%</span></strong></div> 
                         <p>Put value for resume, profile fields to increase your skill up to "92%"</p>
@@ -327,7 +374,7 @@
                                     <span class="label">Applied Jobs</span>
                                 </div>
                             </div>
-                            <div class="overview-info-box review">
+                            {{-- <div class="overview-info-box review">
                                 <span class="overview-icon">
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M19.3333 21V24.3333C19.3333 24.7754 19.1577 25.1993 18.8452 25.5118C18.5326 25.8244 18.1087 26 17.6667 26H6L1 31V14.3333C1 13.8913 1.17559 13.4674 1.48816 13.1548C1.80072 12.8423 2.22464 12.6667 2.66667 12.6667H6M31 19.3333L26 14.3333H14.3333C13.8913 14.3333 13.4674 14.1577 13.1548 13.8452C12.8423 13.5326 12.6667 13.1087 12.6667 12.6667V2.66667C12.6667 2.22464 12.8423 1.80072 13.1548 1.48816C13.4674 1.17559 13.8913 1 14.3333 1H29.3333C29.7754 1 30.1993 1.17559 30.5118 1.48816C30.8244 1.80072 31 2.22464 31 2.66667V19.3333Z" stroke="#FF6C07" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -336,6 +383,17 @@
                                 <div class="overview">
                                     <span class="count">1</span>
                                     <span class="label">Review</span>
+                                </div>
+                            </div> --}}
+                            <div class="overview-info-box shortlisted">
+                                <span class="overview-icon">
+                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 2.70571V15.1455C1 15.9045 1.91853 16.2857 2.45583 15.7484L7.82285 10.3814L13.1899 15.7484C13.7272 16.2857 14.6457 15.9054 14.6457 15.1455V2.70571C14.6457 2.25333 14.466 1.81947 14.1461 1.49959C13.8262 1.17971 13.3924 1 12.94 1H2.70571C2.25333 1 1.81947 1.17971 1.49959 1.49959C1.17971 1.81947 1 2.25333 1 2.70571Z" stroke="#189CF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>                                       
+                                </span>
+                                <div class="overview">
+                                    <span class="count">15</span>
+                                    <span class="label">Shortlisted</span>
                                 </div>
                             </div>
                             <div class="overview-info-box view">
@@ -348,17 +406,6 @@
                                 <div class="overview">
                                     <span class="count">20</span>
                                     <span class="label">View</span>
-                                </div>
-                            </div>
-                            <div class="overview-info-box shortlisted">
-                                <span class="overview-icon">
-                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 2.70571V15.1455C1 15.9045 1.91853 16.2857 2.45583 15.7484L7.82285 10.3814L13.1899 15.7484C13.7272 16.2857 14.6457 15.9054 14.6457 15.1455V2.70571C14.6457 2.25333 14.466 1.81947 14.1461 1.49959C13.8262 1.17971 13.3924 1 12.94 1H2.70571C2.25333 1 1.81947 1.17971 1.49959 1.49959C1.17971 1.81947 1 2.25333 1 2.70571Z" stroke="#189CF4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>                                       
-                                </span>
-                                <div class="overview">
-                                    <span class="count">15</span>
-                                    <span class="label">Shortlisted</span>
                                 </div>
                             </div>
                         </div>
@@ -460,7 +507,7 @@
                         <form action="" class="form-dash create-resume">
                             <h6>Resume</h6>
                             <div class="create-new-resum create-resume-btn">
-                                <span class="mb-4">Create New Resume</span>
+                                <span class="mb-4">Upload Resume</span>
                                 <span>
                                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M14.9998 0C14.6698 0 14.3435 0.01125 14.0191 0.031875L14.1391 1.90313C14.7123 1.86608 15.2872 1.86608 15.8604 1.90313L15.9804 0.031875C15.6539 0.0107086 15.3269 7.80225e-05 14.9998 0V0ZM12.0748 0.285C11.426 0.414375 10.7923 0.585 10.1773 0.79125L10.7791 2.56875C11.3173 2.385 11.8704 2.23688 12.4366 2.12438L12.0748 0.286875V0.285ZM19.8223 0.793125C19.2022 0.582906 18.569 0.41379 17.9266 0.286875L17.5629 2.12438C18.1291 2.23688 18.6823 2.38688 19.2204 2.56875L19.8223 0.793125ZM23.3341 2.5275C22.7899 2.16327 22.2225 1.83507 21.6354 1.545L20.8048 3.225C21.3204 3.48 21.8173 3.76875 22.2916 4.08563L23.3341 2.5275ZM8.36227 1.545C7.77352 1.83563 7.20727 2.16375 6.66539 2.5275L7.70789 4.08375C8.18444 3.76567 8.6811 3.47882 9.19477 3.225L8.36227 1.545ZM5.10914 3.72188C4.61789 4.15313 4.15289 4.61812 3.72164 5.10938L5.13164 6.34688C5.51039 5.91563 5.91539 5.51063 6.34664 5.13188L5.10914 3.72188ZM26.2779 5.10938C25.8459 4.6173 25.3825 4.15382 24.8904 3.72188L23.6529 5.13188C24.0841 5.51063 24.491 5.91563 24.8679 6.34688L26.2779 5.10938ZM28.4548 8.3625C28.1647 7.776 27.8365 7.20916 27.4723 6.66563L25.916 7.70813C26.2329 8.1825 26.5198 8.67938 26.7748 9.195L28.4548 8.36438V8.3625ZM2.52727 6.66563C2.16352 7.2075 1.83352 7.77375 1.54477 8.36438L3.22477 9.195C3.47977 8.67938 3.76852 8.1825 4.08539 7.70813L2.52727 6.66563ZM0.792891 10.1775C0.582667 10.7976 0.41355 11.4308 0.286641 12.0731L2.12414 12.4369C2.23664 11.8706 2.38664 11.3175 2.56852 10.7794L0.792891 10.1775ZM29.7148 12.075C29.5879 11.4321 29.4188 10.7982 29.2085 10.1775L27.431 10.7794C27.6148 11.3175 27.7629 11.8706 27.8754 12.4369L29.7129 12.0731L29.7148 12.075ZM0.0316406 14.0194C-0.0105469 14.6724 -0.0105469 15.3276 0.0316406 15.9806L1.90289 15.8606C1.86585 15.2875 1.86585 14.7125 1.90289 14.1394L0.0316406 14.0194ZM29.9998 15C29.9997 14.6729 29.9891 14.3458 29.9679 14.0194L28.0966 14.1394C28.1337 14.7125 28.1337 15.2875 28.0966 15.8606L29.9679 15.9806C29.9891 15.6542 29.9997 15.3271 29.9998 15ZM0.284766 17.925C0.414141 18.5738 0.584766 19.2075 0.791016 19.8225L2.56852 19.2206C2.3841 18.6785 2.23566 18.1248 2.12414 17.5631L0.286641 17.9269L0.284766 17.925ZM29.2066 19.8225C29.4166 19.2075 29.5854 18.5738 29.7129 17.9269L27.8754 17.5631C27.7629 18.1294 27.6129 18.6825 27.431 19.2206L29.2066 19.8225ZM1.54477 21.6375C1.83491 22.2239 2.16311 22.7908 2.52727 23.3344L4.08352 22.2919C3.76511 21.8155 3.47825 21.3188 3.22477 20.805L1.54477 21.6356V21.6375ZM27.4723 23.3344C27.836 22.7925 28.166 22.2262 28.4548 21.6356L26.7748 20.805C26.5198 21.3206 26.231 21.8175 25.9141 22.2919L27.4723 23.3344ZM3.72164 24.8906C4.15289 25.3819 4.61789 25.8469 5.10914 26.2781L6.34664 24.8681C5.91571 24.4899 5.50985 24.0841 5.13164 23.6531L3.72164 24.8906ZM24.8904 26.2781C25.3816 25.8469 25.8466 25.3819 26.2779 24.8906L24.8679 23.6531C24.491 24.0844 24.0841 24.4913 23.6529 24.8681L24.8904 26.2781ZM21.6373 28.455C22.226 28.1644 22.7923 27.8363 23.3341 27.4725L22.2916 25.9163C21.8151 26.2343 21.3184 26.5212 20.8048 26.775L21.6354 28.455H21.6373ZM6.66539 27.4725C7.20727 27.8363 7.77352 28.1663 8.36414 28.455L9.19477 26.775C8.68087 26.5209 8.18418 26.2334 7.70789 25.9144L6.66539 27.4725ZM10.1773 29.2069C10.7923 29.4169 11.426 29.5856 12.0729 29.7131L12.4366 27.8756C11.875 27.7641 11.3213 27.6156 10.7791 27.4313L10.1773 29.2069ZM17.9248 29.715C18.5677 29.5882 19.2016 29.4191 19.8223 29.2088L19.2204 27.4313C18.6782 27.6156 18.1245 27.7641 17.5629 27.8756L17.9266 29.7131L17.9248 29.715ZM14.0191 29.9681C14.6722 30.0104 15.3273 30.0104 15.9804 29.9681L15.8604 28.0969C15.2872 28.134 14.7123 28.134 14.1391 28.0969L14.0191 29.9681ZM15.9373 8.4375C15.9373 8.18886 15.8385 7.9504 15.6627 7.77459C15.4869 7.59877 15.2484 7.5 14.9998 7.5C14.7511 7.5 14.5127 7.59877 14.3369 7.77459C14.161 7.9504 14.0623 8.18886 14.0623 8.4375V14.0625H8.43727C8.18863 14.0625 7.95017 14.1613 7.77435 14.3371C7.59854 14.5129 7.49977 14.7514 7.49977 15C7.49977 15.2486 7.59854 15.4871 7.77435 15.6629C7.95017 15.8387 8.18863 15.9375 8.43727 15.9375H14.0623V21.5625C14.0623 21.8111 14.161 22.0496 14.3369 22.2254C14.5127 22.4012 14.7511 22.5 14.9998 22.5C15.2484 22.5 15.4869 22.4012 15.6627 22.2254C15.8385 22.0496 15.9373 21.8111 15.9373 21.5625V15.9375H21.5623C21.8109 15.9375 22.0494 15.8387 22.2252 15.6629C22.401 15.4871 22.4998 15.2486 22.4998 15C22.4998 14.7514 22.401 14.5129 22.2252 14.3371C22.0494 14.1613 21.8109 14.0625 21.5623 14.0625H15.9373V8.4375Z" fill="black"/>
@@ -1070,6 +1117,10 @@
             $( '.nav-item' ).on( 'click', function() {
                 $('.nav-link').removeClass( 'active' ).eq( $(this).index() ).removeClass( 'active' );
             });
+
+            $( '.user-img' ).on( 'click', function() {
+                $('.nav-link').removeClass( 'active' );
+            });
             
             $(".create-resume-btn").click(function() {
                 $(this).parents(".dashboard-main-tab-container").addClass("open-resume-maker");
@@ -1079,6 +1130,6 @@
             });
         });
         
-    </script>
+    </script>   
 </body>
 </html>
