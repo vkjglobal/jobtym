@@ -66,6 +66,8 @@ Route::middleware('admin.auth')->group(function () {
     // Reports
     Route::get('all-job-report', [ReportController::class, 'index'])->name('report.allJob');
     Route::get('job-post/{id}', [ReportController::class, 'viewJob'])->name('report.viewJob');
+    //Robin 30-11-22
+    Route::get('matched-job-report', [ReportController::class, 'matched_jobs'])->name('report.matchedJob');
 
     // Categories
     Route::get('category-status', [CategoryController::class, 'changeStatus'])->name('category.status');
