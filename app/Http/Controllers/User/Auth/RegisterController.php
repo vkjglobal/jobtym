@@ -55,7 +55,7 @@ class RegisterController extends Controller
         $data = $request->all();
         $check = $this->create($data);
 
-        return redirect("user/login")->withSuccess('Great! You have Successfully Registered! Please Login');
+        return Redirect("user/login")->with('message', 'Great! You have Successfully Registered! Please Login');
     }
 
     /**
