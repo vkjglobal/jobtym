@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\RegisterController;
+use App\Http\Controllers\User\JobPostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,17 +27,16 @@ Route::get('/', function () {
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('post-login', [LoginController::class, 'postLogin'])->name('login.post'); 
-
-
-Route::get('register', [RegisterController::class, 'registration'])->name('register');
-Route::post('post-registration', [RegisterController::class, 'postRegistration'])->name('register.save'); 
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-
 Route::post('reset-password-submit', [LoginController::class, 'resetPasswordSubmit'])->name('reset-password-submit');
 Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [LoginController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [LoginController::class, 'submitResetPasswordForm'])->name('password.post');
 
+
+Route::get('register', [RegisterController::class, 'registration'])->name('register');
+Route::post('post-registration', [RegisterController::class, 'postRegistration'])->name('register.save'); 
+Route::post('verify-otp', [RegisterController::class, 'verifyotp'])->name('verifyotp'); 
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::get('dashboard', function () {
@@ -46,3 +46,9 @@ Route::get('dashboard', function () {
         return redirect('user');
     }
 });
+
+
+Route::get('find-job', [JobPostController::class, 'index'])->name('job.find-job');
+Route::post('find-job-post', [JobPostController::class, 'findJobPost'])->name('job.find-job-post');
+Route::get('job-detail/{id}', [JobPostController::class, 'jobDetail'])->name('job.job-detail');
+Route::post('save-job', [JobPostController::class, 'saveJob'])->name('job.save-job');

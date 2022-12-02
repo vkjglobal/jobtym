@@ -4,11 +4,13 @@ namespace App\Http\Controllers\User\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -20,6 +22,9 @@ class RegisterController extends Controller
      */
     public function registration()
     {
+        if (Auth::check()) {
+            return Redirect('user');
+        }
         return view('user.auth.register');
     }
 
@@ -30,31 +35,47 @@ class RegisterController extends Controller
      */
     public function postRegistration(Request $request)
     {
-        // dd('here');
-        // $request->validate([
-        //     'first_name' => 'required|string',
-        //     'last_name' => 'required|string',
-        //     'email' => 'required|email|unique:users,email',
-        //     'password' => 'required',
-        //     'gender' => 'required',
-        //     'date_of_birth' => 'required',
-        //     'phone' => 'required',
-        //     'secondary_phone' => 'required',
-        //     'country' => 'required',
-        //     'isResident' => 'required',
-        //     'street' => 'required',
-        //     'city' => 'required',
-        //     'town' => 'required',
-        //     'division' => 'required',
-        //     'postal_address' => 'required',
-        //     'tin' => 'required',
-        //     'vaccination_ref_number' => 'required',
-        //     'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
-        // ]);
-
         $data = $request->all();
         $check = $this->create($data);
+        $token = Str::random(64);
+        $otp = random_int(1000, 9999);
 
+        DB::table('verify_register_otp')->insert([
+            'email' => $request->email,
+            'token' => $token,
+            'otp' => $otp,
+            'created_at' => Carbon::now(),
+        ]);
+
+        Mail::send('user.auth.otpConfirmation', ['token' => $token, 'otp' => $otp], function ($message) use ($request) {
+            $message->to($request->email);
+            $message->subject('Registration Confirmation'); 
+        });
+        return view('user.auth.otp');
+    }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function verifyotp(Request $request)
+    {
+        $request->validate([
+            'otp1' => 'required|digits:1',
+            'otp2' => 'required|digits:1',
+            'otp3' => 'required|digits:1',
+            'otp4' => 'required|digits:1',
+        ]);
+
+        $otp = $request->otp1.$request->otp2.$request->otp3.$request->otp4;
+        
+        $verifyOtp = DB::table('verify_register_otp')->where(['otp' => $otp])->first();
+        if(!$verifyOtp){
+            return view('user.auth.otp')->with('error', 'Invalid token!');
+        }
+        
+        DB::table('verify_register_otp')->where(['otp'=> $otp])->delete();
         return Redirect("user/login")->with('message', 'Great! You have Successfully Registered! Please Login');
     }
 
@@ -65,7 +86,6 @@ class RegisterController extends Controller
      */
     public function create(array $data)
     {
-        // dd($data);
         return User::create([
             'first_name' => $data['firstName'],
             'last_name' => $data['lastName'],

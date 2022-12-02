@@ -11,8 +11,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('user_assets/css/bootstrap.min.css')}}"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('user_assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('user_assets/css/select2.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('user_assets/css/aos.css') }}">
@@ -36,7 +35,7 @@
                                 <a class="nav-link" href="{{ url('user') }}">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('user') }}">Find Jobs</a>
+                                <a class="nav-link" href="{{ url('user/find-job') }}">Find Jobs</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('user') }}">Upload Your Resume</a>
@@ -303,14 +302,11 @@
     <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
         <i class="fas fa-arrow-up"></i>
     </button>
-    <script src="{{ asset('user_assets/js/jquery-3.3.1.slim.min.js')}}"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <script src="{{ asset('user_assets/js/jquery-3.2.1.min.js')}}">
     </script>
-    <script src="{{ asset('user_assets/js/popper.min.js')}}"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    <script src="{{ asset('user_assets/js/popper.min.js')}}">
     </script>
-    <script src="{{ asset('user_assets/js/bootstrap.min.js')}}"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    <script src="{{ asset('user_assets/js/bootstrap.min.js')}}">
     </script>
     <script src="{{ asset('user_assets/js/select2.min.js')}}"></script>
     <script src="{{ asset('user_assets/js/aos.js')}}"></script>
@@ -373,6 +369,26 @@
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
             }
+
+            $('#saveJobButton').click(function() {
+                var user_id = 1;
+                var job_id = 2;
+                console.log('here in function save button');
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '{{ route('user.job.save-job') }}',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'user_id': user_id,
+                        'job_id': job_id
+                    },
+                    success: function(data) {
+                        console.log("data =================", data);
+                        console.log(data.success)
+                    }
+                });
+            })
         });
     </script>
 
