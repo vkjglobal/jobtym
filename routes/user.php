@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\RegisterController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,10 @@ Route::get('/', function () {
     return view('user.home');
 });
 
+// Route::get('user', function () {
+//     return view('user.home');
+// });
+
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('post-login', [LoginController::class, 'postLogin'])->name('login.post'); 
 
@@ -27,8 +32,17 @@ Route::get('register', [RegisterController::class, 'registration'])->name('regis
 Route::post('post-registration', [RegisterController::class, 'postRegistration'])->name('register.save'); 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('reset-password-submit', [LoginController::class, 'resetPasswordSubmit'])->name('reset-password-submit');
+Route::post('reset-password-submit', [LoginController::class, 'resetPasswordSubmit'])->name('reset-password-submit');
+Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [LoginController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [LoginController::class, 'submitResetPasswordForm'])->name('password.post');
+
+
 
 Route::get('dashboard', function () {
-    return view('user.dashboard');
+    if (Auth::check()) {
+        return view('user.dashboard');
+    }else{
+        return redirect('user');
+    }
 });
