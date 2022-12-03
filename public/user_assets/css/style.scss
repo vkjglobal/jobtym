@@ -24,6 +24,67 @@ img{
     max-width: 100%;
     backface-visibility: hidden;
 }
+/* Chrome, Safari, Edge, Opera */
+.otp-input-box input::-webkit-outer-spin-button,
+.otp-input-box input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+.otp-input-box input[type=number] {
+    -moz-appearance: textfield;
+}
+.fs-15{
+    font-size: 15px !important;
+}
+.fs-16{
+    font-size: 16px !important;
+}
+.fs-20{
+    font-size: 20px !important;
+}
+.fw-300{
+    font-weight: 300 !important;
+}
+.fw-500{
+    font-weight: 500 !important;
+}
+.fw-600{
+    font-weight: 600 !important;
+}
+.otp-input-sec{
+    min-height: 65vh;
+}
+.otp-input-box {
+    background: #ffffff;
+    border: 1px solid #D5D5D5;
+    border-radius: 10px;
+    padding-top: 78px;
+    padding-bottom: 80px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    .form-control{
+        text-align: center;
+        width: 65px;
+        height: 50px;
+        margin-left: 10px;
+        &:first-child{
+            margin-left: 0;
+        }
+    }
+    .resend-btn{
+        border: none;
+        outline: none;
+        background-color: transparent;
+        display: block;
+        &:focus{
+            border: none;
+        }
+        &:hover{
+            border: none;
+        }
+    }
+}
 header{
     background: #ffffff;
     box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 10%);
@@ -109,6 +170,11 @@ svg{
         background: #FFC14C;
         color: #ffffff;
     }
+    &.btn.focus,
+    &.btn:focus {
+        box-shadow: none;
+    }
+    
 }
 a{
     &.btn{
@@ -3190,7 +3256,14 @@ footer{
     .contact-details{
         margin-bottom: 30px;
     }
-    
+    .otp-input-box{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .otp-input-box .form-control{
+        width: 50px;
+        height: 45px;
+    }
 }
 @media(max-width: 1200px){
     .logo{

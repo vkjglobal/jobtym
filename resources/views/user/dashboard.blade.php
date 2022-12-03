@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('user_assets/css/bootstrap.min.css')}}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+    <link rel="stylesheet" href="{{ asset('user_assets/css/bootstrap.min.css')}}">    
     <link rel="stylesheet" href="{{ asset('user_assets/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{ asset('user_assets/css/dashboard.css')}}">
 </head>
@@ -83,7 +83,7 @@
                                 <a class="nav-link" href="{{ url('user') }}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('user') }}">Find Jobs</a>
+                                <a class="nav-link" href="{{ url('user/find-job') }}">Find Jobs</a>
                             </li>                    
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('user') }}">Upload Your Resume</a>
@@ -1093,9 +1093,9 @@
             </div>
         </div>
     </footer>
-    <script src="{{ asset('user_assets/js/jquery-3.3.1.slim.min.js')}}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="{{ asset('user_assets/js/popper.min.js')}}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="{{ asset('user_assets/js/bootstrap.min.js')}}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+    <script src="{{ asset('user_assets/js/jquery-3.3.1.slim.min.js')}}"></script>
+    <script src="{{ asset('user_assets/js/popper.min.js')}}"></script>
+    <script src="{{ asset('user_assets/js/bootstrap.min.js')}}"></script> 
     <script src="{{ asset('user_assets/js/select2.min.js')}}"></script>
     <script>
         $(document).ready(function() {
