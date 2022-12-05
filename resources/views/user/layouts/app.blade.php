@@ -371,9 +371,9 @@
             }
 
             $('#saveJobButton').click(function() {
-                var user_id = 1;
-                var job_id = 2;
-                console.log('here in function save button');
+                // var user_id = <?php # echo Auth::User()->id; ?>
+                var url = window.location.href;
+                var job_id = url.substring(url.lastIndexOf('/') + 1);
                 $.ajax({
                     type: "post",
                     dataType: "json",
@@ -384,8 +384,7 @@
                         'job_id': job_id
                     },
                     success: function(data) {
-                        console.log("data =================", data);
-                        console.log(data.success)
+                        $('#saveJobButton').addClass('saveBtnClicks');
                     }
                 });
             })

@@ -8,9 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('user_assets/css/bootstrap.min.css')}}">    
+    <link rel="stylesheet" href="{{ asset('user_assets/css/bootstrap.min.css')}}" >    
+    @notifyCss
     <link rel="stylesheet" href="{{ asset('user_assets/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{ asset('user_assets/css/dashboard.css')}}">
+    <style>
+        .notify {
+            z-index: 999999999 !important;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -26,13 +32,6 @@
                                     <img src="{{ asset('user_assets/images/user_img.jpg')}}" alt="" style="width: 52px;height: 52px;border-radius: 50%;">
                                 </a>
                             </li>
-
-                            <?php
-                            // echo "<pre>";
-                            // print_r(Auth::user()->first_name);
-
-
-                            ?>
                             <li class="user-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </li>
                             <li class="user-menu-item">
                                 <span class="user-drop-btn">
@@ -138,8 +137,8 @@
                     </form>
                 </div>
                 <div class="container white-bg">
-                    <div class="row">
-                        <div class="form-sec col-lg-6">
+                    <form class="row form-dash" name="formval" onsubmit="return false">
+                        <div class="form-sec col-12">
                             <div class="form-top-section">
                                 <h4>Personal Details</h4>
                                 <ul>
@@ -159,9 +158,496 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div id="box">
+                                <!--  <center><h3 >Enter your data</h3></center> -->
+                                <main>
+                                    <div class="row">
+                                        <div class="form-group col-md-2">
+                                            <!-- <label> Upload photo <span style="color:red;">*</span> 
+                                            </label>-->
+                                            <!-- <input type='file' class="form-control upload-photo" title="Upload photo" onchange="readURL(this);" /> -->
+                                            <div class="imageWrapper">
+                                                <img class="image" src="{{ asset('user_assets/images/user.png')}}">
+                                                <button class="file-upload">            
+                                                    <input type="file" class="form-control upload-photo file-input" id="propic-resume" onchange="readURL(this);">
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label>Name <span style="color:red;">*</span>
+                                                    </label>
+                                                    <input name="pr_amt" type="text" class=" form-control" placeholder="Enter Name" autocomplete="off" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label> Position <span style="color:red;">*</span>
+                                                    </label>
+                                                    <input name="int_rate" type="text" class=" form-control" placeholder="Enter Position" autocomplete="off" required>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label>Address <span style="color:red;">*</span>
+                                                    </label>
+                                                    <input name="period" type="text" class=" form-control" placeholder="Enter Adresss" autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-6">
+                                            <label>Email <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="email" type="text" class=" form-control" placeholder="Enter Email" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>LinkedIn <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="lnkdnid" type="text" class=" form-control" placeholder="Enter Email" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Mobile number <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="mobile" type="text" class=" form-control" placeholder="Enter Mobile number" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>skill <span style="color:red;">*</span>
+                                            </label>
+                                            <textarea name="skill" class=" form-control" name="w3review" rows="4" cols="50" id="skill" placeholder="Enter skill" required></textarea>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Language 1 <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="lang1" type="text" class=" form-control" placeholder="Enter Language1" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Language 2 <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="lang2" type="text" class=" form-control" placeholder="Enter Language2" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Language 3</label>
+                                            <input name="lang3" type="text" class=" form-control" placeholder="Enter Language3(optional)" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Work experience(if any)</label>
+                                            <input name="wd" type="text" class=" form-control" placeholder="Enter Designation" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Period</label>
+                                            <input name="due" type="text" class=" form-control" placeholder="Enter Period" autocomplete="off" required>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-group col-md-6">
+                                            <label>Summary</label>
+                                            <textarea name="explain" class=" form-control" name="w3review" rows="4" cols="50" id="summary" required></textarea>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label> Qualification <span style="color:red;">*</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Graduation <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="grad" type="text" class=" form-control" placeholder="Enter College/Institute" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Duration <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="graddur" type="text" class=" form-control" placeholder="Enter Period" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Marks (%) <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="s1" type="text" class=" form-control" placeholder="Enter Marks" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>12th <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="grad2" type="text" class=" form-control" placeholder="Enter School/Board" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Duration <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="graddur2" type="text" class=" form-control" placeholder="Enter Period" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Marks (%) <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="s2" type="text" class=" form-control" placeholder="Enter Marks" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>10th <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="grad3" type="text" class=" form-control" placeholder="Enter School/Board" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Duration <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="graddur3" type="text" class=" form-control" placeholder="Enter Period" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Marks (%) <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="s3" type="text" class=" form-control" placeholder="Enter Marks" autocomplete="off" required>
+                                        </div>
+                                        <p id="demo" class="col-md-6"></p>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <button class="btn-typ1" onclick="emires()">RESET</button>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <button class="btn-typ1" onclick="emi()">Generate</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </main>
+                            </div>
                         </div>
-                        <div class="render-sec col-lg-6"></div>
-                    </div>
+                        <div class="render-sec col-12">
+                            <div id="bexresult" style="width: 100%; display: none;">
+                                <!-- Page Container -->
+                                <div style="max-width:100%">
+                                    <!-- The Grid -->
+                                    <div style="display: block;">
+                                        <!-- Left Column -->
+                                        <div id="target" class="ResumeContainer row" style="width: 100%;">
+                                            <div class="ResumeContentLeft col-4">
+                                                <div style="width:200px; height:200px; margin: 30px auto; border-radius: 50%; overflow: hidden;"   id="image">
+                                                    <img id="blah" src="{{ asset('user_assets/images/user.png')}}" style="height: 100%; margin: 0 auto; display: block;" alt="your image">
+                                                </div>
+                                                <div class="headerInfo">
+                                                    <ul class="contact-info">
+                                                        <li>
+                                                            <i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                                                            <p id="email">email</p>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                                                            <p id="mb">Contact Number</p>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                                                            <p id="place">Address</p>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa-brands fa-linkedin fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                                                            <p id="lnkdn">LinkedIn</p>
+                                                        </li>
+                                                    </ul>
+                                                    <hr>
+                                                    <p class="w3-large w3-text-theme">
+                                                        <b>
+                                                            <i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages </b>
+                                                    </p>
+                                                    <div class="lang">
+                                                        <!-- <center><p>Language 1</p></center> -->
+                                                        <div>
+                                                            <input type="text" id="one">
+                                                        </div>
+                                                        <!-- <center><p>Language 2</p></center> -->
+                                                        <div>
+                                                            <input type="text" id="two">
+                                                        </div>
+                                                        <!-- <center><p>Language 3(optiopnal)</p></center>          -->
+                                                        <div>
+                                                            <input type="text" id="three">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <!-- Right Column -->
+                                            <div class="ResumeContentRight col-8 pb-4">
+                                                <div class="greybg p-5 mb-5">
+                                                    <div class="nameSection" id="name">Name</div>
+                                                    <div class="d-flex align-items-baseline">
+                                                        <i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                                                        <strong id="position">Your Current Position</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="content-box pt-2 p-1">
+                                                    <ul>
+                                                        <li>
+                                                            <strong class="hd-typ1">Summary</strong>
+                                                            <p id="Summary">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                                        </li>
+                                                        <li class="experience-info">
+                                                            <strong class="hd-typ1">Experience</strong>
+                                                            <div class="d-flex justify-content-between">
+                                                                <h5 class="w3-opacity font-13" id="WE"></h5>
+                                                                <span id="duration" class="font-13"></span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <strong class="hd-typ1">Skills</strong>
+                                                            <p id="w3review">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                                        </li>
+                                                        <li class="education-info">
+                                                            <strong class="hd-typ1">Education</strong>
+                                                            <ul id="r1">
+                                                                <li>
+                                                                    <h2 class="font-13">Graduation</h2>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h5 class="font-13" id="cr1"></h5>
+                                                                        <h6 class="font-13">
+                                                                            <i class="fa fa-calendar fa-fw w3-margin-right"></i>
+                                                                            <span id="cd1"></span>
+                                                                        </h6>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <h2 class="font-13">12th</h2>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h5 class="font-13" id="cr2"></h5>
+                                                                        <h6 class="font-13">
+                                                                            <i class="fa fa-calendar fa-fw w3-margin-right"></i>
+                                                                            <span id="cd2"></span>
+                                                                        </h6>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <h2 class="font-13">10th</h2>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h5 class="font-13" id="cr3"></h5>
+                                                                        <h6 class="font-13">
+                                                                            <i class="fa fa-calendar fa-fw w3-margin-right"></i>
+                                                                            <span id="cd3"></span>
+                                                                        </h6>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            
+                                                        </li>
+                                                    </ul>
+                                                </div>
+            
+                                                <div class="w3-container w3-card w3-white w3-margin-bottom" id="right">
+                                                    <div class="w3-container">
+                                                        
+                                                        <h6 class="w3-text-teal">
+                                                            
+                                                        </h6>
+                                                        
+                                                    </div>
+                                                    
+                                                    
+                                                    <!-- End Right Column -->
+                                                </div>
+                                                <!-- End Grid -->
+                                            </div>
+                                        </div>   
+                                        <!-- End Page Container -->
+                                        <!--   <a href="#"onclick="window.print()">print</a> -->
+                                    </div>
+                                    <!-- <div class="flex">
+                                        <a href="javascript:void(0)" class="btn btn-download">Generate PDF</a>
+                                    </div> -->
+                                </div>
+                                <div class="row justify-content-center mt-5">
+                                    <div class="col-4"><button id="cmd" class="btn-typ1">Download PDF</button></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <!-- <a href="#" class="btn btn-primary" onclick="window.print()">Print</a>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                    <button onclick="Convert_HTML_To_PDF();">Convert HTML to PDF</button> -->
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="d-block d-md-none justify-content-center mt-5">
+                            <div class="col-12"><button id="cmd1" class="btn-typ1">Download PDF</button></div>
+                        </div> --}}
+                    </form>
+                </div>
+            </div>
+            <div class="coverletter-builder">
+                <div class="resume-top-nav d-flex">
+                    <button class="back-btn">
+                        <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.5 1L1 7.5L7.5 14M16.1667 7.5H1" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Cover Letter
+                    </button>
+                    <form class="dwnld-btn-wrp">
+                        <ul>
+                            <li class="lng-slct">
+                                <section class="lng-slct-drpdwn">
+                                    <option selected value="EN">EN</option>
+                                    <option value="ES">ES</option>
+                                    <option value="DE">DE</option>
+                                </section>
+                            </li>
+                            <li class="resume-import">
+                                <button>
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1.57895L1 1.57895C0.734784 1.57895 0.48043 1.49577 0.292894 1.34771C0.105357 1.19966 1.22402e-06 0.998853 1.24232e-06 0.789472C1.26063e-06 0.58009 0.105357 0.379284 0.292894 0.231229C0.48043 0.0831743 0.734784 -2.2882e-06 1 -2.26502e-06L15 -1.0411e-06C15.2652 -1.01791e-06 15.5196 0.0831756 15.7071 0.231231C15.8946 0.379286 16 0.580091 16 0.789474C16 0.998855 15.8946 1.19966 15.7071 1.34772C15.5196 1.49577 15.2652 1.57895 15 1.57895ZM7 6.17763L3.757 8.7371L2.343 7.62079L8 3.15474L13.657 7.62079L12.243 8.73711L9 6.17763L9 15L7 15L7 6.17763Z" fill="#3E9FFF"/>
+                                    </svg>
+                                    Import
+                                </button>
+                            </li>
+                            <li class="resume-download">
+                                <button>
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1.57895L1 1.57895C0.734784 1.57895 0.48043 1.49577 0.292894 1.34771C0.105357 1.19966 1.22402e-06 0.998853 1.24232e-06 0.789472C1.26063e-06 0.58009 0.105357 0.379284 0.292894 0.231229C0.48043 0.0831743 0.734784 -2.2882e-06 1 -2.26502e-06L15 -1.0411e-06C15.2652 -1.01791e-06 15.5196 0.0831756 15.7071 0.231231C15.8946 0.379286 16 0.580091 16 0.789474C16 0.998855 15.8946 1.19966 15.7071 1.34772C15.5196 1.49577 15.2652 1.57895 15 1.57895ZM7 6.17763L3.757 8.7371L2.343 7.62079L8 3.15474L13.657 7.62079L12.243 8.73711L9 6.17763L9 15L7 15L7 6.17763Z" fill="#3E9FFF"/>
+                                    </svg>
+                                    Download
+                                </button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!-- covering letter comes here -->
+                <div class="container white-bg">
+                    <form class="row form-dash" name="formvalcover" onsubmit="return false">
+                        <div class="form-sec col-12">
+                            <div class="form-top-section">
+                                <h4>Personal Details</h4>
+                                <ul>
+                                    <li>
+                                        <button>
+                                            <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1.414 8.121L5.707 3.828V12.414H7.707V3.828L12 8.121L13.414 6.707L6.707 0L0 6.707L1.414 8.121Z" fill="black"/>
+                                            </svg>                                                            
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button>
+                                            <svg width="3" height="11" viewBox="0 0 3 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1.25 2.5C0.918479 2.5 0.600537 2.3683 0.366117 2.13388C0.131696 1.89946 0 1.58152 0 1.25C0 0.918479 0.131696 0.600537 0.366117 0.366117C0.600537 0.131696 0.918479 0 1.25 0C1.58152 0 1.89946 0.131696 2.13388 0.366117C2.3683 0.600537 2.5 0.918479 2.5 1.25C2.5 1.58152 2.3683 1.89946 2.13388 2.13388C1.89946 2.3683 1.58152 2.5 1.25 2.5ZM1.25 6.5C0.918479 6.5 0.600537 6.3683 0.366117 6.13388C0.131696 5.89946 0 5.58152 0 5.25C0 4.91848 0.131696 4.60054 0.366117 4.36612C0.600537 4.1317 0.918479 4 1.25 4C1.58152 4 1.89946 4.1317 2.13388 4.36612C2.3683 4.60054 2.5 4.91848 2.5 5.25C2.5 5.58152 2.3683 5.89946 2.13388 6.13388C1.89946 6.3683 1.58152 6.5 1.25 6.5ZM0 9.25C0 9.58152 0.131696 9.89946 0.366117 10.1339C0.600537 10.3683 0.918479 10.5 1.25 10.5C1.58152 10.5 1.89946 10.3683 2.13388 10.1339C2.3683 9.89946 2.5 9.58152 2.5 9.25C2.5 8.91848 2.3683 8.60054 2.13388 8.36612C1.89946 8.1317 1.58152 8 1.25 8C0.918479 8 0.600537 8.1317 0.366117 8.36612C0.131696 8.60054 0 8.91848 0 9.25Z" fill="black"/>
+                                            </svg>                                                            
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="letterbox">
+                                <!--  <center><h3 >Enter your data</h3></center> -->
+                                <main>
+                                    <div class="row">
+                                        <div class="form-group col-md-2">
+                                            <!-- <label> Upload photo <span style="color:red;">*</span> 
+                                            </label>-->
+                                            <div class="imageWrapper">
+                                                <img class="image" src="{{ asset('user_assets/images/user.png')}}">
+                                                <button class="file-upload">            
+                                                    <input type="file" class="form-control upload-photo file-input" id="propic-coverletter" onchange="readURL(this);">file
+                                                </button>
+                                            </div>
+                                            <!-- <input type='file' class="form-control upload-photo file-input" title="Upload photo" onchange="readURL(this);" /> -->
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label>Name <span style="color:red;">*</span>
+                                                    </label>
+                                                    <input name="per_name" type="text" class=" form-control" placeholder="Enter Name" autocomplete="off" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Email <span style="color:red;">*</span>
+                                                    </label>
+                                                    <input name="per_email" type="text" class=" form-control" placeholder="Enter Email" autocomplete="off" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Mobile number <span style="color:red;">*</span>
+                                                    </label>
+                                                    <input name="per_mobile" type="text" class=" form-control" placeholder="Enter Mobile number" autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label>Address <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="per_address" type="text" class=" form-control" placeholder="Enter Adresss" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label> Date <span style="color:red;">*</span>
+                                            </label>
+                                            <input name="cover_date" type="text" class=" form-control" placeholder="Enter Adresss" autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Content</label>
+                                            <textarea name="cover_letter_content" class=" form-control" name="w3review" rows="4" cols="50" required></textarea>
+                                        </div>
+                                        <p id="Error-Text" class="col-md-6" style="display: none;"></p>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <button class="btn-typ1" onclick="emires1()">RESET</button>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <button class="btn-typ1" onclick="emi1()">Generate</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </main>
+                            </div>
+                        </div>
+                        <div class="render-sec col-12">
+                            <div id="boxresult" style="width: 100%; display: none;">
+                                <!-- Page Container -->
+                                <div style="max-width:100%">
+                                    <!-- The Grid -->
+                                    <div style="display: block;">
+                                        <!-- Left Column -->
+                                        <div id="target_resume" class="CoverletterContainer row" style="width: 100%;">
+                                            
+                                            <div class="ResumeContentLeft d-flex align-items-center col-12">
+                                                <div style="width:150px; height:150px; min-width: 150px; margin: 15px; border-radius: 50%; overflow: hidden;"   id="image">
+                                                    <img id="Pro-Pic" src="{{ asset('user_assets/images/user.png')}}" style="height: 100%; margin: 0 auto; display: block;" alt="your image">
+                                                </div>
+                                                <div class="headerInfo">
+                                                    <div class="nameSection" style="font-size: 40pt; line-height: 60pt;" id="PersonName">Name</div>
+                                                    <ul class="contact-info d-flex justify-content-between">
+                                                        <li>
+                                                            <i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                                                            <p id="PersonEmail">Email</p>
+                                                        </li>
+                                                        <li style="margin-left: 50px;">
+                                                            <i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>
+                                                            <p id="PersonContact">Contact Number</p>
+                                                        </li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- Right Column -->
+                                            <div class="ResumeContentRight col-12 pb-4">
+                                                <div class="content-box pt-2 p-1">
+                                                    <ul>
+                                                        <li class="d-flex">
+                                                            <p id="PersonAddress">Address</p>
+                                                        </li>
+                                                        <li class="d-flex">
+                                                            <p id="LetterDate">Date</p>
+                                                        </li>
+                                                        <li>
+                                                            <p id="CoveringLetterContent">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- End Grid -->
+                                            </div>
+                                        </div>   
+                                        <!-- End Page Container -->
+                                        <!--   <a href="#"onclick="window.print()">print</a> -->
+                                    </div>
+                                    <!-- <div class="flex">
+                                        <a href="javascript:void(0)" class="btn btn-download">Generate PDF</a>
+                                    </div> -->
+                                </div>
+                                <div class="row justify-content-center mt-5">
+                                    <div class="col-4"><button id="DownloadPDF" class="btn-typ1">Download PDF</button></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <!-- <a href="#" class="btn btn-primary" onclick="window.print()">Print</a>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                    <button onclick="Convert_HTML_To_PDF();">Convert HTML to PDF</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="floating-sidebar">
@@ -412,83 +898,101 @@
                     </div>
                     <div class="tab-pane fade" id="Profile" role="tabpanel" aria-labelledby="second-tab">
                         <h5 class="card-title">Edit Profile</h5>
-                        <form action="" class="form-dash">
+                        <form method="POST" action="{{ route('user.profile.update',Auth::user()->id) }}" class="form-dash">
+                            @csrf
+                            @method('PUT')
                             <div class="row">
+                                <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                                 <div class="form-group col-md-6">
                                     <label for="FirstName">First Name</label>
-                                    <input type="text" class="form-control" id="FirstName" placeholder="">
+                                    <input type="text" name="first_name" class="form-control" id="FirstName" placeholder="" value="{{ Auth::user()->first_name }}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="LastName">Last Name</label>
-                                    <input type="text" class="form-control" id="LastName" placeholder="">
+                                    <input type="text" name="last_name" class="form-control" id="LastName" value="{{ Auth::user()->last_name }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="eMail">Email</label>
-                                    <input type="email" class="form-control" id="eMail" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="PhoneNumber">Phone</label>
-                                    <input type="text" class="form-control" id="PhoneNumber" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="CurrentJobTitle">Current Job Title</label>
-                                    <input type="text" class="form-control" id="CurrentJobTitle" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="CurrentSalary">Current Salary</label>
-                                    <input type="text" class="form-control" id="CurrentSalary" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="AcademicLevel">Academic Level*</label>
-                                    <input type="text" class="form-control" id="AcademicLevel" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="candidateAge">Age*</label>
-                                    <input type="text" class="form-control" id="candidateAge" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="ExpectedSalary">Salary</label>
-                                    <input type="text" class="form-control" id="ExpectedSalary" placeholder="">
+                                    <input type="email" name="email" class="form-control" id="eMail" value="{{ Auth::user()->email }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Gender</label>
-                                    <select class="gender-dropdown form-control" name="states[]">
+                                    <select class="gender-dropdown form-control" name="gender">
                                         <option disabled selected>Select Gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Other</option>
+                                        <option <?php if(Auth::user()->gender == "male") { echo "selected='selected'"; } ?> value="male">Male</option>
+                                        <option <?php if(Auth::user()->gender == "female") { echo "selected='selected'"; } ?> value="female">Female</option>
+                                        <option  <?php if(Auth::user()->gender == "other") { echo "selected='selected'"; } ?> value="other">Other</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="WorkingIndustry">Industry*</label>
-                                    <input type="text" class="form-control" id="WorkingIndustry" placeholder="">
+                                    <label for="PhoneNumber">Phone</label>
+                                    <input type="text" name="phone" class="form-control" id="PhoneNumber" value="{{ Auth::user()->phone }}" placeholder="">
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <label for="WorkingIndustry">Job Title</label>
-                                    <input type="text" class="form-control" id="" placeholder="">
+                                <div class="form-group col-md-6">
+                                    <label for="SecondaryPhone">Secondary Phone</label>
+                                    <input type="text" name="secondary_phone" class="form-control" id="SecondaryPhone" value="{{ Auth::user()->secondary_phone }}" placeholder="">
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <label for="WorkingIndustry">Message</label>
-                                    <textarea class="form-control" name="" id="" cols="30" rows="3"></textarea>
+                                <div class="form-group col-md-6">
+                                    <label for="BirthDate">Date of birth</label>
+                                    <input type="date" name="date_of_birth" class="form-control" id="BirthDate" value="{{ Auth::user()->date_of_birth }}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Resident</label>
+                                    <select class="resident-dropdown form-control" name="isResident">
+                                        <option <?php if(Auth::user()->isResident == 'yes') { echo "selected='selected'"; } ?>  value="yes">Yes</option>
+                                        <option <?php if(Auth::user()->isResident == 'no') { echo "selected='selected'"; } ?> value="no">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="CountryName">Country</label>
+                                    <input type="text" name="country" class="form-control" id="CountryName" value="{{ Auth::user()->country }}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="StreetName">Street</label>
+                                    <input type="text" name="street" class="form-control" id="StreetName" value="{{ Auth::user()->street }}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="CityName">City</label>
+                                    <input type="text" name="city" class="form-control" id="CityName" value="{{ Auth::user()->city }}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="TownName">Town</label>
+                                    <input type="text" name="town" class="form-control" id="TownName" value="{{ Auth::user()->town }}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="DivisionName">Division</label>
+                                    <input type="text" name="division" class="form-control" id="DivisionName" value="{{ Auth::user()->division }}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="PostalCode">Postal Code</label>
+                                    <input type="text" name="postal_address" class="form-control" id="PostalCode" value="{{ Auth::user()->postal_address }}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="TINnumber">TIN</label>
+                                    <input type="text" name="tin" class="form-control" id="TINnumber" value="{{ Auth::user()->tin }}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="VaccRefNum">Vaccination Reference Number</label>
+                                    <input type="text" name="vaccination_ref_number" class="form-control" id="VaccRefNum" value="{{ Auth::user()->vaccination_ref_number }}" placeholder="">
                                 </div>
                             </div>
-                        </form>
-                        <form action="" class="form-dash mt-3">
+                        {{-- </form> --}}
+                        {{-- <form action="" class="form-dash mt-3"> --}}
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <h5 class="card-title">Contact Information</h5>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="">Friendly Address</label>
-                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="">
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="">Location</label>
-                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="confirm_pass">Confirm Password</label>
+                                    <input type="password" name="password_confirmation" class="form-control" id="confirm_pass" placeholder="">
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="">Maps Location</label>
-                                    <input type="text" class="form-control" id="" placeholder="">
+                                    <label for="maps">Maps Location</label>
+                                    <input type="text" class="form-control" id="maps" placeholder="">
                                 </div>
                                 <div class="form-group col-md-12">
                                     <div class="sidebar-map">
@@ -507,7 +1011,7 @@
                         <form action="" class="form-dash create-resume">
                             <h6>Resume</h6>
                             <div class="create-new-resum create-resume-btn">
-                                <span class="mb-4">Upload Resume</span>
+                                <span class="mb-4">Create New Resume</span>
                                 <span>
                                     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M14.9998 0C14.6698 0 14.3435 0.01125 14.0191 0.031875L14.1391 1.90313C14.7123 1.86608 15.2872 1.86608 15.8604 1.90313L15.9804 0.031875C15.6539 0.0107086 15.3269 7.80225e-05 14.9998 0V0ZM12.0748 0.285C11.426 0.414375 10.7923 0.585 10.1773 0.79125L10.7791 2.56875C11.3173 2.385 11.8704 2.23688 12.4366 2.12438L12.0748 0.286875V0.285ZM19.8223 0.793125C19.2022 0.582906 18.569 0.41379 17.9266 0.286875L17.5629 2.12438C18.1291 2.23688 18.6823 2.38688 19.2204 2.56875L19.8223 0.793125ZM23.3341 2.5275C22.7899 2.16327 22.2225 1.83507 21.6354 1.545L20.8048 3.225C21.3204 3.48 21.8173 3.76875 22.2916 4.08563L23.3341 2.5275ZM8.36227 1.545C7.77352 1.83563 7.20727 2.16375 6.66539 2.5275L7.70789 4.08375C8.18444 3.76567 8.6811 3.47882 9.19477 3.225L8.36227 1.545ZM5.10914 3.72188C4.61789 4.15313 4.15289 4.61812 3.72164 5.10938L5.13164 6.34688C5.51039 5.91563 5.91539 5.51063 6.34664 5.13188L5.10914 3.72188ZM26.2779 5.10938C25.8459 4.6173 25.3825 4.15382 24.8904 3.72188L23.6529 5.13188C24.0841 5.51063 24.491 5.91563 24.8679 6.34688L26.2779 5.10938ZM28.4548 8.3625C28.1647 7.776 27.8365 7.20916 27.4723 6.66563L25.916 7.70813C26.2329 8.1825 26.5198 8.67938 26.7748 9.195L28.4548 8.36438V8.3625ZM2.52727 6.66563C2.16352 7.2075 1.83352 7.77375 1.54477 8.36438L3.22477 9.195C3.47977 8.67938 3.76852 8.1825 4.08539 7.70813L2.52727 6.66563ZM0.792891 10.1775C0.582667 10.7976 0.41355 11.4308 0.286641 12.0731L2.12414 12.4369C2.23664 11.8706 2.38664 11.3175 2.56852 10.7794L0.792891 10.1775ZM29.7148 12.075C29.5879 11.4321 29.4188 10.7982 29.2085 10.1775L27.431 10.7794C27.6148 11.3175 27.7629 11.8706 27.8754 12.4369L29.7129 12.0731L29.7148 12.075ZM0.0316406 14.0194C-0.0105469 14.6724 -0.0105469 15.3276 0.0316406 15.9806L1.90289 15.8606C1.86585 15.2875 1.86585 14.7125 1.90289 14.1394L0.0316406 14.0194ZM29.9998 15C29.9997 14.6729 29.9891 14.3458 29.9679 14.0194L28.0966 14.1394C28.1337 14.7125 28.1337 15.2875 28.0966 15.8606L29.9679 15.9806C29.9891 15.6542 29.9997 15.3271 29.9998 15ZM0.284766 17.925C0.414141 18.5738 0.584766 19.2075 0.791016 19.8225L2.56852 19.2206C2.3841 18.6785 2.23566 18.1248 2.12414 17.5631L0.286641 17.9269L0.284766 17.925ZM29.2066 19.8225C29.4166 19.2075 29.5854 18.5738 29.7129 17.9269L27.8754 17.5631C27.7629 18.1294 27.6129 18.6825 27.431 19.2206L29.2066 19.8225ZM1.54477 21.6375C1.83491 22.2239 2.16311 22.7908 2.52727 23.3344L4.08352 22.2919C3.76511 21.8155 3.47825 21.3188 3.22477 20.805L1.54477 21.6356V21.6375ZM27.4723 23.3344C27.836 22.7925 28.166 22.2262 28.4548 21.6356L26.7748 20.805C26.5198 21.3206 26.231 21.8175 25.9141 22.2919L27.4723 23.3344ZM3.72164 24.8906C4.15289 25.3819 4.61789 25.8469 5.10914 26.2781L6.34664 24.8681C5.91571 24.4899 5.50985 24.0841 5.13164 23.6531L3.72164 24.8906ZM24.8904 26.2781C25.3816 25.8469 25.8466 25.3819 26.2779 24.8906L24.8679 23.6531C24.491 24.0844 24.0841 24.4913 23.6529 24.8681L24.8904 26.2781ZM21.6373 28.455C22.226 28.1644 22.7923 27.8363 23.3341 27.4725L22.2916 25.9163C21.8151 26.2343 21.3184 26.5212 20.8048 26.775L21.6354 28.455H21.6373ZM6.66539 27.4725C7.20727 27.8363 7.77352 28.1663 8.36414 28.455L9.19477 26.775C8.68087 26.5209 8.18418 26.2334 7.70789 25.9144L6.66539 27.4725ZM10.1773 29.2069C10.7923 29.4169 11.426 29.5856 12.0729 29.7131L12.4366 27.8756C11.875 27.7641 11.3213 27.6156 10.7791 27.4313L10.1773 29.2069ZM17.9248 29.715C18.5677 29.5882 19.2016 29.4191 19.8223 29.2088L19.2204 27.4313C18.6782 27.6156 18.1245 27.7641 17.5629 27.8756L17.9266 29.7131L17.9248 29.715ZM14.0191 29.9681C14.6722 30.0104 15.3273 30.0104 15.9804 29.9681L15.8604 28.0969C15.2872 28.134 14.7123 28.134 14.1391 28.0969L14.0191 29.9681ZM15.9373 8.4375C15.9373 8.18886 15.8385 7.9504 15.6627 7.77459C15.4869 7.59877 15.2484 7.5 14.9998 7.5C14.7511 7.5 14.5127 7.59877 14.3369 7.77459C14.161 7.9504 14.0623 8.18886 14.0623 8.4375V14.0625H8.43727C8.18863 14.0625 7.95017 14.1613 7.77435 14.3371C7.59854 14.5129 7.49977 14.7514 7.49977 15C7.49977 15.2486 7.59854 15.4871 7.77435 15.6629C7.95017 15.8387 8.18863 15.9375 8.43727 15.9375H14.0623V21.5625C14.0623 21.8111 14.161 22.0496 14.3369 22.2254C14.5127 22.4012 14.7511 22.5 14.9998 22.5C15.2484 22.5 15.4869 22.4012 15.6627 22.2254C15.8385 22.0496 15.9373 21.8111 15.9373 21.5625V15.9375H21.5623C21.8109 15.9375 22.0494 15.8387 22.2252 15.6629C22.401 15.4871 22.4998 15.2486 22.4998 15C22.4998 14.7514 22.401 14.5129 22.2252 14.3371C22.0494 14.1613 21.8109 14.0625 21.5623 14.0625H15.9373V8.4375Z" fill="black"/>
@@ -1029,10 +1533,6 @@
                 <!-- END TABS DIV -->
             </div>
         </div>
-        
-
-
-
     </section>
 
 
@@ -1097,15 +1597,24 @@
     <script src="{{ asset('user_assets/js/popper.min.js')}}"></script>
     <script src="{{ asset('user_assets/js/bootstrap.min.js')}}"></script> 
     <script src="{{ asset('user_assets/js/select2.min.js')}}"></script>
+    {{-- <script src="{{ asset('user_assets/js/html2canvas.min.js')}}"></script> --}}
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="{{ asset('user_assets/js/jspdf.min.js')}}"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
         $(document).ready(function() {
             $(".user-drop-btn").click(function() {
                 $(this).parent(".user-menu-item").toggleClass("open-dropdown");
             });
             
-            $(".nav-item.d-block").click(function() {
+            $(".nav-item.d-block .user-menu").click(function() {
                 if($(window).width() < 767){
                     $(this).parents(".user-drop-menu").toggleClass("open-dropdown");
+                };
+            });
+            $(".nav-item > .nav-link").click(function() {
+                if($(window).width() < 767){
+                    $(this).parents(".user-drop-menu").removeClass("open-dropdown");
                 };
             });
 
@@ -1117,10 +1626,6 @@
             $( '.nav-item' ).on( 'click', function() {
                 $('.nav-link').removeClass( 'active' ).eq( $(this).index() ).removeClass( 'active' );
             });
-
-            $( '.user-img' ).on( 'click', function() {
-                $('.nav-link').removeClass( 'active' );
-            });
             
             $(".create-resume-btn").click(function() {
                 $(this).parents(".dashboard-main-tab-container").addClass("open-resume-maker");
@@ -1128,8 +1633,220 @@
             $(".resume-builder .back-btn").click(function() {
                 $(this).parents(".dashboard-main-tab-container").removeClass("open-resume-maker");
             });
+            
+            $(".cover-letter-btn").click(function() {
+                $(this).parents(".dashboard-main-tab-container").addClass("open-coverletter-maker");
+            });
+            $(".coverletter-builder .back-btn").click(function() {
+                $(this).parents(".dashboard-main-tab-container").removeClass("open-coverletter-maker");
+            });
+
         });
+        /*******************Resume Builder*******************/
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#blah').attr('src', e.target.result).width().height();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function emi() {
+            var P = document.formval.pr_amt.value;
+            var rate = document.formval.int_rate.value;
+            var n = document.formval.period.value;
+            var em = document.formval.email.value;
+            var lid = document.formval.lnkdnid.value;
+            var ph = document.formval.mobile.value;
+            var sk = document.formval.skill.value;
+            var l1 = document.formval.lang1.value;
+            var l2 = document.formval.lang2.value;
+            var l3 = document.formval.lang3.value;
+            var w = document.formval.wd.value;
+            var d = document.formval.due.value;
+            var w1 = document.formval.explain.value;
+            var qualification = document.formval.grad.value;
+            var qualid = document.formval.graddur.value;
+            var summary1 = document.formval.s1.value;
+            var qualification2 = document.formval.grad2.value;
+            var qualid2 = document.formval.graddur2.value;
+            var summary2 = document.formval.s2.value;
+            var qualification3 = document.formval.grad3.value;
+            var qualid3 = document.formval.graddur3.value;
+            var summary3 = document.formval.s3.value;
+            /*operation*/
+            document.getElementById("name").innerHTML = P;
+            document.getElementById("position").innerHTML = rate;
+            document.getElementById("place").innerHTML = n;
+            document.getElementById("email").innerHTML = em;
+            document.getElementById("lnkdn").innerHTML = lid;
+            document.getElementById("mb").innerHTML = ph;
+            document.getElementById("w3review").innerHTML = sk;
+            document.getElementById("one").value = l1;
+            document.getElementById("two").value = l2;
+            document.getElementById("three").value = l3;
+            document.getElementById("WE").innerHTML = w;
+            document.getElementById("duration").innerHTML = d;
+            document.getElementById("Summary").innerHTML = w1;
+            // course1
+            document.getElementById("cr1").innerHTML = qualification;
+            document.getElementById("cd1").innerHTML = qualid;
+            //document.getElementById("sum1").innerHTML = summary1;
+            // course2
+            document.getElementById("cr2").innerHTML = qualification2;
+            document.getElementById("cd2").innerHTML = qualid2;
+            // document.getElementById("sum2").innerHTML = summary2;
+            // // course2
+            document.getElementById("cr3").innerHTML = qualification3;
+            document.getElementById("cd3").innerHTML = qualid3;
+            // document.getElementById("sum3").innerHTML = summary3;
+            if (P == "" && rate == "" && n == "") {
+                document.getElementById("demo").innerHTML = "Must fill valid data";
+            } else {
+                document.getElementById("demo").innerHTML = "";
+                document.getElementById("bexresult").style.display = "block";
+                document.getElementById("box").style.display = "none";
+            }
+        }
+
+        function emires() {
+            document.getElementById("bexresult").style.display = "none";
+            document.formval.pr_amt.value = "";
+            document.formval.int_rate.value = "";
+            document.formval.period.value = "";
+            document.formval.field1.value = "";
+            document.formval.field2.value = "";
+            document.formval.field3.value = "";
+            document.formval.field4.value = "";
+            document.getElementById("demo").innerHTML = "";
+        }
         
-    </script>   
+        $('#cmd').click(function(){
+            var doc = new jsPDF("p", "mm", "a4");
+            html2canvas(document.querySelector('#target')).then(function(canvas){
+                var imgData = canvas.toDataURL('image/png');
+                var pageHeight = 297;  
+                var imgWidth =  210 ; 
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+                var heightLeft = imgHeight;
+                var position = 0;
+
+                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight; 
+                }
+                // doc.output('dataurlnewwindow');
+                doc.save('new-resume.pdf');
+            });
+        });
+
+        $('#propic-resume').change(function(){
+            var curElement = $('#box .image');
+            console.log(curElement);
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // get loaded data and render thumbnail.
+                curElement.attr('src', e.target.result);
+            };
+
+            // read the image file as a data URL.
+            reader.readAsDataURL(this.files[0]);
+        });
+        /*********************************************************/
+        /*******************Coverletter Builder*******************/
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#Pro-Pic').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function emi1() {
+            var pn = document.formvalcover.per_name.value;
+            var pe = document.formvalcover.per_email.value;
+            var pm = document.formvalcover.per_mobile.value;
+            var pa = document.formvalcover.per_address.value;
+            var cd = document.formvalcover.cover_date.value;
+            var clc = document.formvalcover.cover_letter_content.value;
+            /*operation*/
+            document.getElementById("PersonName").innerHTML = pn;
+            document.getElementById("PersonEmail").innerHTML = pe;
+            document.getElementById("PersonContact").innerHTML = pm;
+            document.getElementById("PersonAddress").innerHTML = pa;
+            document.getElementById("LetterDate").innerHTML = cd;
+            document.getElementById("CoveringLetterContent").innerHTML = clc;
+            if (pn == "" && pe == "" && pm == "") {
+                document.getElementById("Error-Text").innerHTML = "Must fill valid data";
+            } else {
+                document.getElementById("Error-Text").innerHTML = "";
+                document.getElementById("boxresult").style.display = "block";
+                document.getElementById("letterbox").style.display = "none";
+            }
+        }
+
+        function emires1() {
+            document.getElementById("boxresult").style.display = "none";
+            document.formvalcover.per_name.value = "";
+            document.formvalcover.per_email.value = "";
+            document.formvalcover.per_mobile.value = "";
+            document.formvalcover.per_address.value = "";
+            document.formvalcover.cover_date.value = "";
+            document.formvalcover.cover_letter_content.value = "";
+            document.getElementById("Error-Text").innerHTML = "";
+        }
+        
+        $('#DownloadPDF').click(function(){
+            var doc = new jsPDF("p", "mm", "a4");
+            html2canvas(document.querySelector('#target_resume')).then(function(canvas){
+                var imgData = canvas.toDataURL('image/png');
+                var pageHeight = 297;  
+                var imgWidth =  210 ; 
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+                var heightLeft = imgHeight;
+                var position = 0;
+
+                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight; 
+                }
+                // doc.output('dataurlnewwindow');
+                doc.save('new-coverletter.pdf');
+            });
+        });
+        $('#propic-coverletter').change(function(){
+            var curElement = $('#letterbox .image');
+            console.log(curElement);
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // get loaded data and render thumbnail.
+                curElement.attr('src', e.target.result);
+            };
+
+            // read the image file as a data URL.
+            reader.readAsDataURL(this.files[0]);
+        });
+        /*********************************************************/
+
+    </script> 
+    @notifyJs
+    <x:notify-messages />
 </body>
 </html>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\JobPostController;
+use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,6 @@ Route::get('find-job', [JobPostController::class, 'index'])->name('job.find-job'
 Route::post('find-job-post', [JobPostController::class, 'findJobPost'])->name('job.find-job-post');
 Route::get('job-detail/{id}', [JobPostController::class, 'jobDetail'])->name('job.job-detail');
 Route::post('save-job', [JobPostController::class, 'saveJob'])->name('job.save-job');
+
+// Route::post('profile', [ProfileController::class]);
+Route::resource('profile', ProfileController::class);
