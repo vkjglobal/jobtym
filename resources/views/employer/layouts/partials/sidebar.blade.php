@@ -74,6 +74,33 @@
             </li>
             <!-- Aptitude Tests End -->
 
+            <!---Employees--->
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#employees" role="button" aria-expanded="false"
+                    aria-controls="employees">
+                    <i class="link-icon" data-feather="cpu"></i>
+                    <span class="link-title">Employees</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="employees">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('employer.employee.create') }}"
+                                class="nav-link {{ request()->is('admin/employers/create') ? 'active' : '' }}">
+                                Create
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('employer.employee.index') }}"
+                                class="nav-link {{ request()->is('admin/employers') ? 'active' : '' }}">
+                                List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!----End Employees---->
+
 
         </ul>
     </div>

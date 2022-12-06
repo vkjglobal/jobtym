@@ -5,6 +5,7 @@ use App\Http\Controllers\Employer\Auth\ForgotPasswordController;
 use App\Http\Controllers\Employer\Auth\LoginController;
 use App\Http\Controllers\Employer\Auth\RegisterController;
 use App\Http\Controllers\Employer\Auth\ResetPasswordController;
+use App\Http\Controllers\Employer\EmployeeController;
 use App\Http\Controllers\Employer\HomeController;
 use App\Http\Controllers\Employer\JobPostController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,7 @@ Route::middleware('employer.auth')->group(function () {
     // Aptitude Tests
     Route::get('aptitude-test-status', [AptitudeTestController::class, 'changeStatus'])->name('aptitudeTest.status');
     Route::resource('aptitude-tests', AptitudeTestController::class);
+
+    // Robin-- 03-12-22
+   Route::resource('employee', EmployeeController::class);
 });
