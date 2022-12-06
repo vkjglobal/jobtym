@@ -21,7 +21,7 @@
                         <input type="text" class="pos-rel top-city-top" placeholder="City or postcode">
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <select class="category-dropdown" name="states[]">
+                        <select class="category-dropdown" name="category">
                             <option disabled selected>All Category</option>
                             <option>IT</option>
                             <option>Architect</option>
@@ -30,7 +30,7 @@
                         </select>
                     </div>
                     <div class="col-lg-2 col-md-6">
-                        <div class="advncd-srch d-flex"><a href="">Advanced</a></div>
+                        {{-- <div class="advncd-srch d-flex"><a href="">Advanced</a></div> --}}
                     </div>
                     <div class="col-lg-2 col-md-6">
                         <input type="submit" class="btn-submit btn-typ1" value="Find Job">

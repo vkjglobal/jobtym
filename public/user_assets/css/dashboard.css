@@ -435,6 +435,14 @@ a.btn.btn-primary.register {
   display: none;
 }
 
+.open-coverletter-maker .coverletter-builder {
+  display: block;
+}
+.open-coverletter-maker .floating-sidebar,
+.open-coverletter-maker .card-body {
+  display: none;
+}
+
 .form-top-section {
   display: flex;
   align-items: center;
@@ -858,7 +866,17 @@ td.job-title {
 }
 .resume-builder .form-sec {
   padding: 26px 30px;
-  border-right: 1px solid #BEBEBE;
+}
+.resume-builder .render-sec {
+  padding: 26px 0 26px 45px;
+}
+
+.coverletter-builder {
+  display: none;
+  min-width: 100%;
+  min-height: 500px;
+  background: #ecf2fb;
+  padding: 36px 75px;
 }
 
 .back-btn:hover {
@@ -1131,6 +1149,145 @@ button {
   margin: 100px auto;
 }
 
+/*************Create Resume*************/
+.upload-photo.form-control {
+  min-height: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+  text-align: center;
+}
+.imageWrapper img {
+  max-height: 150px;
+}
+
+.file-upload {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.render-sec {
+  padding-bottom: 40px;
+}
+
+.contact-info {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #ffffff;
+}
+
+.contact-info li {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 20pt;
+}
+
+.contact-info .fa-fw {
+  color: #ffffff;
+  font-size: 16pt;
+}
+
+#target {
+  min-height: 1569px;
+}
+
+.contact-info p {
+  margin-bottom: 0;
+  font-size: 16pt;
+}
+
+.ResumeHeadingBox {
+  display: flex;
+}
+
+#image img #bexresult p {
+  font-size: 16pt;
+  line-height: 20pt;
+}
+
+#bexresult .nameSection {
+  font-size: 30pt;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+#bexresult .fa-fw {
+  font-size: 16pt;
+  min-width: 30px;
+  margin-right: 10px;
+}
+
+.ResumeContentBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.ResumeContentLeft {
+  background-color: #1a4567 !important;
+  color: #ffffff;
+}
+
+.ResumeContentLeft hr {
+  border-color: #ffffff;
+}
+
+.ResumeContentLeft .lang input,
+.ResumeContentLeft .lang input:focus,
+.ResumeContentLeft .lang input:focus-visible {
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  width: 100%;
+  font-size: 16pt;
+  margin-bottom: 10px;
+}
+
+.greybg {
+  background-color: #f5f5f5 !important;
+}
+
+.font-13 {
+  font-size: 13pt;
+}
+
+h2.font-13 {
+  font-weight: 400;
+}
+
+strong.hd-typ1 {
+  font-size: 16pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #5a5a5a;
+  display: block;
+  margin-bottom: 15pt;
+}
+
+.content-box ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.content-box ul li {
+  margin-bottom: 20pt;
+}
+
+@media print {
+  .ResumeContentLeft {
+    background-color: #1a4567 !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .greybg {
+    background-color: #f5f5f5 !important;
+    -webkit-print-color-adjust: exact;
+  }
+}
 /***************Footer****************/
 footer {
   background: #DDECF8;
@@ -1188,6 +1345,13 @@ footer .copy-right {
   letter-spacing: 0em;
   text-align: left;
 }
+
+/* =============== CSS start by divyesh ===============  */
+.nav-link span {
+  margin-top: 15px;
+}
+
+/* =============== CSS end by divyesh ===============  */
 
 @media (min-width: 768px) {
   .floating-sidebar {
@@ -1330,6 +1494,9 @@ footer .copy-right {
   .table.reports-table tbody tr td::before {
     top: 23%;
   }
+  .resume-builder {
+    padding: 30px;
+  }
 }
 @media (min-width: 968px) and (max-width: 1200px) {
   .navbar-nav .nav-item {
@@ -1427,10 +1594,64 @@ footer .copy-right {
     margin-left: 0;
     display: block;
   }
+  .resume-top-nav {
+    flex-direction: column;
+    align-items: baseline;
+  }
+  .dwnld-btn-wrp {
+    margin-top: 10px;
+    min-width: 100%;
+  }
+  .dashboard-main-tab-container .form-dash {
+    padding: 15px;
+  }
+  .resume-builder .form-sec {
+    padding: 0;
+  }
+  .upload-photo.form-control {
+    min-height: 175px;
+  }
+  .upload-photo.form-control:after {
+    background-size: 28%;
+  }
+  .form-top-section h4 {
+    font-size: 15px;
+  }
+  .resume-builder {
+    padding: 15px;
+  }
+  .back-btn {
+    font-size: 18px;
+  }
+  .back-btn svg {
+    width: 15px;
+    margin-top: -8px;
+  }
 }
 @media (max-width: 575px) {
   .container {
     padding-left: 30px;
     padding-right: 30px;
+  }
+  .modal-confirm {
+    width: auto;
+  }
+  .dwnld-btn-wrp ul {
+    flex-direction: column;
+    min-width: 100%;
+  }
+  .dwnld-btn-wrp ul li {
+    margin-bottom: 10px;
+  }
+  .dwnld-btn-wrp ul li .select2-container .select2-selection--single {
+    min-width: 100%;
+  }
+  .dwnld-btn-wrp ul li.resume-import button,
+.dwnld-btn-wrp ul li.resume-download button {
+    min-width: 100%;
+    justify-content: center;
+  }
+  .upload-photo.form-control:after {
+    background-size: 50%;
   }
 }/*# sourceMappingURL=dashboard.css.map */

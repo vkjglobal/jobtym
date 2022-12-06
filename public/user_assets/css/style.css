@@ -2821,6 +2821,12 @@ footer .copy-right {
   margin-left: 8px;
 }
 
+.saveBtnClicks {
+  background: #FFC14C;
+  color: #fff;
+  outline: none;
+}
+
 /* =========== CSS END BY DIVYESH =============== */
 
 @media (min-width: 1500px) {

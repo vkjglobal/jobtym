@@ -95,8 +95,7 @@
                         <button type="button" class="btn-typ1 mt-0 mr-3" data-toggle="modal" data-target="#ApplyNow">
                             Apply Now!
                         </button>
-                        <a href="javascript:void(0)" id="saveJobButton"
-                            class="boolmark d-flex justify-content-center align-items-center">
+                        <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center">
                             <svg width="16" height="18" viewBox="0 0 16 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
