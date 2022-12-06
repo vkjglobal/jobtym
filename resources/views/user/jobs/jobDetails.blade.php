@@ -95,7 +95,16 @@
                         <button type="button" class="btn-typ1 mt-0 mr-3" data-toggle="modal" data-target="#ApplyNow">
                             Apply Now!
                         </button>
-                        <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center">
+                        <input type="hidden" id="authId" value="{{ isset($user['id']) }}">
+                        @if (isset($saveJob['user_id']) == isset($user['id'])) 
+                            @guest()
+                                <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center">
+                            @else
+                                <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center saveBtnClicks">
+                            @endguest
+                        @else
+                            <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center">
+                        @endif
                             <svg width="16" height="18" viewBox="0 0 16 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

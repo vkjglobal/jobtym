@@ -189,7 +189,7 @@
                                                     <div class="modal-body row">
                                                         <div class="form-group col-md-12 mb-3">
                                                             <label for="e-mail">Email</label>
-                                                            <input type="email" name="email" class="form-control" id="e-mail"
+                                                            <input type="email" name="email" class="form-control" id="reset-e-mail"
                                                                 placeholder="Enter your email">
                                                         </div>
                                                         <div class="form-group col-md-12">
@@ -371,22 +371,30 @@
             }
 
             $('#saveJobButton').click(function() {
-                // var user_id = <?php # echo Auth::User()->id; ?>
-                var url = window.location.href;
-                var job_id = url.substring(url.lastIndexOf('/') + 1);
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: '{{ route('user.job.save-job') }}',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                        'user_id': user_id,
-                        'job_id': job_id
-                    },
-                    success: function(data) {
-                        $('#saveJobButton').addClass('saveBtnClicks');
-                    }
-                });
+                var user_id = $('#authId').val();
+                if(user_id == ""){
+                    alert('You are not logged in. Please login to save the job.');
+                }else{
+                    var url = window.location.href;
+                    var job_id = url.substring(url.lastIndexOf('/') + 1);
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: '{{ route('user.job.save-job') }}',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'user_id': user_id,
+                            'job_id': job_id
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                $('#saveJobButton').addClass('saveBtnClicks');
+                            } else {
+                                $('#saveJobButton').removeClass('saveBtnClicks');
+                            }
+                        }
+                    });
+                }
             })
         });
     </script>

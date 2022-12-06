@@ -36,6 +36,34 @@ class RegisterController extends Controller
     public function postRegistration(Request $request)
     {
         $data = $request->all();
+        $validated = $request->validate([
+            'firstName' => 'required|string',
+            'lastName' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'newPassword' => 'required',
+            'gender' => 'required|in:male,female,other',
+            'birthDate' => 'required',
+            'phone' => 'required',
+            'country' => 'required',
+            'resident' => 'required|in:yes,no',
+            'street' => 'required',
+            'city' => 'required',
+            'town' => 'required',
+            'postCode' => 'required',
+            'uploadResume' => 'required|mimes:pdf,xlx,csv|max:2048',
+            'accept' => 'required',
+        ]);
+        if($request->file == ""){
+            $validated = $request->validate([
+                'uploadResume' => 'required|mimes:pdf,xlx,csv|max:2048',               
+            ]);
+        }
+        // dd($validated->fails());
+        // dd(public_path('uploadResumes'));
+
+        $fileName = time().'.'.$request['uploadResume']->extension();
+        $request->file('uploadResume')->move(('user_assets/uploadResumes'), $fileName);
+        $data['uploadResume'] = $fileName;
         $check = $this->create($data);
         $token = Str::random(64);
         $otp = random_int(1000, 9999);
@@ -104,7 +132,7 @@ class RegisterController extends Controller
             'postal_address' => $data['postCode'],
             'tin' => $data['tinNo'],
             'vaccination_ref_number' => $data['vaccNo'],
-            'image' => $data['filename'],
+            'image' => $data['uploadResume'],
         ]);
     }
 }
