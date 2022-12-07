@@ -43,8 +43,10 @@ class JobPostController extends Controller
      */
     public function jobDetail($id)
     {   
+        $user = Auth::user();
         $job = JobPost::where('id', $id)->first();
-        return view('user.jobs.jobDetails', compact('job'));
+        $saveJob = SaveJob::where('job_id', $id)->first();
+        return view('user.jobs.jobDetails', compact('job','saveJob','user'));
     }
 
     /**
@@ -53,8 +55,15 @@ class JobPostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function saveJob(Request $request)
-    {           
-        $saveJob = SaveJob::create($request->all());
-        return response(['success' => true]);
+    {   
+        $user = Auth::user();
+        $saveJobPost = SaveJob::where('job_id', $request->job_id)->count();
+        if ($saveJobPost == 0) {
+            $saveJob = SaveJob::create($request->all());
+            return response(['success' => true]);
+        }else{
+            $deleteJobPost = SaveJob::where('job_id', $request->job_id)->delete();
+            return response(['success' => false]);
+        }
     }
 }
