@@ -95,16 +95,8 @@
                         <button type="button" class="btn-typ1 mt-0 mr-3" data-toggle="modal" data-target="#ApplyNow">
                             Apply Now!
                         </button>
-                        <input type="hidden" id="authId" value="{{ isset($user['id']) }}">
-                        @if (isset($saveJob['user_id']) == isset($user['id'])) 
-                            @guest()
-                                <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center">
-                            @else
-                                <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center saveBtnClicks">
-                            @endguest
-                        @else
-                            <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center">
-                        @endif
+                        <input type="hidden" id="authId" value="{{ isset($user['id']) ? $user['id'] : '' }}">
+                        <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center @if (isset($isSavedJob) && $isSavedJob == true) saveBtnClicks @endif">
                             <svg width="16" height="18" viewBox="0 0 16 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -114,71 +106,92 @@
                         </a>
                     </div>
 
-                    <form class="register-form-modal register-form applynowform" action="">
+                    <form method="POST" action="{{ route('user.job.job-apply') }}" class="register-form-modal register-form applynowform">
+                        @csrf
                         <div class="modal fade" id="ApplyNow" tabindex="-1" role="dialog" aria-labelledby="ApplyNow"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalCenterTitle">Login</h5>
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Apply For Job</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
+                                    <input type="hidden" name="job_id" id="job_id" value="{{ $job['id'] }}">
+                                    <input type="hidden" name="job_title" value="{{ $job['title'] }}">
+                                    <input type="hidden" name="employer" value="{{ $job['employer_id'] }}">
+                                    <input type="hidden" name="user_id" value="{{ isset($user['id']) ? $user['id'] : ''  }}">
                                     <div class="modal-body row">
                                         <div class="form-group col-md-6">
                                             <label for="FirstName">First Name</label>
-                                            <input type="text" class="form-control" id="FirstName" placeholder="">
+                                            <input type="text" class="form-control" name="first_name" id="FirstName" placeholder="" required required>
+                                            @if($errors->has('first_name'))
+                                                <div class="text-danger">{{ $errors->first('first_name') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="LastName">Last Name</label>
-                                            <input type="text" class="form-control" id="LastName" placeholder="">
+                                            <input type="text" class="form-control" name="last_name" id="LastName" placeholder="" required>
+                                            @if($errors->has('last_name'))
+                                                <div class="text-danger">{{ $errors->first('last_name') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="eMail">Email</label>
-                                            <input type="email" class="form-control" id="eMail" placeholder="">
+                                            <input type="email" class="form-control" name="email" id="eMail" placeholder="" required>
+                                            @if($errors->has('email'))
+                                                <div class="text-danger">{{ $errors->first('email') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="PhoneNumber">Phone</label>
-                                            <input type="text" class="form-control" id="PhoneNumber" placeholder="">
+                                            <input type="text" class="form-control" name="phone" id="PhoneNumber" placeholder="" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="CurrentJobTitle">Current Job Title</label>
-                                            <input type="text" class="form-control" id="CurrentJobTitle"
-                                                placeholder="">
+                                            <input type="text" class="form-control" name="current_job" id="CurrentJobTitle" placeholder="">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="CurrentSalary">Current Salary</label>
-                                            <input type="text" class="form-control" id="CurrentSalary"
-                                                placeholder="">
+                                            <input type="text" class="form-control" name="current_salary" id="CurrentSalary" placeholder="">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="AcademicLevel">Academic Level*</label>
-                                            <input type="text" class="form-control" id="AcademicLevel"
-                                                placeholder="">
+                                            <input type="text" class="form-control" name="academic" id="AcademicLevel" placeholder="" required>
+                                            @if($errors->has('academic'))
+                                                <div class="text-danger">{{ $errors->first('academic') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="candidateAge">Age*</label>
-                                            <input type="text" class="form-control" id="candidateAge" placeholder="">
+                                            <input type="text" class="form-control" name="age" id="candidateAge" placeholder="" required>
+                                            @if($errors->has('age'))
+                                                <div class="text-danger">{{ $errors->first('age') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="ExpectedSalary">Salary</label>
-                                            <input type="text" class="form-control" id="ExpectedSalary"
-                                                placeholder="">
+                                            <input type="text" class="form-control" name="salary" id="ExpectedSalary" placeholder="">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Gender</label>
-                                            <select class="gender-dropdown form-control" name="states[]">
+                                            <select class="gender-dropdown form-control" name="gender">
                                                 <option disabled selected>Select Gender</option>
-                                                <option>Male</option>
-                                                <option>Female</option>
-                                                <option>Other</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
                                             </select>
+                                            @if($errors->has('gender'))
+                                                <div class="text-danger">{{ $errors->first('gender') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="WorkingIndustry">Industry*</label>
-                                            <input type="text" class="form-control" id="WorkingIndustry"
-                                                placeholder="">
+                                            <input type="text" class="form-control" name="industry" id="WorkingIndustry" placeholder="" required>
+                                            @if($errors->has('industry'))
+                                                <div class="text-danger">{{ $errors->first('industry') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-12 file-upload-resume">
                                             <label for="file" class="">Resume</label>
@@ -192,70 +205,63 @@
                                                                 fill="#1D9EF4" />
                                                         </svg>
                                                     </span>
-                                                    <input type="text" name="filename" class="form-control file-name"
-                                                        placeholder="" readonly>
+                                                    <input type="text" name="fileName" class="form-control file-name" placeholder="" readonly>
                                                     <span class="upload-info-txt">
-                                                        <strong>Drop a resume file or click to upload,</strong>
-                                                        To upload file size is <b>(Max 5Mb)</b> and allowed file type are
-                                                        <b>(.doc, docx, pdf)</b>
+                                                        <strong>Drop a resume file or click to upload,</strong> To upload file size is <b>(Max 5Mb)</b> and allowed file type are <b>(.doc, docx, pdf)</b>
                                                     </span>
                                                     <div class="divider">
                                                         <hr>
                                                         <span>OR</span>
                                                     </div>
                                                     <div class="btn-typ1 custom-file-uploader">
-                                                        <input type="file" name="file"
-                                                            onchange="this.form.filename.value = this.files.length ? this.files[0].name : ''" />
+                                                        <input type="file" name="resumeUpload" />
                                                         Upload Resume
                                                     </div>
+                                                    @if($errors->has('resumeUpload'))
+                                                        <div class="text-danger">{{ $errors->first('resumeUpload') }}</div>
+                                                    @endif
                                                 </div>
 
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-12 upload-cover custom-file-container"
-                                            data-upload-id="myUniqueUploadId">
-                                            <label>Upload File <a href="javascript:void(0)"
-                                                    class="custom-file-container__image-clear d-none"
-                                                    title="Clear Image">&times;</a></label>
+                                        <div class="form-group col-md-12 upload-cover custom-file-container" data-upload-id="myUniqueUploadId">
+                                            <label>Upload File <a href="javascript:void(0)" class="custom-file-container__image-clear d-none" title="Clear Image">&times;</a></label>
                                             <div class="custom-file-container__image-preview"></div>
-                                            <label class="custom-file-container__custom-file">
-                                                <input type="file"
-                                                    class="custom-file-container__custom-file__custom-file-input"
-                                                    accept="*" multiple aria-label="Choose File">
+                                            <label class="custom-file-container__custom-file" >
+                                                <input type="file" name="coverLatter" class="custom-file-container__custom-file__custom-file-input" accept="*" multiple aria-label="Choose File">
                                                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                                                 <span class="custom-file-container__custom-file__custom-file-control">
                                                     <span class="btn-lbl">Upload Cover Letter</span>
                                                 </span>
                                                 <div class="btn-wrap">
                                                     <span class="btn-typ1">
-                                                        <svg width="32" height="25" viewBox="0 0 32 25"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M15.9162 0C20.7706 0 24.9148 3.05043 26.5412 7.3402C29.5774 8.14276 31.8182 10.9126 31.8182 14.2045C31.8182 18.1286 28.6399 21.3068 24.7195 21.3068H23.2955C23.1392 21.3068 23.0114 21.179 23.0114 21.0227V18.892C23.0114 18.7358 23.1392 18.608 23.2955 18.608H24.7195C25.2975 18.6095 25.87 18.4963 26.404 18.2751C26.938 18.0538 27.4227 17.7288 27.8303 17.3189C28.6612 16.4879 29.1193 15.38 29.1193 14.2045C29.1193 12.2088 27.7734 10.4581 25.8487 9.93963L24.5064 9.58452L24.0163 8.28835C23.7109 7.48224 23.2848 6.7223 22.7486 6.03693C22.2195 5.35866 21.5945 4.76207 20.8878 4.26491C19.4283 3.23864 17.7095 2.69531 15.9162 2.69531C14.1229 2.69531 12.4041 3.23864 10.9446 4.26491C10.2403 4.76048 9.61318 5.35763 9.08381 6.03693C8.54759 6.7223 8.12145 7.47869 7.81605 8.28835L7.32244 9.58807L5.97656 9.93963C5.05327 10.1847 4.2223 10.7351 3.62926 11.4915C3.05043 12.2337 2.73082 13.1143 2.69886 14.0518C2.6598 15.2521 3.10369 16.4098 3.93821 17.2692C4.77628 18.1321 5.90199 18.608 7.09872 18.608H8.52273C8.67898 18.608 8.80682 18.7358 8.80682 18.892V21.0227C8.80682 21.179 8.67898 21.3068 8.52273 21.3068H7.09872C3.17827 21.3068 0 18.1286 0 14.2045C0 10.9091 2.24787 8.13565 5.29119 7.33665C6.91761 3.04688 11.0618 0 15.9162 0ZM16.0336 10.5376C16.0724 10.5565 16.1064 10.584 16.1329 10.6179L20.1102 15.6534C20.2558 15.8381 20.1244 16.1115 19.8865 16.1115H17.2551V24.7159C17.2551 24.8722 17.1273 25 16.971 25H14.8403C14.6841 25 14.5562 24.8722 14.5562 24.7159V16.108H11.9319C11.8788 16.1081 11.8266 16.0933 11.7815 16.0651C11.7363 16.037 11.7 15.9968 11.6767 15.949C11.6534 15.9012 11.6439 15.8478 11.6495 15.7949C11.6551 15.742 11.6754 15.6918 11.7082 15.6499L15.6855 10.6179C15.7121 10.584 15.746 10.5565 15.7848 10.5376C15.8235 10.5187 15.8661 10.5089 15.9092 10.5089C15.9523 10.5089 15.9949 10.5187 16.0336 10.5376Z"
-                                                                fill="#1D9EF4" />
+                                                        <svg width="32" height="25" viewBox="0 0 32 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.9162 0C20.7706 0 24.9148 3.05043 26.5412 7.3402C29.5774 8.14276 31.8182 10.9126 31.8182 14.2045C31.8182 18.1286 28.6399 21.3068 24.7195 21.3068H23.2955C23.1392 21.3068 23.0114 21.179 23.0114 21.0227V18.892C23.0114 18.7358 23.1392 18.608 23.2955 18.608H24.7195C25.2975 18.6095 25.87 18.4963 26.404 18.2751C26.938 18.0538 27.4227 17.7288 27.8303 17.3189C28.6612 16.4879 29.1193 15.38 29.1193 14.2045C29.1193 12.2088 27.7734 10.4581 25.8487 9.93963L24.5064 9.58452L24.0163 8.28835C23.7109 7.48224 23.2848 6.7223 22.7486 6.03693C22.2195 5.35866 21.5945 4.76207 20.8878 4.26491C19.4283 3.23864 17.7095 2.69531 15.9162 2.69531C14.1229 2.69531 12.4041 3.23864 10.9446 4.26491C10.2403 4.76048 9.61318 5.35763 9.08381 6.03693C8.54759 6.7223 8.12145 7.47869 7.81605 8.28835L7.32244 9.58807L5.97656 9.93963C5.05327 10.1847 4.2223 10.7351 3.62926 11.4915C3.05043 12.2337 2.73082 13.1143 2.69886 14.0518C2.6598 15.2521 3.10369 16.4098 3.93821 17.2692C4.77628 18.1321 5.90199 18.608 7.09872 18.608H8.52273C8.67898 18.608 8.80682 18.7358 8.80682 18.892V21.0227C8.80682 21.179 8.67898 21.3068 8.52273 21.3068H7.09872C3.17827 21.3068 0 18.1286 0 14.2045C0 10.9091 2.24787 8.13565 5.29119 7.33665C6.91761 3.04688 11.0618 0 15.9162 0ZM16.0336 10.5376C16.0724 10.5565 16.1064 10.584 16.1329 10.6179L20.1102 15.6534C20.2558 15.8381 20.1244 16.1115 19.8865 16.1115H17.2551V24.7159C17.2551 24.8722 17.1273 25 16.971 25H14.8403C14.6841 25 14.5562 24.8722 14.5562 24.7159V16.108H11.9319C11.8788 16.1081 11.8266 16.0933 11.7815 16.0651C11.7363 16.037 11.7 15.9968 11.6767 15.949C11.6534 15.9012 11.6439 15.8478 11.6495 15.7949C11.6551 15.742 11.6754 15.6918 11.7082 15.6499L15.6855 10.6179C15.7121 10.584 15.746 10.5565 15.7848 10.5376C15.8235 10.5187 15.8661 10.5089 15.9092 10.5089C15.9523 10.5089 15.9949 10.5187 16.0336 10.5376Z" fill="#1D9EF4"/>
                                                         </svg>
                                                         Upload Cover Letter
                                                     </span>
                                                     <span class="upload-info-txt">
-                                                        To upload file size is <b>(Max 1Mb)</b> and allowed file type are
-                                                        <b>(.doc, docx, pdf)</b>
+                                                        To upload file size is <b>(Max 1Mb)</b> and allowed file type are <b>(.doc, docx, pdf)</b>
                                                     </span>
                                                 </div>
                                             </label>
-
+                                            
                                         </div>
 
 
                                         <div class="form-group col-md-12 chkbx mt-3">
-                                            <input type="checkbox" id="regChck">
+                                            <input type="checkbox" name="accept" id="regChck">
                                             <label for="regChck">
                                                 <span class="chk-txt">By clicking checkbox, you agree to our <a
                                                         href="">Terms and Conditions</a> and <a
                                                         href="">Privacy Policy</a></span>
                                             </label>
+                                            @if($errors->has('accept'))
+                                                <div class="text-danger">{{ $errors->first('accept') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <a href="" class="btn-typ1 w-100 rounded-btn5">Register Now</a>
+                                            <button type="submit" class="btn-typ1 w-100 rounded-btn5">Register Now</button>
                                         </div>
                                     </div>
 
