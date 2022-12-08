@@ -32,7 +32,7 @@
                                     <img src="{{ asset('user_assets/images/user_img.jpg')}}" alt="" style="width: 52px;height: 52px;border-radius: 50%;">
                                 </a>
                             </li>
-                            <li class="user-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </li>
+                            <li class="user-name">{{ $user->first_name }} {{ $user->last_name }} </li>
                             <li class="user-menu-item">
                                 <span class="user-drop-btn">
                                     <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -659,7 +659,7 @@
                                     <img src="{{ asset('user_assets/images/user_img.jpg')}}" alt="" style="width: 52px;height: 52px;border-radius: 50%;">
                                 </a>
                             </li>
-                            <li class="user-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} 
+                            <li class="user-name">{{ $user->first_name }} {{ $user->last_name }} 
                                 <a class="btn-typ3 rounded-btn100" id="" data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="false"> View Profile </a>
                             </li>
                             <li class="user-menu-item">
@@ -898,82 +898,82 @@
                     </div>
                     <div class="tab-pane fade" id="Profile" role="tabpanel" aria-labelledby="second-tab">
                         <h5 class="card-title">Edit Profile</h5>
-                        <form method="POST" action="{{ route('user.profile.update',Auth::user()->id) }}" class="form-dash">
+                        <form method="POST" action="{{ route('user.profile.update',$user->id) }}" class="form-dash">
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="id" value="{{ $user->id }}">
                                 <div class="form-group col-md-6">
                                     <label for="FirstName">First Name</label>
-                                    <input type="text" name="first_name" class="form-control" id="FirstName" placeholder="" value="{{ Auth::user()->first_name }}">
+                                    <input type="text" name="first_name" class="form-control" id="FirstName" placeholder="" value="{{ $user->first_name }}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="LastName">Last Name</label>
-                                    <input type="text" name="last_name" class="form-control" id="LastName" value="{{ Auth::user()->last_name }}" placeholder="">
+                                    <input type="text" name="last_name" class="form-control" id="LastName" value="{{ $user->last_name }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="eMail">Email</label>
-                                    <input type="email" name="email" class="form-control" id="eMail" value="{{ Auth::user()->email }}" placeholder="">
+                                    <input type="email" name="email" class="form-control" id="eMail" value="{{ $user->email }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Gender</label>
                                     <select class="gender-dropdown form-control" name="gender">
                                         <option disabled selected>Select Gender</option>
-                                        <option <?php if(Auth::user()->gender == "male") { echo "selected='selected'"; } ?> value="male">Male</option>
-                                        <option <?php if(Auth::user()->gender == "female") { echo "selected='selected'"; } ?> value="female">Female</option>
-                                        <option  <?php if(Auth::user()->gender == "other") { echo "selected='selected'"; } ?> value="other">Other</option>
+                                        <option <?php if($user->gender == "male") { echo "selected='selected'"; } ?> value="male">Male</option>
+                                        <option <?php if($user->gender == "female") { echo "selected='selected'"; } ?> value="female">Female</option>
+                                        <option  <?php if($user->gender == "other") { echo "selected='selected'"; } ?> value="other">Other</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="PhoneNumber">Phone</label>
-                                    <input type="text" name="phone" class="form-control" id="PhoneNumber" value="{{ Auth::user()->phone }}" placeholder="">
+                                    <input type="text" name="phone" class="form-control" id="PhoneNumber" value="{{ $user->phone }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="SecondaryPhone">Secondary Phone</label>
-                                    <input type="text" name="secondary_phone" class="form-control" id="SecondaryPhone" value="{{ Auth::user()->secondary_phone }}" placeholder="">
+                                    <input type="text" name="secondary_phone" class="form-control" id="SecondaryPhone" value="{{ $user->secondary_phone }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="BirthDate">Date of birth</label>
-                                    <input type="date" name="date_of_birth" class="form-control" id="BirthDate" value="{{ Auth::user()->date_of_birth }}" placeholder="">
+                                    <input type="date" name="date_of_birth" class="form-control" id="BirthDate" value="{{ $user->date_of_birth }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Resident</label>
                                     <select class="resident-dropdown form-control" name="isResident">
-                                        <option <?php if(Auth::user()->isResident == 'yes') { echo "selected='selected'"; } ?>  value="yes">Yes</option>
-                                        <option <?php if(Auth::user()->isResident == 'no') { echo "selected='selected'"; } ?> value="no">No</option>
+                                        <option <?php if($user->isResident == 'yes') { echo "selected='selected'"; } ?>  value="yes">Yes</option>
+                                        <option <?php if($user->isResident == 'no') { echo "selected='selected'"; } ?> value="no">No</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="CountryName">Country</label>
-                                    <input type="text" name="country" class="form-control" id="CountryName" value="{{ Auth::user()->country }}" placeholder="">
+                                    <input type="text" name="country" class="form-control" id="CountryName" value="{{ $user->country }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="StreetName">Street</label>
-                                    <input type="text" name="street" class="form-control" id="StreetName" value="{{ Auth::user()->street }}" placeholder="">
+                                    <input type="text" name="street" class="form-control" id="StreetName" value="{{ $user->street }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="CityName">City</label>
-                                    <input type="text" name="city" class="form-control" id="CityName" value="{{ Auth::user()->city }}" placeholder="">
+                                    <input type="text" name="city" class="form-control" id="CityName" value="{{ $user->city }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="TownName">Town</label>
-                                    <input type="text" name="town" class="form-control" id="TownName" value="{{ Auth::user()->town }}" placeholder="">
+                                    <input type="text" name="town" class="form-control" id="TownName" value="{{ $user->town }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="DivisionName">Division</label>
-                                    <input type="text" name="division" class="form-control" id="DivisionName" value="{{ Auth::user()->division }}" placeholder="">
+                                    <input type="text" name="division" class="form-control" id="DivisionName" value="{{ $user->division }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="PostalCode">Postal Code</label>
-                                    <input type="text" name="postal_address" class="form-control" id="PostalCode" value="{{ Auth::user()->postal_address }}" placeholder="">
+                                    <input type="text" name="postal_address" class="form-control" id="PostalCode" value="{{ $user->postal_address }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="TINnumber">TIN</label>
-                                    <input type="text" name="tin" class="form-control" id="TINnumber" value="{{ Auth::user()->tin }}" placeholder="">
+                                    <input type="text" name="tin" class="form-control" id="TINnumber" value="{{ $user->tin }}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="VaccRefNum">Vaccination Reference Number</label>
-                                    <input type="text" name="vaccination_ref_number" class="form-control" id="VaccRefNum" value="{{ Auth::user()->vaccination_ref_number }}" placeholder="">
+                                    <input type="text" name="vaccination_ref_number" class="form-control" id="VaccRefNum" value="{{ $user->vaccination_ref_number }}" placeholder="">
                                 </div>
                             </div>
                         {{-- </form> --}}
@@ -1481,27 +1481,31 @@
                                     <th class="aptitude">Aptitude</th>
                                 </thead>
                                 <tbody>
+                                    @foreach ($appliedJob as $applyJob)
+                                        
+                                    
                                     <tr>
                                         <td class="applied-date" data-label="Date Applied">
-                                            <span>14-05-2022</span>
+                                            <span>{{ $applyJob->created_at }}</span>
                                         </td>
                                         <td class="job-title" data-label="Job Title">
-                                            Finance Manager &amp; Health 
+                                            {{ $applyJob->job_title }} 
                                         </td>
                                         <td class="employer" data-label="Employer">
-                                            Naveen Jose
+                                            {{ $applyJob->employer }}
                                         </td>
                                         <td class="shortlisted" data-label="Shortlisted">
-                                            Yes
+                                            {{ $applyJob->shortlist }}
                                         </td>
                                         <td class="interview-attended" data-label="Interview Attended">
-                                            Yes
+                                            {{ $applyJob->attend_interview }}
                                         </td>
                                         <td class="aptitude" data-label="Aptitude">
-                                            High
+                                            {{ $applyJob->apptitude }}
                                         </td>
                                     </tr>
-                                    <tr>
+                                    @endforeach
+                                    {{-- <tr>
                                         <td class="applied-date" data-label="Date Applied">
                                             <span>10-03-2022</span>
                                         </td>
@@ -1520,7 +1524,7 @@
                                         <td class="aptitude" data-label="Aptitude">
                                             Low
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                         </form>

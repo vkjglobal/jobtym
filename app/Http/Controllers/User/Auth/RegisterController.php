@@ -36,7 +36,8 @@ class RegisterController extends Controller
     public function postRegistration(Request $request)
     {
         $data = $request->all();
-        $validated = $request->validate([
+
+        $fieldValidtion = [
             'firstName' => 'required|string',
             'lastName' => 'required|string',
             'email' => 'required|email|unique:users,email',
@@ -50,16 +51,13 @@ class RegisterController extends Controller
             'city' => 'required',
             'town' => 'required',
             'postCode' => 'required',
-            'uploadResume' => 'required|mimes:pdf,xlx,csv|max:2048',
             'accept' => 'required',
-        ]);
+        ];
+
         if($request->file == ""){
-            $validated = $request->validate([
-                'uploadResume' => 'required|mimes:pdf,xlx,csv|max:2048',               
-            ]);
+            $fieldValidtion ['uploadResume'] = 'required|mimes:pdf,xlx,csv|max:2048';
         }
-        // dd($validated->fails());
-        // dd(public_path('uploadResumes'));
+        $validated = $request->validate($fieldValidtion);
 
         $fileName = time().'.'.$request['uploadResume']->extension();
         $request->file('uploadResume')->move(('user_assets/uploadResumes'), $fileName);

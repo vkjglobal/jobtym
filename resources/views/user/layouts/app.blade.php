@@ -375,8 +375,7 @@
                 if(user_id == ""){
                     alert('You are not logged in. Please login to save the job.');
                 }else{
-                    var url = window.location.href;
-                    var job_id = url.substring(url.lastIndexOf('/') + 1);
+                    var job_id = $('#job_id').val();
                     $.ajax({
                         type: "post",
                         dataType: "json",
