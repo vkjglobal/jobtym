@@ -43,19 +43,19 @@
                                                 </div>
 
                                                 <!-- delete button -->
-                                                <div class="btn-group mr-1" role="group">
+                                                <!-- <div class="btn-group mr-1" role="group">
                                                     <button type="button" class="text-danger"
                                                         onclick="event.preventDefault(); if(confirm('Are you sure to delete ?')){
                                                         document.getElementById('delete-data-{{ $user->id }}').submit();}">
                                                         <i data-feather="trash"></i>
                                                     </button>
                                                     <form id="delete-data-{{ $user->id }}"
-                                                        action="{{ route('admin.users.destroy', $user->id) }}"
+                                                        action="{{ route('employer.employee.destroy', $user->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </td>
                                     </tr>
@@ -86,7 +86,7 @@
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: '{{ route('admin.user.status') }}',
+                    url: '{{ route('employer.user.status') }}',
                     data: {
                         'status': status,
                         'user_id': user_id
