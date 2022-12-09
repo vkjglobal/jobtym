@@ -7,6 +7,7 @@ use App\Http\Controllers\Employer\Auth\RegisterController;
 use App\Http\Controllers\Employer\Auth\ResetPasswordController;
 use App\Http\Controllers\Employer\HomeController;
 use App\Http\Controllers\Employer\JobPostController;
+use App\Http\Controllers\Employer\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Login
@@ -44,4 +45,7 @@ Route::middleware('employer.auth')->group(function () {
     // Aptitude Tests
     Route::get('aptitude-test-status', [AptitudeTestController::class, 'changeStatus'])->name('aptitudeTest.status');
     Route::resource('aptitude-tests', AptitudeTestController::class);
+
+    Route::get('profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 });

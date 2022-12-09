@@ -23,10 +23,6 @@ Route::get('/', function () {
     return view('user.home');
 });
 
-// Route::get('user', function () {
-//     return view('user.home');
-// });
-
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('post-login', [LoginController::class, 'postLogin'])->name('login.post'); 
 Route::post('reset-password-submit', [LoginController::class, 'resetPasswordSubmit'])->name('reset-password-submit');
@@ -45,10 +41,8 @@ Route::get('dashboard', [DashboardController::class, 'index']);
 
 
 Route::get('find-job', [JobPostController::class, 'index'])->name('job.find-job');
-// Route::post('find-job-post', [JobPostController::class, 'findJobPost'])->name('job.find-job-post');
 Route::get('job-detail/{id}', [JobPostController::class, 'jobDetail'])->name('job.job-detail');
 Route::post('save-job', [JobPostController::class, 'saveJob'])->name('job.save-job');
 Route::post('apply-job', [JobPostController::class, 'applyJob'])->name('job.job-apply');
 
-// Route::post('profile', [ProfileController::class]);
 Route::resource('profile', ProfileController::class);

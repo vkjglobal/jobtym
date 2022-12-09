@@ -36,7 +36,7 @@
                         <div class="dropdown-body">
                             <ul class="profile-nav p-0 pt-3">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{ url('employer/profile',Auth::guard('employer')->user()->id ) }}" class="nav-link">
                                         <i data-feather="user"></i>
                                         <span>Profile</span>
                                     </a>

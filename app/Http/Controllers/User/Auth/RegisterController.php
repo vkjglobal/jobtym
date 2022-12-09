@@ -65,6 +65,7 @@ class RegisterController extends Controller
         $check = $this->create($data);
         $token = Str::random(64);
         $otp = random_int(1000, 9999);
+        $email = $request->email;
 
         DB::table('verify_register_otp')->insert([
             'email' => $request->email,
@@ -77,7 +78,7 @@ class RegisterController extends Controller
             $message->to($request->email);
             $message->subject('Registration Confirmation'); 
         });
-        return view('user.auth.otp');
+        return view('user.auth.otp', compact('email'));
     }
 
     /**
@@ -94,14 +95,20 @@ class RegisterController extends Controller
             'otp4' => 'required|digits:1',
         ]);
 
+        $updateData = ([
+            'is_verify_otp' => 1
+        ]);
+
         $otp = $request->otp1.$request->otp2.$request->otp3.$request->otp4;
         
-        $verifyOtp = DB::table('verify_register_otp')->where(['otp' => $otp])->first();
+        $verifyOtp = DB::table('verify_register_otp')->where(['email' => $request->email])->first();
+        $res = User::where('email','=',$request->email)->update($updateData);
+
         if(!$verifyOtp){
             return view('user.auth.otp')->with('error', 'Invalid token!');
         }
         
-        DB::table('verify_register_otp')->where(['otp'=> $otp])->delete();
+        DB::table('verify_register_otp')->where(['email' => $request->email])->delete();
         return Redirect("user/login")->with('message', 'Great! You have Successfully Registered! Please Login');
     }
 
