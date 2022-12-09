@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employer\JobPosts\StoreJobPostRequest;
 use App\Models\JobPost;
+use App\Models\User;
+use App\Models\UserJobApply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 
 class JobPostController extends Controller
 {
@@ -75,6 +78,7 @@ class JobPostController extends Controller
         $job->schedule_date = date('Y-m-d', strtotime($validated['schedule_date']));
         $job->deadline = date('Y-m-d', strtotime($validated['deadline']));
 
+
         if ($request->hasFile('attachment')) {
             $path =  $request->file('attachment')->storeAs(
                 'uploads/employer/jobPosts',
@@ -85,6 +89,22 @@ class JobPostController extends Controller
         }
 
         $res = $job->save();
+
+        // $userApply = UserJobApply::where('job_title','LIKE','%'.$job->title.'%')->get();
+
+        $userApply = UserJobApply::where('job_title', 'like', $job->title.'%')->orWhere('job_title', 'like', '% '.$job->title.'%')->get();
+        if (!empty($userApply)) {
+            foreach ($userApply as $user => $user_id) {
+                $getAppliedUser = User::where('id',$user_id['user_id'])->get();
+                foreach ($getAppliedUser as $key => $value) {
+                    $data = array('email'=>$value->email);
+                    Mail::send('employer.jobs.user_job_notification',['title'=>$job->title, 'id'=>$job->id], function($message) use ($data) {
+                        $message->to($data['email'])
+                            ->subject('This is Subject');
+                    });
+                }
+            }
+        }
 
         if ($res) {
             notify()->success(__('Created successfully'));
