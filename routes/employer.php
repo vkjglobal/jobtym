@@ -47,5 +47,6 @@ Route::middleware('employer.auth')->group(function () {
     Route::resource('aptitude-tests', AptitudeTestController::class);
 
     // Robin-- 03-12-22
+    Route::get('user-status', [UserController::class, 'changeStatus'])->name('user.status');
    Route::resource('employee', EmployeeController::class);
 });
