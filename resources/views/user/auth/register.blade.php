@@ -121,16 +121,25 @@
                                                     <label for="FirstName">First Name</label>
                                                     <input type="text" name="firstName" class="form-control" id="FirstName"
                                                         placeholder="">
+                                                    @if($errors->has('firstName'))
+                                                        <div class="text-danger">{{ $errors->first('firstName') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="LastName">Last Name</label>
                                                     <input type="text" name="lastName" class="form-control" id="LastName"
                                                         placeholder="">
+                                                    @if($errors->has('lastName'))
+                                                        <div class="text-danger">{{ $errors->first('lastName') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="eMail">Email</label>
                                                     <input type="email" name="email" class="form-control" id="eMail"
                                                         placeholder="">
+                                                    @if($errors->has('email'))
+                                                        <div class="text-danger">{{ $errors->first('email') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="newPassword">Password</label>
@@ -138,6 +147,9 @@
                                                     <span class="error-msg">Password error</span>
                                                     <span toggle="#newPassword"
                                                         class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                    @if($errors->has('newPassword'))
+                                                        <div class="text-danger">{{ $errors->first('newPassword') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Gender</label>
@@ -147,16 +159,25 @@
                                                         <option value="female">Female</option>
                                                         <option value="other">Other</option>
                                                     </select>
+                                                    @if($errors->has('gender'))
+                                                        <div class="text-danger">{{ $errors->first('gender') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="BirthDate">Date of birth</label>
                                                     <input type="date" name="birthDate" class="form-control" id="BirthDate"
                                                         placeholder="">
+                                                    @if($errors->has('birthDate'))
+                                                        <div class="text-danger">{{ $errors->first('birthDate') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="PhoneNumber">Phone</label>
                                                     <input type="text" name="phone" class="form-control" id="PhoneNumber"
                                                         placeholder="">
+                                                    @if($errors->has('phone'))
+                                                        <div class="text-danger">{{ $errors->first('phone') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="SecondaryPhone">Secondary Phone</label>
@@ -167,6 +188,9 @@
                                                     <label for="CountryName">Country</label>
                                                     <input type="text" name="country" class="form-control" id="CountryName"
                                                         placeholder="">
+                                                    @if($errors->has('country'))
+                                                        <div class="text-danger">{{ $errors->first('country') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Resident</label>
@@ -174,21 +198,33 @@
                                                         <option selected value="yes">Yes</option>
                                                         <option value="no">No</option>
                                                     </select>
+                                                    @if($errors->has('resident'))
+                                                        <div class="text-danger">{{ $errors->first('resident') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="StreetName">Street</label>
                                                     <input type="text" name="street" class="form-control" id="StreetName"
                                                         placeholder="">
+                                                    @if($errors->has('street'))
+                                                        <div class="text-danger">{{ $errors->first('street') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="CityName">City</label>
                                                     <input type="text" name="city" class="form-control" id="CityName"
                                                         placeholder="">
+                                                    @if($errors->has('city'))
+                                                        <div class="text-danger">{{ $errors->first('city') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="TownName">Town</label>
                                                     <input type="text" name="town" class="form-control" id="TownName"
                                                         placeholder="">
+                                                    @if($errors->has('town'))
+                                                        <div class="text-danger">{{ $errors->first('town') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="DivisionName">Division</label>
@@ -199,6 +235,9 @@
                                                     <label for="PostalCode">Postal Code</label>
                                                     <input type="text" name="postCode" class="form-control" id="PostalCode"
                                                         placeholder="">
+                                                    @if($errors->has('postCode'))
+                                                        <div class="text-danger">{{ $errors->first('postCode') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="TINnumber">TIN</label>
@@ -215,8 +254,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-btn">
                                                             <div class="btn btn-default custom-file-uploader">
-                                                                <input type="file" name="file"
-                                                                    onchange="this.form.filename.value = this.files.length ? this.files[0].name : ''" />
+                                                                <input type="file" name="uploadResume" />
                                                                 Upload Resume
                                                             </div>
                                                             <span>DOC, DOCx, PDF, RTF | Max: 2 MB</span>
@@ -226,15 +264,19 @@
                                                     </div>
                                                     <div class="info-txt">Recruiters give first preference to candidates
                                                         who have a resume</div>
+                                                    @if($errors->has('uploadResume'))
+                                                        <div class="text-danger">{{ $errors->first('uploadResume') }}</div>
+                                                    @endif
                                                 </div>
 
                                                 <div class="form-group col-md-12 chkbx">
-                                                    <input type="checkbox" id="logintab">
+                                                    <input type="checkbox" name="accept" id="logintab">
                                                     <label for="logintab">
-                                                        <span class="chk-txt">You accept our <a href="">Terms and
-                                                                Conditions</a> and <a href="">Privacy
-                                                                Policy</a></span>
+                                                        <span class="chk-txt">You accept our <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></span>
                                                     </label>
+                                                    @if($errors->has('accept'))
+                                                        <div class="text-danger">{{ $errors->first('accept') }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <button type="submit" class="btn-typ1 rounded-btn100">User Register</button>
@@ -414,10 +456,6 @@
                             </div>
                         </div>
                     </form>
-
-
-
-
                 </div>
             </div>
         </div>
