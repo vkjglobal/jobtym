@@ -262,9 +262,9 @@
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">For Candidates</li>
-                        <li class="link-item"><a href="find-jobs.html">Browse Jobs</a></li>
+                        <li class="link-item"><a href="{{ route('user.job.find-job') }}">Browse Jobs</a></li>
                         <li class="link-item"><a href="">Browse Candidates</a></li>
-                        <li class="link-item"><a href="">Candidate Dashboard</a></li>
+                        <li class="link-item"><a href="{{ route('user.index') }}">Candidate Dashboard</a></li>
                         <li class="link-item"><a href="">Job Alerts</a></li>
                     </ul>
                 </div>
@@ -310,6 +310,7 @@
     </script>
     <script src="{{ asset('user_assets/js/select2.min.js')}}"></script>
     <script src="{{ asset('user_assets/js/aos.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         AOS.init();
 
@@ -395,6 +396,50 @@
                     });
                 }
             })
+
+            $('#empRegister').click(function () {
+                const data = {
+                    EmplyrName : $('#EmplyrName').val(),
+                    CompanyName : $('#CompanyName').val(),
+                    eMailEmplyr : $('#eMailEmplyr').val(),
+                    PasswordEmplyr : $('#PasswordEmplyr').val(),
+                    PhoneNumberEmplyr : $('#PhoneNumberEmplyr').val(),
+                    CompanyPhoneEmplyr : $('#CompanyPhoneEmplyr').val(),
+                    TINnumberEmplyr : $('#TINnumberEmplyr').val(),
+                    StreetNameEmplyr : $('#StreetNameEmplyr').val(),
+                    CityNameEmplyr : $('#CityNameEmplyr').val(),
+                    CountryNameEmplyr : $('#CountryNameEmplyr').val(),
+                    AboutCompany : $('#AboutCompany').val(),
+                    CompanyWebsite : $('#CompanyWebsite').val(),
+                    CompanyFacebook : $('#CompanyFacebook').val(),
+                    CompanyInstagram : $('#CompanyInstagram').val(),
+                    CompanyLinkedIn : $('#CompanyLinkedIn').val(),
+                    registertab : $('#registertab').val(),
+                };
+                $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: '{{ route('user.Empcreate') }}',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'data': data,
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                console.log('in if');
+                                Swal.fire(
+                                    'Good job!',
+                                    'Your Register successfull! Please Login',
+                                    'success'
+                                ).then((result) => {
+                                    location.reload();
+                                })
+                            } else {
+                                return view('user.auth.register');
+                            }
+                        }
+                    });
+            });
         });
     </script>
 

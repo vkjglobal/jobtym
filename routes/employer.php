@@ -49,5 +49,8 @@ Route::middleware('employer.auth')->group(function () {
 
     // Robin-- 03-12-22
     Route::get('user-status', [UserController::class, 'changeStatus'])->name('user.status');
-   Route::resource('employee', EmployeeController::class);
+    Route::resource('employee', EmployeeController::class);
+   
+    Route::get('profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 });

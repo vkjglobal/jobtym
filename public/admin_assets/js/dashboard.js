@@ -231,6 +231,9 @@ $(function() {
   // Flot chart1 end
 
   // Apex chart1 start
+  // jobPostCount
+  let totalPost = $('#jobPostCount').text();
+  // console.log("totalPost ==============", totalPost);
   if($('#apexChart1').length) {
     var options1 = {
       chart: {
@@ -242,6 +245,7 @@ $(function() {
       },
       series: [{
           data: [3844, 3855, 3841, 3867, 3822, 3843, 3821, 3841, 3856, 3827, 3843]
+          // data: [0, totalPost]
       }],
       stroke: {
         width: 2,

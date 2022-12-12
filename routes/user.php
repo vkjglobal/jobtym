@@ -32,17 +32,19 @@ Route::post('password/reset', [LoginController::class, 'submitResetPasswordForm'
 
 
 Route::get('register', [RegisterController::class, 'registration'])->name('register');
+Route::post('Empcreate', [RegisterController::class, 'Empcreate'])->name('Empcreate');
 Route::post('post-registration', [RegisterController::class, 'postRegistration'])->name('register.save'); 
 Route::post('verify-otp', [RegisterController::class, 'verifyotp'])->name('verifyotp'); 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('dashboard', [DashboardController::class, 'index']);
+Route::get('dashboard', [DashboardController::class, 'index'])->name('index');
 
 
 Route::get('find-job', [JobPostController::class, 'index'])->name('job.find-job');
 Route::get('job-detail/{id}', [JobPostController::class, 'jobDetail'])->name('job.job-detail');
 Route::post('save-job', [JobPostController::class, 'saveJob'])->name('job.save-job');
+Route::get('delete-saveJob/{id}', [JobPostController::class, 'deleteSaveJob'])->name('job.delete-saveJob');
 Route::post('apply-job', [JobPostController::class, 'applyJob'])->name('job.job-apply');
 
 Route::resource('profile', ProfileController::class);
