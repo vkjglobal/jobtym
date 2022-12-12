@@ -25,7 +25,7 @@
                                 @foreach ($aptitudeTests as $aptitudeTest)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $aptitudeTest->category->name }}</td>
+                                        <td>{{ $aptitudeTest->category }}</td>
                                         <td>{{ $aptitudeTest->question }}</td>
                                         <td>{{ $aptitudeTest->answer }}</td>
                                         <td>{{ $aptitudeTest->time_alloted }}</td>

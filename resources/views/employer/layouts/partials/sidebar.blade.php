@@ -100,6 +100,25 @@
                 </div>
             </li>
             <!----End Employees---->
+            <!-- Reports -->
+            <li class="nav-item {{ request()->is('employer/reports') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#" role="button" aria-expanded="false"
+                    aria-controls="reports">
+                    <i class="link-icon" data-feather="cpu"></i>
+                    <span class="link-title">Reports</span>
+                </a>
+            </li>
+            <!-- Reports End -->
+
+            <!-- Billings And Payments -->
+            <li class="nav-item {{ request()->is('employer/billing') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#" role="button" aria-expanded="false"
+                    aria-controls="billings">
+                    <i class="link-icon" data-feather="cpu"></i>
+                    <span class="link-title">Billings And Payments</span>
+                </a>
+            </li>
+            <!-- Billings And Payments End -->
 
 
         </ul>

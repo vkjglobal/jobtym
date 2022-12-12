@@ -8,6 +8,7 @@ use App\Http\Controllers\Employer\Auth\ResetPasswordController;
 use App\Http\Controllers\Employer\EmployeeController;
 use App\Http\Controllers\Employer\HomeController;
 use App\Http\Controllers\Employer\JobPostController;
+use App\Http\Controllers\Employer\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Login
