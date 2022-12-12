@@ -24,9 +24,11 @@ class JobPostController extends Controller
 
         if($request->filled('job-keyword')){
             $term = $request['job-keyword'];
-            $jobs = JobPost::where('skills','LIKE','%'.$term.'%')->orwhere('title','LIKE','%'.$term.'%')->orwhere('city','LIKE','%'.$term.'%')->get();
+            $jobs = JobPost::where('skills','LIKE','%'.$term.'%')->orwhere('title','LIKE','%'.$term.'%')->orwhere('city','LIKE','%'.$term.'%')->paginate(10);
+            // dd($jobs);
         }else{
-            $jobs = JobPost::latest()->get();
+            // $jobs = JobPost::latest()->get();
+            $jobs = JobPost::paginate(6);
         }
         return view('user.jobs.index',compact('jobs'));
     }
@@ -100,7 +102,7 @@ class JobPostController extends Controller
         // $request->file('uploadResume')->move(('user_assets/uploadResumes'), $fileName);
         // $data['uploadResume'] = $fileName;
 
-        DB::table('user_job_apply')->insert([
+        DB::table('user_job_applies')->insert([
             'job_id' => $request->job_id,
             'user_id' => $request->user_id,
             'job_title' => $request->job_title,

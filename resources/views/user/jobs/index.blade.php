@@ -1,14 +1,7 @@
 @extends('user.layouts.app')
 
 @section('content')
-<?php
 
-    // echo "<pre>";
-    // // print_r($jobs[0]['industry']);
-    // print_r($jobs);
-
-
-?>
     <section class="main-title-wrp find-job-sec d-flex align-items-center">
         <div class="container">
             <form action="{{ route('user.job.find-job') }}" class="top-search-form">
@@ -44,7 +37,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="justify-content-between row mb-4">
-                        <div class="search-result col-md-6">Showing 1 – 10 of 18 results</div>
+                        <div class="search-result col-md-6"></div>
                         <div class="col-md-6 d-flex justify-content-end search-filter">
                             <select class="category-dropdown" name="states[]">
                                 <option disabled selected>Sort by (Default)</option>
@@ -335,6 +328,7 @@
                     </ul> --}}
                 </div>
             </div>
+            {!! $jobs->withQueryString()->links('pagination::bootstrap-5') !!}
         </div>
     </section>  
 @endsection

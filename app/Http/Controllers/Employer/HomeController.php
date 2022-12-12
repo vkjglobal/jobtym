@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobPost;
 
 class HomeController extends Controller
 {
@@ -22,6 +23,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        return view('employer.home');
+        $jobPostCount = JobPost::get()->count();
+        // dd($jobPostCount);
+        return view('employer.home', compact('jobPostCount'));
     }
 }
