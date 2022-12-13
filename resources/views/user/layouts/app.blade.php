@@ -268,6 +268,7 @@
                         <li class="link-item"><a href="">Job Alerts</a></li>
                     </ul>
                 </div>
+                @guest    
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">For Employers</li>
@@ -276,13 +277,14 @@
                         <li class="link-item"><a href="">Submit Job</a></li>
                     </ul>
                 </div>
+                @endguest
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">Quick Links</li>
-                        <li class="link-item"><a href="contact-us.html">Contact Us</a></li>
-                        <li class="link-item"><a href="about-us.html">About Us</a></li>
-                        <li class="link-item"><a href="terms-conditions.html">Terms</a></li>
-                        <li class="link-item"><a href="faq.html">FAQ</a></li>
+                        <li class="link-item"><a href="{{ url('user/contactUs') }}">Contact Us</a></li>
+                        <li class="link-item"><a href="{{ url('user/aboutUs') }}">About Us</a></li>
+                        <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms</a></li>
+                        <li class="link-item"><a href="{{ url('user/faq') }}">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
@@ -290,7 +292,7 @@
                         <li class="link-title">Helpful Resources</li>
                         <li class="link-item"><a href="">Site Map</a></li>
                         <li class="link-item"><a href="">Terms of Use</a></li>
-                        <li class="link-item"><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li class="link-item"><a href="{{ url('user/privacy-policy') }}">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>

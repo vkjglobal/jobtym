@@ -378,7 +378,7 @@ a.btn.btn-primary.register {
   color: #FF6C07;
 }
 .dashboard-main-tab-container .form-dash {
-  padding: 50px 30px 50px 30px;
+  padding: 50px 30px 10px 30px;
   background: #ffffff;
 }
 .dashboard-main-tab-container .form-dash .form-control {

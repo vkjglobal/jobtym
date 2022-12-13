@@ -464,7 +464,7 @@
                         <span class="full-time">Full time</span>
                     </span>
                 </a>
-                <a href="find-jobs.html" class="btn-typ1">Browse All Jobs</a>
+                <a href="{{ url('user/find-job') }}" class="btn-typ1">Browse All Jobs</a>
             </div>
         </div>
     </section>

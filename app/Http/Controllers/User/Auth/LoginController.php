@@ -112,28 +112,28 @@ class LoginController extends Controller
     }
 
     /**
-       * Write code on Method
-       *
-       * @return response()
-       */
-      public function submitResetPasswordForm(Request $request)
-      {
-          $request->validate([
-              'email' => 'required|email|exists:users',
-              'password' => 'required|string|min:6|confirmed',
-              'password_confirmation' => 'required'
-          ]);
-  
-          $updatePassword = DB::table('user_password_resets')->where(['email' => $request->email, 'token' => $request->token])->first();
-        //   dd($updatePassword);
-          if(!$updatePassword){
-            return back()->withInput()->with('error', 'Invalid token!');
-          }
-  
-          $user = User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
- 
-          DB::table('user_password_resets')->where(['email'=> $request->email])->delete();
-  
-          return Redirect('user')->with('message', 'Your password has been changed! Please Login again!');
-      }
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function submitResetPasswordForm(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $updatePassword = DB::table('user_password_resets')->where(['email' => $request->email, 'token' => $request->token])->first();
+        
+        if(!$updatePassword){
+        return back()->withInput()->with('error', 'Invalid token!');
+        }
+
+        $user = User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+
+        DB::table('user_password_resets')->where(['email'=> $request->email])->delete();
+
+        return Redirect('user')->with('message', 'Your password has been changed! Please Login again!');
+    }
 }

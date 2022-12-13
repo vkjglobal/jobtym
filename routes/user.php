@@ -48,3 +48,29 @@ Route::get('delete-saveJob/{id}', [JobPostController::class, 'deleteSaveJob'])->
 Route::post('apply-job', [JobPostController::class, 'applyJob'])->name('job.job-apply');
 
 Route::resource('profile', ProfileController::class);
+Route::post('profile/changepassword/{id}', [ProfileController::class, 'changePassword'])->name('changePassword');
+
+Route::get('contactUs', function()
+{
+    return view('user.contactus');
+});
+
+Route::get('aboutUs', function()
+{
+    return view('user.aboutus');
+});
+
+Route::get('terms-condition', function()
+{
+    return view('user.termsConditions');
+});
+
+Route::get('faq', function()
+{
+    return view('user.faq');
+});
+
+Route::get('privacy-policy', function()
+{
+    return view('user.privacyPolicy');
+});

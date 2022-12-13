@@ -906,14 +906,23 @@
                                 <div class="form-group col-md-6">
                                     <label for="FirstName">First Name</label>
                                     <input type="text" name="first_name" class="form-control" id="FirstName" placeholder="" value="{{ $user->first_name }}">
+                                    @if($errors->has('first_name'))
+                                        <div class="text-danger">{{ $errors->first('first_name') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="LastName">Last Name</label>
                                     <input type="text" name="last_name" class="form-control" id="LastName" value="{{ $user->last_name }}" placeholder="">
+                                    @if($errors->has('last_name'))
+                                        <div class="text-danger">{{ $errors->first('last_name') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="eMail">Email</label>
                                     <input type="email" name="email" class="form-control" id="eMail" value="{{ $user->email }}" placeholder="">
+                                    @if($errors->has('email'))
+                                        <div class="text-danger">{{ $errors->first('email') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Gender</label>
@@ -923,18 +932,30 @@
                                         <option <?php if($user->gender == "female") { echo "selected='selected'"; } ?> value="female">Female</option>
                                         <option  <?php if($user->gender == "other") { echo "selected='selected'"; } ?> value="other">Other</option>
                                     </select>
+                                    @if($errors->has('gender'))
+                                        <div class="text-danger">{{ $errors->first('gender') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="PhoneNumber">Phone</label>
                                     <input type="text" name="phone" class="form-control" id="PhoneNumber" value="{{ $user->phone }}" placeholder="">
+                                    @if($errors->has('phone'))
+                                        <div class="text-danger">{{ $errors->first('phone') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="SecondaryPhone">Secondary Phone</label>
                                     <input type="text" name="secondary_phone" class="form-control" id="SecondaryPhone" value="{{ $user->secondary_phone }}" placeholder="">
+                                    @if($errors->has('secondary_phone'))
+                                        <div class="text-danger">{{ $errors->first('secondary_phone') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="BirthDate">Date of birth</label>
                                     <input type="date" name="date_of_birth" class="form-control" id="BirthDate" value="{{ $user->date_of_birth }}" placeholder="">
+                                    @if($errors->has('date_of_birth'))
+                                        <div class="text-danger">{{ $errors->first('date_of_birth') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Resident</label>
@@ -942,58 +963,96 @@
                                         <option <?php if($user->isResident == 'yes') { echo "selected='selected'"; } ?>  value="yes">Yes</option>
                                         <option <?php if($user->isResident == 'no') { echo "selected='selected'"; } ?> value="no">No</option>
                                     </select>
+                                    @if($errors->has('isResident'))
+                                        <div class="text-danger">{{ $errors->first('isResident') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="CountryName">Country</label>
                                     <input type="text" name="country" class="form-control" id="CountryName" value="{{ $user->country }}" placeholder="">
+                                    @if($errors->has('country'))
+                                        <div class="text-danger">{{ $errors->first('country') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="StreetName">Street</label>
                                     <input type="text" name="street" class="form-control" id="StreetName" value="{{ $user->street }}" placeholder="">
+                                    @if($errors->has('street'))
+                                        <div class="text-danger">{{ $errors->first('street') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="CityName">City</label>
                                     <input type="text" name="city" class="form-control" id="CityName" value="{{ $user->city }}" placeholder="">
+                                    @if($errors->has('city'))
+                                        <div class="text-danger">{{ $errors->first('city') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="TownName">Town</label>
                                     <input type="text" name="town" class="form-control" id="TownName" value="{{ $user->town }}" placeholder="">
+                                    @if($errors->has('town'))
+                                        <div class="text-danger">{{ $errors->first('town') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="DivisionName">Division</label>
                                     <input type="text" name="division" class="form-control" id="DivisionName" value="{{ $user->division }}" placeholder="">
+                                    @if($errors->has('division'))
+                                        <div class="text-danger">{{ $errors->first('division') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="PostalCode">Postal Code</label>
                                     <input type="text" name="postal_address" class="form-control" id="PostalCode" value="{{ $user->postal_address }}" placeholder="">
+                                    @if($errors->has('postal_address'))
+                                        <div class="text-danger">{{ $errors->first('postal_address') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="TINnumber">TIN</label>
                                     <input type="text" name="tin" class="form-control" id="TINnumber" value="{{ $user->tin }}" placeholder="">
+                                    @if($errors->has('tin'))
+                                        <div class="text-danger">{{ $errors->first('tin') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="VaccRefNum">Vaccination Reference Number</label>
                                     <input type="text" name="vaccination_ref_number" class="form-control" id="VaccRefNum" value="{{ $user->vaccination_ref_number }}" placeholder="">
+                                    @if($errors->has('vaccination_ref_number'))
+                                        <div class="text-danger">{{ $errors->first('vaccination_ref_number') }}</div>
+                                    @endif
                                 </div>
                             </div>
-                        {{-- </form> --}}
+                            <div class="form-group col-md-12 text-center">
+                                <input type="submit" class="btn-typ1 w-100 rounded-btn5 col-md-4" placeholder="Save Profile" value="Save Profile">
+                            </div>
+                        </form>
                         {{-- <form action="" class="form-dash mt-3"> --}}
+                        <form method="POST" action="{{ route('user.changePassword',$user->id) }}" class="form-dash mt-3">
+                            @csrf
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <h5 class="card-title">Contact Information</h5>
+                                    <h5 class="card-title">Change Password</h5>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="password">Password</label>
                                     <input type="password" name="password" class="form-control" id="password" placeholder="">
+                                    @if($errors->has('password'))
+                                        <div class="text-danger">{{ $errors->first('password') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="confirm_pass">Confirm Password</label>
                                     <input type="password" name="password_confirmation" class="form-control" id="confirm_pass" placeholder="">
+                                    @if($errors->has('password_confirmation'))
+                                        <div class="text-danger">{{ $errors->first('password_confirmation') }}</div>
+                                    @endif
                                 </div>
-                                <div class="form-group col-md-12">
+                                {{-- <div class="form-group col-md-12">
                                     <label for="maps">Maps Location</label>
                                     <input type="text" class="form-control" id="maps" placeholder="">
-                                </div>
+                                </div> --}}
                                 <div class="form-group col-md-12">
                                     <div class="sidebar-map">
                                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.637032435699!2d76.28798331428173!3d9.964126276386063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0872b72eb96457%3A0xf0f993910b89e1d7!2sReubro%20International!5e0!3m2!1sen!2sin!4v1667965144321!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -1001,7 +1060,7 @@
                                 </div>
                                 
                                 <div class="form-group col-md-12 text-center">
-                                    <input type="submit" class="btn-typ1 w-100 rounded-btn5 col-md-4" placeholder="Save Profile" value="Save Profile">
+                                    <input type="submit" class="btn-typ1 w-100 rounded-btn5 col-md-4" placeholder="Change Password" value="Change Password">
                                 </div>
                             </div>
                         </form>
@@ -1564,12 +1623,13 @@
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">For Candidates</li>
-                        <li class="link-item"><a href="find-jobs.html">Browse Jobs</a></li>
+                        <li class="link-item"><a href="{{ route('user.job.find-job') }}">Browse Jobs</a></li>
                         <li class="link-item"><a href="">Browse Candidates</a></li>
-                        <li class="link-item"><a href="">Candidate Dashboard</a></li>
+                        <li class="link-item"><a href="{{ route('user.index') }}">Candidate Dashboard</a></li>
                         <li class="link-item"><a href="">Job Alerts</a></li>
                     </ul>
                 </div>
+                @guest
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">For Employers</li>
@@ -1578,13 +1638,14 @@
                         <li class="link-item"><a href="">Submit Job</a></li>
                     </ul>
                 </div>
+                @endguest
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">Quick Links</li>
-                        <li class="link-item"><a href="contact-us.html">Contact Us</a></li>
-                        <li class="link-item"><a href="about-us.html">About Us</a></li>
-                        <li class="link-item"><a href="terms-conditions.html">Terms</a></li>
-                        <li class="link-item"><a href="faq.html">FAQ</a></li>
+                        <li class="link-item"><a href="{{ url('user/contactUs') }}">Contact Us</a></li>
+                        <li class="link-item"><a href="{{ url('user/aboutUs') }}">About Us</a></li>
+                        <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms</a></li>
+                        <li class="link-item"><a href="{{ url('user/faq') }}">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">

@@ -94,24 +94,12 @@ class ProfileController extends Controller
 
         $res = User::whereId($id)->update($updateData);
 
-        if ($request->password == null) {
-            if ($res) {
-                notify()->success(__('Profile Updated successfully'));
-            } else {
-                notify()->error(__('Failed to update profile. Please try again'));
-            }
-        }else{
-            $updateData = $request->validate([
-                'password' => 'required|min:6|confirmed',
-                'password_confirmation' => 'required'
-            ]);
-            $update_passwd = User::whereId($id)->update(['password' => Hash::make($request->password)]);
-            if ($update_passwd) {
-                notify()->success(__('Profile Updated successfully with password'));
-            } else {
-                notify()->error(__('Failed to update profile. Please try again'));
-            }
+        if ($res) {
+            notify()->success(__('Profile Updated successfully'));
+        } else {
+            notify()->error(__('Failed to update profile. Please try again'));
         }
+        
         return Redirect()->back();
     }
 
@@ -124,5 +112,26 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function changePassword(Request $request, $id)
+    {
+        $updateData = $request->validate([
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+        $update_passwd = User::whereId($id)->update(['password' => Hash::make($request->password)]);
+        dd($update_passwd);
+        if ($update_passwd) {
+            notify()->success(__('Password Updated successfully.'));
+        } else {
+            notify()->error(__('Failed to update password. Please try again'));
+        }
+        return Redirect()->back();
     }
 }
