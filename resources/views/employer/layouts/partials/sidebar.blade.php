@@ -111,12 +111,30 @@
             <!-- Reports End -->
 
             <!-- Billings And Payments -->
-            <li class="nav-item {{ request()->is('employer/billing') ? 'active' : '' }}">
-                <a class="nav-link" data-toggle="collapse" href="#" role="button" aria-expanded="false"
-                    aria-controls="billings">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#billingsAndPayments" role="button" aria-expanded="false"
+                    aria-controls="billingsAndPayments">
                     <i class="link-icon" data-feather="cpu"></i>
                     <span class="link-title">Billings And Payments</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
+                <div class="collapse" id="billingsAndPayments">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('employer.addmoney.paymentstripe') }}"
+                                class="nav-link {{ request()->is('admin/employers/stripe') ? 'active' : '' }}">
+                                Create
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            {{-- <a href="{{ route('employer.employee.index') }}" --}}
+                            <a href="/employer/stripe"
+                                class="nav-link {{ request()->is('admin/employers') ? 'active' : '' }}">
+                                List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <!-- Billings And Payments End -->
 

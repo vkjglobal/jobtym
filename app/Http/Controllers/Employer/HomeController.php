@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobPost;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,9 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        $jobPostCount = JobPost::get()->count();
+
+        $employer = Auth::guard('employer')->user();
+        $jobPostCount = JobPost::where('employer_id',$employer->id)->get()->count();
         // dd($jobPostCount);
         return view('employer.home', compact('jobPostCount'));
     }

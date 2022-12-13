@@ -9,6 +9,7 @@ use App\Http\Controllers\Employer\EmployeeController;
 use App\Http\Controllers\Employer\HomeController;
 use App\Http\Controllers\Employer\JobPostController;
 use App\Http\Controllers\Employer\ProfileController;
+use App\Http\Controllers\Employer\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
 // Login
@@ -53,4 +54,7 @@ Route::middleware('employer.auth')->group(function () {
    
     Route::get('profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('stripe',[StripePaymentController::class,'paymentStripe'])->name('addmoney.paymentstripe');
+    Route::post('add-money-stripe',[StripePaymentController::class,'postPaymentStripe'])->name('addmoney.stripe');
 });

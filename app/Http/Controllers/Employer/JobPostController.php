@@ -25,8 +25,8 @@ class JobPostController extends Controller
             [(__('Dashboard')), route('employer.home')],
             [(__('Jobs')), null],
         ];
-
-        $jobs = JobPost::latest()->get();
+        $employer = Auth::guard('employer')->user();
+        $jobs = JobPost::where('employer_id',$employer->id)->latest()->get();
 
         return view('employer.jobs.index', compact('breadcrumbs', 'jobs'));
     }
@@ -58,58 +58,64 @@ class JobPostController extends Controller
         $validated = $request->validated();
 
         $employer = Auth::guard('employer')->user();
+        $jobCheck = JobPost::where('employer_id',$employer->id)->count();
+        if ($jobCheck >= 1) {
+            notify()->error(__('Failed to Create. Please make payment for create second job.'));
+        } 
+        else {
+            $job = new JobPost();
+            $job->employer_id = $employer->id;
+            $job->title = $validated['title'];
+            $job->industry = $validated['industry'];
+            $job->type = $validated['type'];
+            $job->description = $validated['description'];
+            $job->skills = $validated['skills'];
+            $job->country = $validated['country'];
+            $job->residentType = $validated['residentType'];
+            $job->street = $validated['street'];
+            $job->city = $validated['city'];
+            $job->town = $validated['town'];
+            $job->division = $validated['division'];
+            $job->salaryFrom = $validated['salaryFrom'];
+            $job->salaryTo = $validated['salaryTo'];
+            $job->email = $validated['email'];
+            $job->schedule_date = date('Y-m-d', strtotime($validated['schedule_date']));
+            $job->deadline = date('Y-m-d', strtotime($validated['deadline']));
 
-        $job = new JobPost();
-        $job->employer_id = $employer->id;
-        $job->title = $validated['title'];
-        $job->industry = $validated['industry'];
-        $job->type = $validated['type'];
-        $job->description = $validated['description'];
-        $job->skills = $validated['skills'];
-        $job->country = $validated['country'];
-        $job->residentType = $validated['residentType'];
-        $job->street = $validated['street'];
-        $job->city = $validated['city'];
-        $job->town = $validated['town'];
-        $job->division = $validated['division'];
-        $job->salaryFrom = $validated['salaryFrom'];
-        $job->salaryTo = $validated['salaryTo'];
-        $job->email = $validated['email'];
-        $job->schedule_date = date('Y-m-d', strtotime($validated['schedule_date']));
-        $job->deadline = date('Y-m-d', strtotime($validated['deadline']));
 
+            if ($request->hasFile('attachment')) {
+                $path =  $request->file('attachment')->storeAs(
+                    'uploads/employer/jobPosts',
+                    urlencode(time()) . '_' . uniqid() . '_' . $request->attachment->getClientOriginalName(),
+                    'public'
+                );
+                $job->attachment = $path;
+            }
 
-        if ($request->hasFile('attachment')) {
-            $path =  $request->file('attachment')->storeAs(
-                'uploads/employer/jobPosts',
-                urlencode(time()) . '_' . uniqid() . '_' . $request->attachment->getClientOriginalName(),
-                'public'
-            );
-            $job->attachment = $path;
-        }
+            $res = $job->save();
 
-        $res = $job->save();
+            // $userApply = UserJobApply::where('job_title','LIKE','%'.$job->title.'%')->get();
 
-        // $userApply = UserJobApply::where('job_title','LIKE','%'.$job->title.'%')->get();
-
-        $userApply = UserJobApply::where('job_title', 'like', $job->title.'%')->orWhere('job_title', 'like', '% '.$job->title.'%')->get();
-        if (!empty($userApply)) {
-            foreach ($userApply as $user => $user_id) {
-                $getAppliedUser = User::where('id',$user_id['user_id'])->get();
-                foreach ($getAppliedUser as $key => $value) {
-                    $data = array('email'=>$value->email);
-                    Mail::send('employer.jobs.user_job_notification',['title'=>$job->title, 'id'=>$job->id], function($message) use ($data) {
-                        $message->to($data['email'])
-                            ->subject('This is Subject');
-                    });
+            $userApply = UserJobApply::where('job_title', 'like', $job->title.'%')->orWhere('job_title', 'like', '% '.$job->title.'%')->get();
+            if (!empty($userApply)) {
+                foreach ($userApply as $user => $user_id) {
+                    $getAppliedUser = User::where('id',$user_id['user_id'])->get();
+                    foreach ($getAppliedUser as $key => $value) {
+                        $data = array('email'=>$value->email);
+                        Mail::send('employer.jobs.user_job_notification',['title'=>$job->title, 'id'=>$job->id], function($message) use ($data) {
+                            $message->to($data['email'])
+                                ->subject('This is Subject');
+                        });
+                    }
                 }
             }
-        }
 
-        if ($res) {
-            notify()->success(__('Created successfully'));
-        } else {
-            notify()->error(__('Failed to Create. Please try again'));
+            if ($res) {
+                notify()->success(__('Created successfully'));
+            } else {
+                notify()->error(__('Failed to Create. Please try again'));
+            }
+                
         }
         return redirect()->back();
     }

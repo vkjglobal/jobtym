@@ -24,9 +24,9 @@ class JobPostController extends Controller
 
         if($request->filled('job-keyword')){
             $term = $request['job-keyword'];
-            $jobs = JobPost::where('skills','LIKE','%'.$term.'%')->orwhere('title','LIKE','%'.$term.'%')->orwhere('city','LIKE','%'.$term.'%')->paginate(10);
+            $jobs = JobPost::where('skills','LIKE','%'.$term.'%')->orwhere('title','LIKE','%'.$term.'%')->orwhere('city','LIKE','%'.$term.'%')->paginate(6);
         }else{
-            $jobs = JobPost::paginate(6);
+            $jobs = JobPost::where('status','=','1')->paginate(6);
         }
         return view('user.jobs.index',compact('jobs'));
     }
