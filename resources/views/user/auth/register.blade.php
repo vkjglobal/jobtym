@@ -272,7 +272,7 @@
                                                 <div class="form-group col-md-12 chkbx">
                                                     <input type="checkbox" name="accept" id="logintab">
                                                     <label for="logintab">
-                                                        <span class="chk-txt">You accept our <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></span>
+                                                        <span class="chk-txt">I agree the <a href="">Terms and Conditions</a></span>
                                                     </label>
                                                     @if($errors->has('accept'))
                                                         <div class="text-danger">{{ $errors->first('accept') }}</div>
@@ -283,99 +283,103 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="tab-pane" id="eMployer" role="tabpanel">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="EmplyrName">Name</label>
-                                                    <input type="text" class="form-control" id="EmplyrName"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CompanyName">Company Name</label>
-                                                    <input type="text" class="form-control" id="CompanyName"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="eMailEmplyr">Email</label>
-                                                    <input type="email" class="form-control" id="eMailEmplyr"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="PasswordEmplyr">Password</label>
-                                                    <input id="PasswordEmplyr" type="password" class="form-control"
-                                                        name="password">
-                                                    <span class="error-msg">Password error</span>
-                                                    <span toggle="#PasswordEmplyr"
-                                                        class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="PhoneNumberEmplyr">Phone</label>
-                                                    <input type="text" class="form-control" id="PhoneNumberEmplyr"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CompanyPhoneEmplyr">Company Phone</label>
-                                                    <input type="text" class="form-control" id="CompanyPhoneEmplyr"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="TINnumberEmplyr">TIN</label>
-                                                    <input type="text" class="form-control" id="TINnumberEmplyr"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="StreetNameEmplyr">Street</label>
-                                                    <input type="text" class="form-control" id="StreetNameEmplyr"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CityNameEmplyr">City</label>
-                                                    <input type="text" class="form-control" id="CityNameEmplyr"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CountryNameEmplyr">Country</label>
-                                                    <input type="text" class="form-control" id="CountryNameEmplyr"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="AboutCompany">About</label>
-                                                    <textarea name="" id="AboutCompany" class="form-control" cols="30" rows="4"></textarea>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CompanyWebsite">Website</label>
-                                                    <input type="url" class="form-control" id="CompanyWebsite"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CompanyFacebook">Facebook</label>
-                                                    <input type="url" class="form-control" id="CompanyFacebook"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CompanyInstagram">Instagram</label>
-                                                    <input type="url" class="form-control" id="CompanyInstagram"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CompanyLinkedIn">LinkedIn</label>
-                                                    <input type="url" class="form-control" id="CompanyLinkedIn"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-12 chkbx">
-                                                    <input type="checkbox" id="registertab">
-                                                    <label for="registertab">
-                                                        <span class="chk-txt">You accept our <a href="">Terms and
-                                                                Conditions</a> and <a href="">Privacy
-                                                                Policy</a></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <a href="" class="btn-typ1 rounded-btn100">Emp Register</a>
+                                        {{-- <form action="{{ route('employer.register') }}" method="post"> --}}
+                                            {{-- @csrf --}}
+                                            <div class="tab-pane" id="eMployer" role="tabpanel">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="EmplyrName">Name</label>
+                                                        <input type="text" name="empName" class="form-control" id="EmplyrName"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="CompanyName">Company Name</label>
+                                                        <input type="text" name="company_name" class="form-control" id="CompanyName"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="eMailEmplyr">Email</label>
+                                                        <input type="email" name="company_email" class="form-control" id="eMailEmplyr"
+                                                            placeholder="">
+                                                        @if($errors->has('company_email'))
+                                                            <div class="text-danger">{{ $errors->first('company_email') }}</div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="PasswordEmplyr">Password</label>
+                                                        <input id="PasswordEmplyr" name="company_pass" type="password" class="form-control">
+                                                        <span class="error-msg">Password error</span>
+                                                        <span toggle="#PasswordEmplyr"
+                                                            class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="PhoneNumberEmplyr">Phone</label>
+                                                        <input type="text" name="empPhone" class="form-control" id="PhoneNumberEmplyr"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="CompanyPhoneEmplyr">Company Phone</label>
+                                                        <input type="text" name="company_name" class="form-control" id="CompanyPhoneEmplyr"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="TINnumberEmplyr">TIN</label>
+                                                        <input type="text" name="company_tin" class="form-control" id="TINnumberEmplyr"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="StreetNameEmplyr">Street</label>
+                                                        <input type="text" name="company_street" class="form-control" id="StreetNameEmplyr"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="CityNameEmplyr">City</label>
+                                                        <input type="text" name="company_city" class="form-control" id="CityNameEmplyr"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="CountryNameEmplyr">Country</label>
+                                                        <input type="text" name="company_country" class="form-control" id="CountryNameEmplyr"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="AboutCompany">About</label>
+                                                        <textarea name="about" id="AboutCompany" class="form-control" cols="30" rows="4"></textarea>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="CompanyWebsite">Website</label>
+                                                        <input type="url" name="website" class="form-control" id="CompanyWebsite"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="CompanyFacebook">Facebook</label>
+                                                        <input type="url" name="facebook" class="form-control" id="CompanyFacebook"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="CompanyInstagram">Instagram</label>
+                                                        <input type="url" name="instagram" class="form-control" id="CompanyInstagram"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="CompanyLinkedIn">LinkedIn</label>
+                                                        <input type="url" name="linkedin" class="form-control" id="CompanyLinkedIn"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-12 chkbx">
+                                                        <input type="checkbox" id="registertab">
+                                                        <label for="registertab">
+                                                            <span class="chk-txt">I agree the<a href="">Terms and
+                                                                    Conditions</a></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        {{-- <button type="submit" class="btn-typ1 rounded-btn100">Emp Register</button> --}}
+                                                        <a href="javascript:void(0)" id="empRegister" class="btn-typ1 rounded-btn100">Emp Register</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        {{-- </form> --}}
                                     </div>
                                 </div>
                             </div>

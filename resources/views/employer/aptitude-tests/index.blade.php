@@ -89,7 +89,7 @@
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: '{{ route('employer.job.status') }}',
+                    url: '{{ route('employer.aptitudeTest.status') }}',
                     data: {
                         'status': status,
                         'test_id': test_id

@@ -25,9 +25,7 @@ class JobPostController extends Controller
         if($request->filled('job-keyword')){
             $term = $request['job-keyword'];
             $jobs = JobPost::where('skills','LIKE','%'.$term.'%')->orwhere('title','LIKE','%'.$term.'%')->orwhere('city','LIKE','%'.$term.'%')->paginate(10);
-            // dd($jobs);
         }else{
-            // $jobs = JobPost::latest()->get();
             $jobs = JobPost::paginate(6);
         }
         return view('user.jobs.index',compact('jobs'));
@@ -59,7 +57,6 @@ class JobPostController extends Controller
         $user = Auth::user();
         $userid = isset($user['id']) ? $user['id'] : '';
         $saveJobPost = SaveJob::where('job_id', $request->job_id)->where('user_id', $userid)->count();
-        // dd($saveJobPost);
         if ($saveJobPost == 0) {
             $saveJob = SaveJob::create($request->all());
             return response(['success' => true]);
@@ -67,6 +64,25 @@ class JobPostController extends Controller
             $deleteJobPost = SaveJob::where('job_id', $request->job_id)->where('user_id', $userid)->delete();
             return response(['success' => false]);
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteSaveJob($id)
+    {   
+        $user = Auth::user();
+        $id = base64_decode($id);
+        $userid = isset($user['id']) ? $user['id'] : '';
+        $deleteJobPost = SaveJob::where('job_id', $id)->where('user_id', $userid)->delete();
+        if ($deleteJobPost) {
+            notify()->success(__('Save Job Deleted successfully'));
+        } else {
+            notify()->error(__('Please try again'));
+        }
+        return redirect()->back();
     }
 
 
@@ -77,7 +93,6 @@ class JobPostController extends Controller
      */
     public function applyJob(Request $request)
     {   
-        // dd($request->all());
         $validated = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',

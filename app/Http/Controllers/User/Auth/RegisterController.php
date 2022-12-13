@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\Employer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -139,5 +140,61 @@ class RegisterController extends Controller
             'vaccination_ref_number' => $data['vaccNo'],
             'image' => $data['uploadResume'],
         ]);
+    }
+
+
+    /**
+     * Create a new employer instance after a valid registration.
+     *
+     * @param array $data
+     *
+     * @return \App\Models\Employer
+     */
+    protected function Empcreate(Request $request)
+    {
+        // $fieldValidtion = [
+        //     'EmplyrName' => 'required|string',
+        //     'CompanyName' => 'required|string',
+        //     'eMailEmplyr' => 'required|email|unique:employer,email',
+        //     'PasswordEmplyr' => 'required',
+        //     'PhoneNumberEmplyr' => 'required',
+        //     'CompanyPhoneEmplyr' => 'required',
+        //     'TINnumberEmplyr' => 'required',
+        //     'CountryNameEmplyr' => 'required',
+        //     'AboutCompany' => 'required|in:yes,no',
+        //     'CompanyWebsite' => 'required',
+        //     'CompanyFacebook' => 'required',
+        //     'CompanyInstagram' => 'required',
+        //     'CompanyLinkedIn' => 'required',
+        //     'registertab' => 'required',
+        // ];
+
+        // $validated = $request->validate($fieldValidtion);
+
+        $employer = new Employer();
+        $employer->name = $request['data']['EmplyrName'];
+        $employer->company_name = $request['data']['CompanyName'];
+        $employer->email = $request['data']['eMailEmplyr'];
+        $employer->password = Hash::make($request['data']['PasswordEmplyr']);
+        $employer->phone = $request['data']['PhoneNumberEmplyr'];
+        $employer->company_phone = $request['data']['CompanyPhoneEmplyr'];
+        $employer->tin = $request['data']['TINnumberEmplyr'];
+        $employer->country = $request['data']['CountryNameEmplyr'];
+        $employer->street = $request['data']['StreetNameEmplyr'];
+        $employer->city = $request['data']['CityNameEmplyr'];
+        $employer->about = $request['data']['AboutCompany'];
+        $employer->website = $request['data']['CompanyWebsite'];
+        $employer->facebook = $request['data']['CompanyFacebook'];
+        $employer->instagram = $request['data']['CompanyInstagram'];
+        $employer->linkedin = $request['data']['CompanyLinkedIn'];
+
+
+        $res = $employer->save();
+        if ($res) {
+            return response(['success' => true]);
+        } else {
+            return response(['success' => false]);
+        }
+        return view('user.auth.register');
     }
 }
