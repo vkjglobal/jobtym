@@ -152,41 +152,56 @@ class RegisterController extends Controller
      */
     protected function Empcreate(Request $request)
     {
-        // $fieldValidtion = [
-        //     'EmplyrName' => 'required|string',
-        //     'CompanyName' => 'required|string',
-        //     'eMailEmplyr' => 'required|email|unique:employer,email',
-        //     'PasswordEmplyr' => 'required',
-        //     'PhoneNumberEmplyr' => 'required',
-        //     'CompanyPhoneEmplyr' => 'required',
-        //     'TINnumberEmplyr' => 'required',
-        //     'CountryNameEmplyr' => 'required',
-        //     'AboutCompany' => 'required|in:yes,no',
-        //     'CompanyWebsite' => 'required',
-        //     'CompanyFacebook' => 'required',
-        //     'CompanyInstagram' => 'required',
-        //     'CompanyLinkedIn' => 'required',
-        //     'registertab' => 'required',
-        // ];
-
-        // $validated = $request->validate($fieldValidtion);
-
+        $data = request()->validate([
+            'EmplyrName' => 'required|string',
+            'CompanyName' => 'required|string',
+            'eMailEmplyr' => 'required|email|unique:employers,email',
+            'PasswordEmplyr' => 'required',
+            'PhoneNumberEmplyr' => 'required',
+            'CompanyPhoneEmplyr' => 'required',
+            'TINnumberEmplyr' => 'required',
+            'CountryNameEmplyr' => 'required',
+            'AboutCompany' => 'required',
+            'CompanyWebsite' => 'required',
+            'CompanyFacebook' => 'required',
+            'CompanyInstagram' => 'required',
+            'CompanyLinkedIn' => 'required',
+            'registertab' => 'required',
+        ]);
+       
         $employer = new Employer();
-        $employer->name = $request['data']['EmplyrName'];
-        $employer->company_name = $request['data']['CompanyName'];
-        $employer->email = $request['data']['eMailEmplyr'];
-        $employer->password = Hash::make($request['data']['PasswordEmplyr']);
-        $employer->phone = $request['data']['PhoneNumberEmplyr'];
-        $employer->company_phone = $request['data']['CompanyPhoneEmplyr'];
-        $employer->tin = $request['data']['TINnumberEmplyr'];
-        $employer->country = $request['data']['CountryNameEmplyr'];
-        $employer->street = $request['data']['StreetNameEmplyr'];
-        $employer->city = $request['data']['CityNameEmplyr'];
-        $employer->about = $request['data']['AboutCompany'];
-        $employer->website = $request['data']['CompanyWebsite'];
-        $employer->facebook = $request['data']['CompanyFacebook'];
-        $employer->instagram = $request['data']['CompanyInstagram'];
-        $employer->linkedin = $request['data']['CompanyLinkedIn'];
+        $employer->name = $request->EmplyrName;
+        $employer->company_name = $request->CompanyName;
+        $employer->email = $request->eMailEmplyr;
+        $employer->password = Hash::make($request->PasswordEmplyr);
+        $employer->phone = $request->PhoneNumberEmplyr;
+        $employer->company_phone = $request->CompanyPhoneEmplyr;
+        $employer->tin = $request->TINnumberEmplyr;
+        $employer->country = $request->CountryNameEmplyr;
+        $employer->street = $request->StreetNameEmplyr;
+        $employer->city = $request->CityNameEmplyr;
+        $employer->about = $request->AboutCompany;
+        $employer->website = $request->CompanyWebsite;
+        $employer->facebook = $request->CompanyFacebook;
+        $employer->instagram = $request->CompanyInstagram;
+        $employer->linkedin = $request->CompanyLinkedIn;
+      
+        // $employer = new Employer();
+        // $employer->name = $request['data']['EmplyrName'];
+        // $employer->company_name = $request['data']['CompanyName'];
+        // $employer->email = $request['data']['eMailEmplyr'];
+        // $employer->password = Hash::make($request['data']['PasswordEmplyr']);
+        // $employer->phone = $request['data']['PhoneNumberEmplyr'];
+        // $employer->company_phone = $request['data']['CompanyPhoneEmplyr'];
+        // $employer->tin = $request['data']['TINnumberEmplyr'];
+        // $employer->country = $request['data']['CountryNameEmplyr'];
+        // $employer->street = $request['data']['StreetNameEmplyr'];
+        // $employer->city = $request['data']['CityNameEmplyr'];
+        // $employer->about = $request['data']['AboutCompany'];
+        // $employer->website = $request['data']['CompanyWebsite'];
+        // $employer->facebook = $request['data']['CompanyFacebook'];
+        // $employer->instagram = $request['data']['CompanyInstagram'];
+        // $employer->linkedin = $request['data']['CompanyLinkedIn'];
 
 
         $res = $employer->save();

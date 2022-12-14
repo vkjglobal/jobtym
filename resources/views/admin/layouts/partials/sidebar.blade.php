@@ -127,6 +127,43 @@
             </li>
             <!-- Reports End -->
 
+            <!-- Manage Payments -->
+            <li class="nav-item {{ request()->is('admin/manage-payment*') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#managePayment" role="button" aria-expanded="false"
+                    aria-controls="managePayment">
+                    <i class="link-icon" data-feather="bookmark"></i>
+                    <span class="link-title">Manage Payments</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->is('admin/manage-payment*') ? 'show' : '' }}" id="managePayment">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="#"
+                                class="nav-link {{ request()->is('admin/job-post-price') ? 'active' : '' }}">
+                                Job Post Pricing
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link {{ request()->is('admin/packages') ? 'active' : '' }}">
+                                Manage Cards
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#"
+                                class="nav-link {{ request()->is('admin/manage-payment') ? 'active' : '' }}">
+                                Windcave payment gateway
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link {{ request()->is('admin/packages') ? 'active' : '' }}">
+                                Payment history with invoices
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Manage Payments End -->
+
             <li class="nav-item nav-category">Others</li>
 
             <!-- categories -->

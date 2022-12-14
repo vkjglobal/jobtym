@@ -42,6 +42,7 @@ Route::middleware('employer.auth')->group(function () {
 
     // Job Posts
     Route::get('job-status', [JobPostController::class, 'changeStatus'])->name('job.status');
+    Route::get('job-report', [JobPostController::class, 'showReport'])->name('job.report');
     Route::resource('job-posts', JobPostController::class);
 
     // Aptitude Tests

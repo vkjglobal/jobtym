@@ -237,4 +237,21 @@ class JobPostController extends Controller
 
         return response()->json(['success' => 'Status change successfully.']);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showReport()
+    {
+        $breadcrumbs = [
+            [(__('Dashboard')), route('employer.home')],
+            [(__('Jobs')), null],
+        ];
+        $employer = Auth::guard('employer')->user();
+        $jobs = JobPost::where('employer_id',$employer->id)->latest()->get();
+
+        return view('employer.reports.index', compact('breadcrumbs', 'jobs'));
+    }
 }

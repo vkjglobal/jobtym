@@ -289,89 +289,98 @@
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <label for="EmplyrName">Name</label>
-                                                        <input type="text" name="empName" class="form-control" id="EmplyrName"
+                                                        <input type="text" name="EmplyrName" class="form-control" id="EmplyrName"
                                                             placeholder="">
+                                                        <div class="text-danger" id="name-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="CompanyName">Company Name</label>
-                                                        <input type="text" name="company_name" class="form-control" id="CompanyName"
+                                                        <input type="text" name="CompanyName" class="form-control" id="CompanyName"
                                                             placeholder="">
+                                                        <div class="text-danger" id="cname-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="eMailEmplyr">Email</label>
-                                                        <input type="email" name="company_email" class="form-control" id="eMailEmplyr"
+                                                        <input type="email" name="eMailEmplyr" class="form-control" id="eMailEmplyr"
                                                             placeholder="">
-                                                        @if($errors->has('company_email'))
-                                                            <div class="text-danger">{{ $errors->first('company_email') }}</div>
-                                                        @endif
+                                                        <div class="text-danger" id="email-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="PasswordEmplyr">Password</label>
-                                                        <input id="PasswordEmplyr" name="company_pass" type="password" class="form-control">
+                                                        <input id="PasswordEmplyr" name="PasswordEmplyr" type="password" class="form-control">
                                                         <span class="error-msg">Password error</span>
                                                         <span toggle="#PasswordEmplyr"
                                                             class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                        <div class="text-danger" id="pwd-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="PhoneNumberEmplyr">Phone</label>
-                                                        <input type="text" name="empPhone" class="form-control" id="PhoneNumberEmplyr"
+                                                        <input type="text" name="PhoneNumberEmplyr" class="form-control" id="PhoneNumberEmplyr"
                                                             placeholder="">
+                                                        <div class="text-danger" id="phone-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="CompanyPhoneEmplyr">Company Phone</label>
-                                                        <input type="text" name="company_name" class="form-control" id="CompanyPhoneEmplyr"
+                                                        <input type="text" name="CompanyPhoneEmplyr" class="form-control" id="CompanyPhoneEmplyr"
                                                             placeholder="">
+                                                        <div class="text-danger" id="cphone-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="TINnumberEmplyr">TIN</label>
-                                                        <input type="text" name="company_tin" class="form-control" id="TINnumberEmplyr"
+                                                        <input type="text" name="TINnumberEmplyr" class="form-control" id="TINnumberEmplyr"
                                                             placeholder="">
+                                                        <div class="text-danger" id="TINnumber-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="StreetNameEmplyr">Street</label>
-                                                        <input type="text" name="company_street" class="form-control" id="StreetNameEmplyr"
+                                                        <input type="text" name="StreetNameEmplyr" class="form-control" id="StreetNameEmplyr"
                                                             placeholder="">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="CityNameEmplyr">City</label>
-                                                        <input type="text" name="company_city" class="form-control" id="CityNameEmplyr"
+                                                        <input type="text" name="CityNameEmplyr" class="form-control" id="CityNameEmplyr"
                                                             placeholder="">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="CountryNameEmplyr">Country</label>
-                                                        <input type="text" name="company_country" class="form-control" id="CountryNameEmplyr"
+                                                        <input type="text" name="CountryNameEmplyr" class="form-control" id="CountryNameEmplyr"
                                                             placeholder="">
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label for="AboutCompany">About</label>
-                                                        <textarea name="about" id="AboutCompany" class="form-control" cols="30" rows="4"></textarea>
+                                                        <textarea name="AboutCompany" id="AboutCompany" class="form-control" cols="30" rows="4"></textarea>
+                                                        <div class="text-danger" id="about-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="CompanyWebsite">Website</label>
-                                                        <input type="url" name="website" class="form-control" id="CompanyWebsite"
+                                                        <input type="url" name="CompanyWebsite" class="form-control" id="CompanyWebsite"
                                                             placeholder="">
+                                                        <div class="text-danger" id="cwebsite-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="CompanyFacebook">Facebook</label>
-                                                        <input type="url" name="facebook" class="form-control" id="CompanyFacebook"
+                                                        <input type="url" name="CompanyFacebook" class="form-control" id="CompanyFacebook"
                                                             placeholder="">
+                                                        <div class="text-danger" id="facebook-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="CompanyInstagram">Instagram</label>
-                                                        <input type="url" name="instagram" class="form-control" id="CompanyInstagram"
+                                                        <input type="url" name="CompanyInstagram" class="form-control" id="CompanyInstagram"
                                                             placeholder="">
+                                                        <div class="text-danger" id="insta-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="CompanyLinkedIn">LinkedIn</label>
-                                                        <input type="url" name="linkedin" class="form-control" id="CompanyLinkedIn"
+                                                        <input type="url" name="CompanyLinkedIn" class="form-control" id="CompanyLinkedIn"
                                                             placeholder="">
+                                                        <div class="text-danger" id="linkdin-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-12 chkbx">
-                                                        <input type="checkbox" id="registertab">
+                                                        <input type="checkbox" name="terms" id="registertab">
                                                         <label for="registertab">
-                                                            <span class="chk-txt">I agree the<a href="">Terms and
-                                                                    Conditions</a></span>
+                                                            <span class="chk-txt">I agree the<a href="">Terms and Conditions</a></span>
                                                         </label>
+                                                        <div class="text-danger" id="term-errors"></div>
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         {{-- <button type="submit" class="btn-typ1 rounded-btn100">Emp Register</button> --}}

@@ -418,29 +418,40 @@
                     CompanyLinkedIn : $('#CompanyLinkedIn').val(),
                     registertab : $('#registertab').val(),
                 };
+                console.log('data',data)
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
                 $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: '{{ route('user.Empcreate') }}',
-                        data: {
-                            '_token': '{{ csrf_token() }}',
-                            'data': data,
-                        },
-                        success: function(data) {
-                            if (data.success) {
-                                console.log('in if');
-                                Swal.fire(
-                                    'Good job!',
-                                    'Your Register successfull! Please Login',
-                                    'success'
-                                ).then((result) => {
-                                    location.reload();
-                                })
-                            } else {
-                                return view('user.auth.register');
-                            }
-                        }
-                    });
+                    type: "post",
+                    dataType: "json",
+                    url: '{{ route('user.Empcreate') }}',
+                    data: data,
+                }).then((result) => {
+                        Swal.fire(
+                            'Good job!',
+                            'Your Register successfull! Please Login',
+                            'success'
+                        ).then((result) => {
+                            location.reload();
+                        })
+                }).catch((err) => {
+                    $('#name-errors').html('<div class="text-danger">'+err.responseJSON.errors.EmplyrName+'</div>');
+                    $('#cname-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyName+'</div>');
+                    $('#email-errors').html('<div class="text-danger">'+err.responseJSON.errors.eMailEmplyr+'</div>');
+                    $('#pwd-errors').html('<div class="text-danger">'+err.responseJSON.errors.PasswordEmplyr+'</div>');
+                    $('#phone-errors').html('<div class="text-danger">'+err.responseJSON.errors.PhoneNumberEmplyr+'</div>');
+                    $('#cphone-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyPhoneEmplyr+'</div>');
+                    $('#TINnumber-errors').html('<div class="text-danger">'+err.responseJSON.errors.TINnumberEmplyr+'</div>');
+                    $('#about-errors').html('<div class="text-danger">'+err.responseJSON.errors.AboutCompany+'</div>');
+                    $('#cwebsite-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyWebsite+'</div>');
+                    $('#facebook-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyFacebook+'</div>');
+                    $('#insta-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyInstagram+'</div>');
+                    $('#linkdin-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyLinkedIn+'</div>');
+                    $('#term-errors').html('<div class="text-danger">'+err.responseJSON.errors.registertab+'</div>');
+                });
             });
         });
     </script>

@@ -102,8 +102,7 @@
             <!----End Employees---->
             <!-- Reports -->
             <li class="nav-item {{ request()->is('employer/reports') ? 'active' : '' }}">
-                <a class="nav-link" data-toggle="collapse" href="#" role="button" aria-expanded="false"
-                    aria-controls="reports">
+                <a class="nav-link" href="{{ route('employer.job.report') }}">
                     <i class="link-icon" data-feather="cpu"></i>
                     <span class="link-title">Reports</span>
                 </a>
