@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Stripe;
 
 class StripePaymentController extends Controller
 {

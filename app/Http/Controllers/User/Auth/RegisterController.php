@@ -87,6 +87,18 @@ class RegisterController extends Controller
      *
      * @return response()
      */
+    public function viewVerifyotp($email)
+    {
+        // dd($email);
+        return view('user.auth.otp', compact('email'));
+    }
+
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
     public function verifyotp(Request $request)
     {
         $request->validate([
@@ -96,21 +108,46 @@ class RegisterController extends Controller
             'otp4' => 'required|digits:1',
         ]);
 
+        $email = $request->email;
+
         $updateData = ([
             'is_verify_otp' => 1
         ]);
 
         $otp = $request->otp1.$request->otp2.$request->otp3.$request->otp4;
         
-        $verifyOtp = DB::table('verify_register_otp')->where(['email' => $request->email])->first();
-        $res = User::where('email','=',$request->email)->update($updateData);
-
+        $verifyOtp = DB::table('verify_register_otp')->where(['email' => $request->email,'otp' => $otp])->first();
+        
         if(!$verifyOtp){
-            return view('user.auth.otp')->with('error', 'Invalid token!');
+            return view('user.auth.otp', compact('email'));
         }
+        $res = User::where('email','=',$request->email)->update($updateData);
         
         DB::table('verify_register_otp')->where(['email' => $request->email])->delete();
-        return Redirect("user/login")->with('message', 'Great! You have Successfully Registered! Please Login');
+        return Redirect("user/login")->with('message', 'Great! You have Successfully Registered! Please Login Again');
+    }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function reSendOtp(Request $request, $email)
+    {
+        $token = Str::random(64);
+        $otp = random_int(1000, 9999);
+
+        DB::table('verify_register_otp')->insert([
+            'email' => $email,
+            'token' => $token,
+            'otp' => $otp,
+            'created_at' => Carbon::now(),
+        ]);
+        Mail::send('user.auth.otpConfirmation', ['token' => $token, 'otp' => $otp], function ($message) use ($request) {
+            $message->to($request->email);
+            $message->subject('Registration Confirmation'); 
+        });
+        return redirect()->route('user.viewVerifyotp', ['email'=> $email]);
     }
 
     /**
@@ -152,32 +189,33 @@ class RegisterController extends Controller
      */
     protected function Empcreate(Request $request)
     {
-        $data = request()->validate([
+        $data = $request->validate([
             'EmplyrName' => 'required|string',
             'CompanyName' => 'required|string',
-            'eMailEmplyr' => 'required|email|unique:employers,email',
-            'PasswordEmplyr' => 'required',
-            'PhoneNumberEmplyr' => 'required',
-            'CompanyPhoneEmplyr' => 'required',
-            'TINnumberEmplyr' => 'required',
+            'EmplyrEmail' => 'required|email|unique:employers,email',
+            'EmplyrPassword' => 'required',
+            'EmplyrPhoneNumber' => 'required',
+            'EmplyrCompanyPhone' => 'required',
+            'EmplyrTINnumber' => 'required',
             'CountryNameEmplyr' => 'required',
             'AboutCompany' => 'required',
             'CompanyWebsite' => 'required',
             'CompanyFacebook' => 'required',
             'CompanyInstagram' => 'required',
             'CompanyLinkedIn' => 'required',
-            'registertab' => 'required',
+            'terms' => 'required',
         ]);
        
         $employer = new Employer();
         $employer->name = $request->EmplyrName;
         $employer->company_name = $request->CompanyName;
-        $employer->email = $request->eMailEmplyr;
-        $employer->password = Hash::make($request->PasswordEmplyr);
-        $employer->phone = $request->PhoneNumberEmplyr;
-        $employer->company_phone = $request->CompanyPhoneEmplyr;
-        $employer->tin = $request->TINnumberEmplyr;
+        $employer->email = $request->EmplyrEmail;
+        $employer->password = Hash::make($request->EmplyrPassword);
+        $employer->phone = $request->EmplyrPhoneNumber;
+        $employer->company_phone = $request->EmplyrCompanyPhone;
+        $employer->tin = $request->EmplyrTINnumber;
         $employer->country = $request->CountryNameEmplyr;
+        $employer->address = 'Please enter your address here';
         $employer->street = $request->StreetNameEmplyr;
         $employer->city = $request->CityNameEmplyr;
         $employer->about = $request->AboutCompany;
@@ -185,31 +223,12 @@ class RegisterController extends Controller
         $employer->facebook = $request->CompanyFacebook;
         $employer->instagram = $request->CompanyInstagram;
         $employer->linkedin = $request->CompanyLinkedIn;
-      
-        // $employer = new Employer();
-        // $employer->name = $request['data']['EmplyrName'];
-        // $employer->company_name = $request['data']['CompanyName'];
-        // $employer->email = $request['data']['eMailEmplyr'];
-        // $employer->password = Hash::make($request['data']['PasswordEmplyr']);
-        // $employer->phone = $request['data']['PhoneNumberEmplyr'];
-        // $employer->company_phone = $request['data']['CompanyPhoneEmplyr'];
-        // $employer->tin = $request['data']['TINnumberEmplyr'];
-        // $employer->country = $request['data']['CountryNameEmplyr'];
-        // $employer->street = $request['data']['StreetNameEmplyr'];
-        // $employer->city = $request['data']['CityNameEmplyr'];
-        // $employer->about = $request['data']['AboutCompany'];
-        // $employer->website = $request['data']['CompanyWebsite'];
-        // $employer->facebook = $request['data']['CompanyFacebook'];
-        // $employer->instagram = $request['data']['CompanyInstagram'];
-        // $employer->linkedin = $request['data']['CompanyLinkedIn'];
-
 
         $res = $employer->save();
         if ($res) {
-            return response(['success' => true]);
+            return Redirect("user")->with('message', 'Great! You have Successfully Registered! Please Login');
         } else {
-            return response(['success' => false]);
+            return Redirect("user")->with('error', 'Opps! Something went wrong');
         }
-        return view('user.auth.register');
     }
 }

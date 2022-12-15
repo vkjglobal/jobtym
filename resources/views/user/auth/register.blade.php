@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <form method="POST" action="{{ route('user.register.save') }}" class="register-form register-form-modal" enctype="multipart/form-data">
+                    {{-- <form method="POST" action="{{ route('user.register.save') }}" class="register-form register-form-modal" enctype="multipart/form-data"> --}}
                         @csrf
                         <div class="modal-body row">
                             <div class="register-tab col-12" id="Register1">
@@ -116,279 +116,309 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="cAndidate" role="tabpanel">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="FirstName">First Name</label>
-                                                    <input type="text" name="firstName" class="form-control" id="FirstName"
-                                                        placeholder="">
-                                                    @if($errors->has('firstName'))
-                                                        <div class="text-danger">{{ $errors->first('firstName') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="LastName">Last Name</label>
-                                                    <input type="text" name="lastName" class="form-control" id="LastName"
-                                                        placeholder="">
-                                                    @if($errors->has('lastName'))
-                                                        <div class="text-danger">{{ $errors->first('lastName') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="eMail">Email</label>
-                                                    <input type="email" name="email" class="form-control" id="eMail"
-                                                        placeholder="">
-                                                    @if($errors->has('email'))
-                                                        <div class="text-danger">{{ $errors->first('email') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="newPassword">Password</label>
-                                                    <input id="newPassword" name="newPassword" type="password" class="form-control">
-                                                    <span class="error-msg">Password error</span>
-                                                    <span toggle="#newPassword"
-                                                        class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                                    @if($errors->has('newPassword'))
-                                                        <div class="text-danger">{{ $errors->first('newPassword') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label>Gender</label>
-                                                    <select class="gender-dropdown form-control" name="gender">
-                                                        <option disabled selected>Select Gender</option>
-                                                        <option value="male">Male</option>
-                                                        <option value="female">Female</option>
-                                                        <option value="other">Other</option>
-                                                    </select>
-                                                    @if($errors->has('gender'))
-                                                        <div class="text-danger">{{ $errors->first('gender') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="BirthDate">Date of birth</label>
-                                                    <input type="date" name="birthDate" class="form-control" id="BirthDate"
-                                                        placeholder="">
-                                                    @if($errors->has('birthDate'))
-                                                        <div class="text-danger">{{ $errors->first('birthDate') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="PhoneNumber">Phone</label>
-                                                    <input type="text" name="phone" class="form-control" id="PhoneNumber"
-                                                        placeholder="">
-                                                    @if($errors->has('phone'))
-                                                        <div class="text-danger">{{ $errors->first('phone') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="SecondaryPhone">Secondary Phone</label>
-                                                    <input type="text" name="secondPhone" class="form-control" id="SecondaryPhone"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CountryName">Country</label>
-                                                    <input type="text" name="country" class="form-control" id="CountryName"
-                                                        placeholder="">
-                                                    @if($errors->has('country'))
-                                                        <div class="text-danger">{{ $errors->first('country') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label>Resident</label>
-                                                    <select class="resident-dropdown form-control" name="resident">
-                                                        <option selected value="yes">Yes</option>
-                                                        <option value="no">No</option>
-                                                    </select>
-                                                    @if($errors->has('resident'))
-                                                        <div class="text-danger">{{ $errors->first('resident') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="StreetName">Street</label>
-                                                    <input type="text" name="street" class="form-control" id="StreetName"
-                                                        placeholder="">
-                                                    @if($errors->has('street'))
-                                                        <div class="text-danger">{{ $errors->first('street') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="CityName">City</label>
-                                                    <input type="text" name="city" class="form-control" id="CityName"
-                                                        placeholder="">
-                                                    @if($errors->has('city'))
-                                                        <div class="text-danger">{{ $errors->first('city') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="TownName">Town</label>
-                                                    <input type="text" name="town" class="form-control" id="TownName"
-                                                        placeholder="">
-                                                    @if($errors->has('town'))
-                                                        <div class="text-danger">{{ $errors->first('town') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="DivisionName">Division</label>
-                                                    <input type="text" name="division" class="form-control" id="DivisionName"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="PostalCode">Postal Code</label>
-                                                    <input type="text" name="postCode" class="form-control" id="PostalCode"
-                                                        placeholder="">
-                                                    @if($errors->has('postCode'))
-                                                        <div class="text-danger">{{ $errors->first('postCode') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="TINnumber">TIN</label>
-                                                    <input type="text" name="tinNo" class="form-control" id="TINnumber"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="VaccRefNum">Vaccination Reference Number</label>
-                                                    <input type="text" name="vaccNo" class="form-control" id="VaccRefNum"
-                                                        placeholder="">
-                                                </div>
-                                                <div class="form-group col-md-12 file-upload-resume">
-                                                    <label for="file" class="">Resume</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-btn">
-                                                            <div class="btn btn-default custom-file-uploader">
-                                                                <input type="file" name="uploadResume" />
-                                                                Upload Resume
-                                                            </div>
-                                                            <span>DOC, DOCx, PDF, RTF | Max: 2 MB</span>
-                                                        </div>
-                                                        <input type="text" name="filename"
-                                                            class="form-control file-name" placeholder="" readonly>
-                                                    </div>
-                                                    <div class="info-txt">Recruiters give first preference to candidates
-                                                        who have a resume</div>
-                                                    @if($errors->has('uploadResume'))
-                                                        <div class="text-danger">{{ $errors->first('uploadResume') }}</div>
-                                                    @endif
-                                                </div>
-
-                                                <div class="form-group col-md-12 chkbx">
-                                                    <input type="checkbox" name="accept" id="logintab">
-                                                    <label for="logintab">
-                                                        <span class="chk-txt">I agree the <a href="">Terms and Conditions</a></span>
-                                                    </label>
-                                                    @if($errors->has('accept'))
-                                                        <div class="text-danger">{{ $errors->first('accept') }}</div>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <button type="submit" class="btn-typ1 rounded-btn100">User Register</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- <form action="{{ route('employer.register') }}" method="post"> --}}
-                                            {{-- @csrf --}}
-                                            <div class="tab-pane" id="eMployer" role="tabpanel">
+                                            <form method="POST" action="{{ route('user.register.save') }}" class="register-form register-form-modal" enctype="multipart/form-data">
+                                                @csrf
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
-                                                        <label for="EmplyrName">Name</label>
-                                                        <input type="text" name="EmplyrName" class="form-control" id="EmplyrName"
+                                                        <label for="FirstName">First Name</label>
+                                                        <input type="text" name="firstName" class="form-control" id="FirstName"
                                                             placeholder="">
-                                                        <div class="text-danger" id="name-errors"></div>
+                                                        @if($errors->has('firstName'))
+                                                            <div class="text-danger">{{ $errors->first('firstName') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="CompanyName">Company Name</label>
-                                                        <input type="text" name="CompanyName" class="form-control" id="CompanyName"
+                                                        <label for="LastName">Last Name</label>
+                                                        <input type="text" name="lastName" class="form-control" id="LastName"
                                                             placeholder="">
-                                                        <div class="text-danger" id="cname-errors"></div>
+                                                        @if($errors->has('lastName'))
+                                                            <div class="text-danger">{{ $errors->first('lastName') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="eMailEmplyr">Email</label>
-                                                        <input type="email" name="eMailEmplyr" class="form-control" id="eMailEmplyr"
+                                                        <label for="eMail">Email</label>
+                                                        <input type="email" name="email" class="form-control" id="eMail"
                                                             placeholder="">
-                                                        <div class="text-danger" id="email-errors"></div>
+                                                        @if($errors->has('email'))
+                                                            <div class="text-danger">{{ $errors->first('email') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="PasswordEmplyr">Password</label>
-                                                        <input id="PasswordEmplyr" name="PasswordEmplyr" type="password" class="form-control">
+                                                        <label for="newPassword">Password</label>
+                                                        <input id="newPassword" name="newPassword" type="password" class="form-control">
                                                         <span class="error-msg">Password error</span>
-                                                        <span toggle="#PasswordEmplyr"
+                                                        <span toggle="#newPassword"
                                                             class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                                        <div class="text-danger" id="pwd-errors"></div>
+                                                        @if($errors->has('newPassword'))
+                                                            <div class="text-danger">{{ $errors->first('newPassword') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="PhoneNumberEmplyr">Phone</label>
-                                                        <input type="text" name="PhoneNumberEmplyr" class="form-control" id="PhoneNumberEmplyr"
-                                                            placeholder="">
-                                                        <div class="text-danger" id="phone-errors"></div>
+                                                        <label>Gender</label>
+                                                        <select class="gender-dropdown form-control" name="gender">
+                                                            <option disabled selected>Select Gender</option>
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                            <option value="other">Other</option>
+                                                        </select>
+                                                        @if($errors->has('gender'))
+                                                            <div class="text-danger">{{ $errors->first('gender') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="CompanyPhoneEmplyr">Company Phone</label>
-                                                        <input type="text" name="CompanyPhoneEmplyr" class="form-control" id="CompanyPhoneEmplyr"
+                                                        <label for="BirthDate">Date of birth</label>
+                                                        <input type="date" name="birthDate" class="form-control" id="BirthDate"
                                                             placeholder="">
-                                                        <div class="text-danger" id="cphone-errors"></div>
+                                                        @if($errors->has('birthDate'))
+                                                            <div class="text-danger">{{ $errors->first('birthDate') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="TINnumberEmplyr">TIN</label>
-                                                        <input type="text" name="TINnumberEmplyr" class="form-control" id="TINnumberEmplyr"
+                                                        <label for="PhoneNumber">Phone</label>
+                                                        <input type="text" name="phone" class="form-control" id="PhoneNumber"
                                                             placeholder="">
-                                                        <div class="text-danger" id="TINnumber-errors"></div>
+                                                        @if($errors->has('phone'))
+                                                            <div class="text-danger">{{ $errors->first('phone') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="StreetNameEmplyr">Street</label>
-                                                        <input type="text" name="StreetNameEmplyr" class="form-control" id="StreetNameEmplyr"
-                                                            placeholder="">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="CityNameEmplyr">City</label>
-                                                        <input type="text" name="CityNameEmplyr" class="form-control" id="CityNameEmplyr"
+                                                        <label for="SecondaryPhone">Secondary Phone</label>
+                                                        <input type="text" name="secondPhone" class="form-control" id="SecondaryPhone"
                                                             placeholder="">
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="CountryNameEmplyr">Country</label>
-                                                        <input type="text" name="CountryNameEmplyr" class="form-control" id="CountryNameEmplyr"
+                                                        <label for="CountryName">Country</label>
+                                                        <input type="text" name="country" class="form-control" id="CountryName"
                                                             placeholder="">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label for="AboutCompany">About</label>
-                                                        <textarea name="AboutCompany" id="AboutCompany" class="form-control" cols="30" rows="4"></textarea>
-                                                        <div class="text-danger" id="about-errors"></div>
+                                                        @if($errors->has('country'))
+                                                            <div class="text-danger">{{ $errors->first('country') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="CompanyWebsite">Website</label>
-                                                        <input type="url" name="CompanyWebsite" class="form-control" id="CompanyWebsite"
-                                                            placeholder="">
-                                                        <div class="text-danger" id="cwebsite-errors"></div>
+                                                        <label>Resident</label>
+                                                        <select class="resident-dropdown form-control" name="resident">
+                                                            <option selected value="yes">Yes</option>
+                                                            <option value="no">No</option>
+                                                        </select>
+                                                        @if($errors->has('resident'))
+                                                            <div class="text-danger">{{ $errors->first('resident') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="CompanyFacebook">Facebook</label>
-                                                        <input type="url" name="CompanyFacebook" class="form-control" id="CompanyFacebook"
+                                                        <label for="StreetName">Street</label>
+                                                        <input type="text" name="street" class="form-control" id="StreetName"
                                                             placeholder="">
-                                                        <div class="text-danger" id="facebook-errors"></div>
+                                                        @if($errors->has('street'))
+                                                            <div class="text-danger">{{ $errors->first('street') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="CompanyInstagram">Instagram</label>
-                                                        <input type="url" name="CompanyInstagram" class="form-control" id="CompanyInstagram"
+                                                        <label for="CityName">City</label>
+                                                        <input type="text" name="city" class="form-control" id="CityName"
                                                             placeholder="">
-                                                        <div class="text-danger" id="insta-errors"></div>
+                                                        @if($errors->has('city'))
+                                                            <div class="text-danger">{{ $errors->first('city') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="CompanyLinkedIn">LinkedIn</label>
-                                                        <input type="url" name="CompanyLinkedIn" class="form-control" id="CompanyLinkedIn"
+                                                        <label for="TownName">Town</label>
+                                                        <input type="text" name="town" class="form-control" id="TownName"
                                                             placeholder="">
-                                                        <div class="text-danger" id="linkdin-errors"></div>
+                                                        @if($errors->has('town'))
+                                                            <div class="text-danger">{{ $errors->first('town') }}</div>
+                                                        @endif
                                                     </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="DivisionName">Division</label>
+                                                        <input type="text" name="division" class="form-control" id="DivisionName"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="PostalCode">Postal Code</label>
+                                                        <input type="text" name="postCode" class="form-control" id="PostalCode"
+                                                            placeholder="">
+                                                        @if($errors->has('postCode'))
+                                                            <div class="text-danger">{{ $errors->first('postCode') }}</div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="TINnumber">TIN</label>
+                                                        <input type="text" name="tinNo" class="form-control" id="TINnumber"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="VaccRefNum">Vaccination Reference Number</label>
+                                                        <input type="text" name="vaccNo" class="form-control" id="VaccRefNum"
+                                                            placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-12 file-upload-resume">
+                                                        <label for="file" class="">Resume</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-btn">
+                                                                <div class="btn btn-default custom-file-uploader">
+                                                                    <input type="file" name="uploadResume" />
+                                                                    Upload Resume
+                                                                </div>
+                                                                <span>DOC, DOCx, PDF, RTF | Max: 2 MB</span>
+                                                            </div>
+                                                            <input type="text" name="filename"
+                                                                class="form-control file-name" placeholder="" readonly>
+                                                        </div>
+                                                        <div class="info-txt">Recruiters give first preference to candidates
+                                                            who have a resume</div>
+                                                        @if($errors->has('uploadResume'))
+                                                            <div class="text-danger">{{ $errors->first('uploadResume') }}</div>
+                                                        @endif
+                                                    </div>
+
                                                     <div class="form-group col-md-12 chkbx">
-                                                        <input type="checkbox" name="terms" id="registertab">
-                                                        <label for="registertab">
-                                                            <span class="chk-txt">I agree the<a href="">Terms and Conditions</a></span>
+                                                        <input type="checkbox" name="accept" id="logintab">
+                                                        <label for="logintab">
+                                                            <span class="chk-txt">I agree the <a href="{{ url('user/terms-condition') }}">Terms and Conditions</a></span>
                                                         </label>
-                                                        <div class="text-danger" id="term-errors"></div>
+                                                        @if($errors->has('accept'))
+                                                            <div class="text-danger">{{ $errors->first('accept') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        {{-- <button type="submit" class="btn-typ1 rounded-btn100">Emp Register</button> --}}
-                                                        <a href="javascript:void(0)" id="empRegister" class="btn-typ1 rounded-btn100">Emp Register</a>
+                                                        <button type="submit" class="btn-typ1 rounded-btn100">User Register</button>
                                                     </div>
                                                 </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="eMployer" role="tabpanel">
+                                                <form action="{{ route('user.Empcreate') }}" method="post" class="register-form">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="EmplyrName">Name</label>
+                                                            <input type="text" name="EmplyrName" class="form-control" id="EmplyrName"
+                                                                placeholder="">
+                                                            @if($errors->has('EmplyrName'))
+                                                                <div class="text-danger">{{ $errors->first('EmplyrName') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="CompanyName">Company Name</label>
+                                                            <input type="text" name="CompanyName" class="form-control" id="CompanyName"
+                                                                placeholder="">
+                                                            @if($errors->has('CompanyName'))
+                                                                <div class="text-danger">{{ $errors->first('CompanyName') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="eMailEmplyr">Email</label>
+                                                            <input type="email" name="EmplyrEmail" class="form-control" id="eMailEmplyr"
+                                                                placeholder="">
+                                                            @if($errors->has('EmplyrEmail'))
+                                                                <div class="text-danger">{{ $errors->first('EmplyrEmail') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="PasswordEmplyr">Password</label>
+                                                            <input id="PasswordEmplyr" name="EmplyrPassword" type="password" class="form-control">
+                                                            <span class="error-msg">Password error</span>
+                                                            <span toggle="#PasswordEmplyr"
+                                                                class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                            @if($errors->has('EmplyrPassword'))
+                                                                <div class="text-danger">{{ $errors->first('EmplyrPassword') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="PhoneNumberEmplyr">Phone</label>
+                                                            <input type="text" name="EmplyrPhoneNumber" class="form-control" id="PhoneNumberEmplyr"
+                                                                placeholder="">
+                                                            @if($errors->has('EmplyrPhoneNumber'))
+                                                                <div class="text-danger">{{ $errors->first('EmplyrPhoneNumber') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="CompanyPhoneEmplyr">Company Phone</label>
+                                                            <input type="text" name="EmplyrCompanyPhone" class="form-control" id="CompanyPhoneEmplyr"
+                                                                placeholder="">
+                                                            @if($errors->has('EmplyrCompanyPhone'))
+                                                                <div class="text-danger">{{ $errors->first('EmplyrCompanyPhone') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="TINnumberEmplyr">TIN</label>
+                                                            <input type="text" name="EmplyrTINnumber" class="form-control" id="TINnumberEmplyr"
+                                                                placeholder="">
+                                                            @if($errors->has('EmplyrTINnumber'))
+                                                                <div class="text-danger">{{ $errors->first('EmplyrTINnumber') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="StreetNameEmplyr">Street</label>
+                                                            <input type="text" name="StreetNameEmplyr" class="form-control" id="StreetNameEmplyr"
+                                                                placeholder="">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="CityNameEmplyr">City</label>
+                                                            <input type="text" name="CityNameEmplyr" class="form-control" id="CityNameEmplyr"
+                                                                placeholder="">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="CountryNameEmplyr">Country</label>
+                                                            <input type="text" name="CountryNameEmplyr" class="form-control" id="CountryNameEmplyr"
+                                                                placeholder="">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="AboutCompany">About</label>
+                                                            <textarea name="AboutCompany" id="AboutCompany" class="form-control" cols="30" rows="4"></textarea>
+                                                            @if($errors->has('AboutCompany'))
+                                                                <div class="text-danger">{{ $errors->first('AboutCompany') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="CompanyWebsite">Website</label>
+                                                            <input type="url" name="CompanyWebsite" class="form-control" id="CompanyWebsite"
+                                                                placeholder="">
+                                                            @if($errors->has('CompanyWebsite'))
+                                                                <div class="text-danger">{{ $errors->first('CompanyWebsite') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="CompanyFacebook">Facebook</label>
+                                                            <input type="url" name="CompanyFacebook" class="form-control" id="CompanyFacebook"
+                                                                placeholder="">
+                                                            @if($errors->has('CompanyFacebook'))
+                                                                <div class="text-danger">{{ $errors->first('CompanyFacebook') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="CompanyInstagram">Instagram</label>
+                                                            <input type="url" name="CompanyInstagram" class="form-control" id="CompanyInstagram"
+                                                                placeholder="">
+                                                            @if($errors->has('CompanyInstagram'))
+                                                                <div class="text-danger">{{ $errors->first('CompanyInstagram') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="CompanyLinkedIn">LinkedIn</label>
+                                                            <input type="url" name="CompanyLinkedIn" class="form-control" id="CompanyLinkedIn"
+                                                                placeholder="">
+                                                            @if($errors->has('CompanyLinkedIn'))
+                                                                <div class="text-danger">{{ $errors->first('CompanyLinkedIn') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-12 chkbx">
+                                                            <input type="checkbox" name="terms" id="registertab">
+                                                            <label for="registertab">
+                                                                <span class="chk-txt">I agree the<a href="{{ url('user/terms-condition') }}">Terms and Conditions</a></span>
+                                                            </label>
+                                                            @if($errors->has('terms'))
+                                                                <div class="text-danger">{{ $errors->first('terms') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <button type="submit" class="btn-typ1 rounded-btn100">Emp Register</button>
+                                                            {{-- <a href="javascript:void(0)" id="empRegister" class="btn-typ1 rounded-btn100">Emp Register</a> --}}
+                                                        </div>
+                                                    </div>
+
+                                                </form>
                                             </div>
-                                        {{-- </form> --}}
                                     </div>
                                 </div>
                             </div>
@@ -468,7 +498,7 @@
                                         href="">Privacy Policy</a></div>
                             </div>
                         </div>
-                    </form>
+                    {{-- </form> --}}
                 </div>
             </div>
         </div>

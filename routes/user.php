@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::post('post-login', [LoginController::class, 'postLogin'])->name('login.post'); 
+Route::post('post-login', [LoginController::class, 'postLogin'])->name('post-login')->middleware(['is_verify_email']); 
 Route::post('reset-password-submit', [LoginController::class, 'resetPasswordSubmit'])->name('reset-password-submit');
 Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [LoginController::class, 'showResetForm'])->name('password.reset');
@@ -34,7 +34,9 @@ Route::post('password/reset', [LoginController::class, 'submitResetPasswordForm'
 Route::get('register', [RegisterController::class, 'registration'])->name('register');
 Route::post('Empcreate', [RegisterController::class, 'Empcreate'])->name('Empcreate');
 Route::post('post-registration', [RegisterController::class, 'postRegistration'])->name('register.save'); 
-Route::post('verify-otp', [RegisterController::class, 'verifyotp'])->name('verifyotp'); 
+Route::get('view-verify-otp/{email}', [RegisterController::class, 'viewVerifyotp'])->name('viewVerifyotp');
+Route::get('re-send-otp/{email}', [RegisterController::class, 'reSendOtp'])->name('reSendOtp');
+Route::post('verify-otp', [RegisterController::class, 'verifyotp'])->name('verifyotp');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 

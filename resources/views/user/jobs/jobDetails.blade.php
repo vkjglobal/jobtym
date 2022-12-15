@@ -214,7 +214,7 @@
                                                         <span>OR</span>
                                                     </div>
                                                     <div class="btn-typ1 custom-file-uploader">
-                                                        <input type="file" name="resumeUpload" />
+                                                        <input type="file" name="resumeUpload" required/>
                                                         Upload Resume
                                                     </div>
                                                     @if($errors->has('resumeUpload'))

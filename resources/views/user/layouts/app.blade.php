@@ -91,7 +91,7 @@
                                     <a href="{{ url('user/register') }}" class="btn btn-primary register">Register</a>
 
                                     <!-- Modal -->
-                                    <form class="register-form-modal form-modal" method="POST"  action="{{ route('user.login.post') }}">
+                                    <form class="register-form-modal form-modal" method="POST"  action="{{ route('user.post-login') }}">
                                         @csrf
                                         <div class="modal fade" id="Login" tabindex="-1" role="dialog"
                                             aria-labelledby="login" aria-hidden="true">
@@ -376,7 +376,11 @@
             $('#saveJobButton').click(function() {
                 var user_id = $('#authId').val();
                 if(user_id == ""){
-                    alert('You are not logged in. Please login to save the job.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'You are not logged in. Please login to save the job.!',
+                    })
                 }else{
                     var job_id = $('#job_id').val();
                     $.ajax({
@@ -398,61 +402,6 @@
                     });
                 }
             })
-
-            $('#empRegister').click(function () {
-                const data = {
-                    EmplyrName : $('#EmplyrName').val(),
-                    CompanyName : $('#CompanyName').val(),
-                    eMailEmplyr : $('#eMailEmplyr').val(),
-                    PasswordEmplyr : $('#PasswordEmplyr').val(),
-                    PhoneNumberEmplyr : $('#PhoneNumberEmplyr').val(),
-                    CompanyPhoneEmplyr : $('#CompanyPhoneEmplyr').val(),
-                    TINnumberEmplyr : $('#TINnumberEmplyr').val(),
-                    StreetNameEmplyr : $('#StreetNameEmplyr').val(),
-                    CityNameEmplyr : $('#CityNameEmplyr').val(),
-                    CountryNameEmplyr : $('#CountryNameEmplyr').val(),
-                    AboutCompany : $('#AboutCompany').val(),
-                    CompanyWebsite : $('#CompanyWebsite').val(),
-                    CompanyFacebook : $('#CompanyFacebook').val(),
-                    CompanyInstagram : $('#CompanyInstagram').val(),
-                    CompanyLinkedIn : $('#CompanyLinkedIn').val(),
-                    registertab : $('#registertab').val(),
-                };
-                console.log('data',data)
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                });
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: '{{ route('user.Empcreate') }}',
-                    data: data,
-                }).then((result) => {
-                        Swal.fire(
-                            'Good job!',
-                            'Your Register successfull! Please Login',
-                            'success'
-                        ).then((result) => {
-                            location.reload();
-                        })
-                }).catch((err) => {
-                    $('#name-errors').html('<div class="text-danger">'+err.responseJSON.errors.EmplyrName+'</div>');
-                    $('#cname-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyName+'</div>');
-                    $('#email-errors').html('<div class="text-danger">'+err.responseJSON.errors.eMailEmplyr+'</div>');
-                    $('#pwd-errors').html('<div class="text-danger">'+err.responseJSON.errors.PasswordEmplyr+'</div>');
-                    $('#phone-errors').html('<div class="text-danger">'+err.responseJSON.errors.PhoneNumberEmplyr+'</div>');
-                    $('#cphone-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyPhoneEmplyr+'</div>');
-                    $('#TINnumber-errors').html('<div class="text-danger">'+err.responseJSON.errors.TINnumberEmplyr+'</div>');
-                    $('#about-errors').html('<div class="text-danger">'+err.responseJSON.errors.AboutCompany+'</div>');
-                    $('#cwebsite-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyWebsite+'</div>');
-                    $('#facebook-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyFacebook+'</div>');
-                    $('#insta-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyInstagram+'</div>');
-                    $('#linkdin-errors').html('<div class="text-danger">'+err.responseJSON.errors.CompanyLinkedIn+'</div>');
-                    $('#term-errors').html('<div class="text-danger">'+err.responseJSON.errors.registertab+'</div>');
-                });
-            });
         });
     </script>
 

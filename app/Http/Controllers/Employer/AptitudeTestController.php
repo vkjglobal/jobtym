@@ -23,7 +23,9 @@ class AptitudeTestController extends Controller
         ];
 
         $employer = Auth::guard('employer')->user();
-        $aptitudeTests = AptitudeTest::where('employer_id',$employer->id)->latest()->get();
+        // $aptitudeTests = AptitudeTest::where('employer_id',$employer->id)->latest()->get();
+        $aptitudeTests = AptitudeTest::where('employer_id',$employer->id)->join('categories', 'categories.id', '=', 'aptitude_tests.category_id')->get();
+        // dd($aptitudeTests);
         return view('employer.aptitude-tests.index', compact('breadcrumbs', 'aptitudeTests'));
     }
 

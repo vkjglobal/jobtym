@@ -10,13 +10,13 @@
                     <p class="fs-15 fw-300 mb-5">A One-Time Password has been sent to <b>{{ $email }}.</b></p>
                     <div class="d-flex justify-content-center mb-4">
                         <input type="hidden" name="email" value="{{ $email }}">
-                        <input type="text" name="otp1" class="form-control" minlength="1" maxlength="1">
-                        <input type="text" name="otp2" class="form-control" minlength="1" maxlength="1">
-                        <input type="text" name="otp3" class="form-control" minlength="1" maxlength="1">
-                        <input type="text" name="otp4" class="form-control" minlength="1" maxlength="1">
+                        <input type="text" name="otp1" class="form-control" minlength="1" maxlength="1" required>
+                        <input type="text" name="otp2" class="form-control" minlength="1" maxlength="1" required>
+                        <input type="text" name="otp3" class="form-control" minlength="1" maxlength="1" required>
+                        <input type="text" name="otp4" class="form-control" minlength="1" maxlength="1" required>
                     </div>
                     <input type="submit" value="Verify & Proceed" class="btn-typ1 rounded-btn100 w-auto fs-16 pl-5 pr-5 mb-4">
-                    <button class="resend-btn">Resend One-Time Password</button>
+                    <a href="{{ url('user/re-send-otp', $email ) }}" class="resend-btn">Resend One-Time Password</a>
                 </form>
             </div>
         </div>
