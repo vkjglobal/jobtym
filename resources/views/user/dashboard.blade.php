@@ -97,6 +97,9 @@
             </div>
         </div>
     </header>
+    @if (session('error'))
+        <div class="alert alert-danger text-center">{{ session('error') }}</div>
+    @endif
     <section>
         <!-- START TABS DIV -->
         <div class="dashboard-main-tab-container">
@@ -856,7 +859,7 @@
                                     </svg>                                        
                                 </span>
                                 <div class="overview">
-                                    <span class="count">1</span>
+                                    <span class="count">{{ count($appliedJob) }}</span>
                                     <span class="label">Applied Jobs</span>
                                 </div>
                             </div>
@@ -878,7 +881,7 @@
                                     </svg>                                       
                                 </span>
                                 <div class="overview">
-                                    <span class="count">15</span>
+                                    <span class="count">{{ count($getSaveJob) }}</span>
                                     <span class="label">Shortlisted</span>
                                 </div>
                             </div>
@@ -1244,7 +1247,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+                            @if ($getSaveJob)
                             <table class="table">
                                 <thead>
                                     <th class="job-title">Job Title</th>
@@ -1364,6 +1367,9 @@
                                     </tr> --}}
                                 </tbody>
                             </table>
+                            @else
+                                <tr> There are no saved job available </tr>
+                            @endif
                         </form>
                     </div>
                     <div class="tab-pane fade" id="SavedJobs" role="tabpanel" aria-labelledby="seventh-tab">

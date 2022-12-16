@@ -13,6 +13,7 @@
                             <thead>
                                 <tr>
                                     <th>Sl#</th>
+                                    <th>Job Title</th>
                                     <th>Category</th>
                                     <th>Question</th>
                                     <th>Answer</th>
@@ -25,7 +26,8 @@
                                 @foreach ($aptitudeTests as $aptitudeTest)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $aptitudeTest->name }}</td>
+                                        <td>{{ $aptitudeTest->job_id }}</td>
+                                        <td>{{ $aptitudeTest->category_id }}</td>
                                         <td>{{ $aptitudeTest->question }}</td>
                                         <td>{{ $aptitudeTest->answer }}</td>
                                         <td>{{ $aptitudeTest->time_alloted }}</td>

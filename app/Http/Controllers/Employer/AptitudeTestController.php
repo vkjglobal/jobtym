@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use App\Models\AptitudeTest;
 use App\Models\Category;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,8 +24,8 @@ class AptitudeTestController extends Controller
         ];
 
         $employer = Auth::guard('employer')->user();
-        // $aptitudeTests = AptitudeTest::where('employer_id',$employer->id)->latest()->get();
-        $aptitudeTests = AptitudeTest::where('employer_id',$employer->id)->join('categories', 'categories.id', '=', 'aptitude_tests.category_id')->get();
+        $aptitudeTests = AptitudeTest::where('employer_id',$employer->id)->latest()->get();
+        // $aptitudeTests = AptitudeTest::where('employer_id',$employer->id)->join('categories', 'categories.id', '=', 'aptitude_tests.category_id')->get();
         // dd($aptitudeTests);
         return view('employer.aptitude-tests.index', compact('breadcrumbs', 'aptitudeTests'));
     }
@@ -43,7 +44,8 @@ class AptitudeTestController extends Controller
         ];
 
         $categories = Category::where('status', 1)->get();
-        return view('employer.aptitude-tests.create', compact('breadcrumbs', 'categories'));
+            $jobs = JobPost::where('status', 1)->get();
+        return view('employer.aptitude-tests.create', compact('breadcrumbs', 'categories', 'jobs'));
     }
 
     /**
@@ -55,6 +57,7 @@ class AptitudeTestController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            "job_id" => "required",
             "category_id" => "required",
             "question" => "required",
             "option_one" => "required",
@@ -68,6 +71,7 @@ class AptitudeTestController extends Controller
 
         $test = new AptitudeTest();
         $test->employer_id = $employer->id;
+        $test->job_id = $validated['job_id'];
         $test->category_id = $validated['category_id'];
         $test->question = $validated['question'];
         $test->option_one = $validated['option_one'];
@@ -112,10 +116,10 @@ class AptitudeTestController extends Controller
             [(__('Create')), null],
         ];
 
-
         $aptitudeTests = AptitudeTest::where('id','=',$aptitudeTest->id)->first();
         $categories = Category::where('status', 1)->get();
-        return view('employer.aptitude-tests.edit', compact('breadcrumbs', 'categories', 'aptitudeTests'));
+        $jobs = JobPost::where('status', 1)->get();
+        return view('employer.aptitude-tests.edit', compact('breadcrumbs', 'categories', 'aptitudeTests', 'jobs'));
     }
 
     /**
@@ -127,7 +131,9 @@ class AptitudeTestController extends Controller
      */
     public function update(Request $request, AptitudeTest $aptitudeTest)
     {
+        // dd($request->all());
         $updateData = $request->validate([
+            "job_id" => "required",
             "category_id" => "required",
             "question" => "required",
             "option_one" => "required",

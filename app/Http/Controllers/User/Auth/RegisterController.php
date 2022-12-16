@@ -57,6 +57,8 @@ class RegisterController extends Controller
 
         if($request->file == ""){
             $fieldValidtion ['uploadResume'] = 'required|mimes:pdf,xlx,csv|max:2048';
+        }else{
+            $fieldValidtion ['uploadResume'] = 'mimes:pdf,xlx,csv|max:2048';
         }
         $validated = $request->validate($fieldValidtion);
 

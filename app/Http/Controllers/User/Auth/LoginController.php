@@ -26,7 +26,7 @@ class LoginController extends Controller
         if (Auth::check()) {
             return Redirect('user');
         }
-        return view('user.home');
+        return Redirect('user');
     }
 
     /**

@@ -11,6 +11,24 @@
                     <form method="POST" action="{{ route('employer.aptitude-tests.update',$aptitudeTests ) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Job <span class="text-danger">*</span></label>
+                                    <select name="job_id"
+                                        class="text-dark form-control @if ($errors->has('job_id')) is-invalid @endif"
+                                        required>
+                                        <option disabled selected>Select option...</option>
+                                        @foreach ($jobs as $job)
+                                            <option {{ ($aptitudeTests->job_id) == $job->id ? 'selected' : '' }} value="{{ $job->id }}">
+                                                {{ $job->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">{{ $errors->first('category_id') }}</div>
+                                </div>
+                            </div><!-- Col -->
+                        </div><!-- Row -->
 
                         <div class="row">
                             <div class="col-sm-12">

@@ -45,7 +45,7 @@ class StripePaymentController extends Controller
  
                 
                 if (!isset($token['id'])) {
-                    dd('here if');
+                    // dd('here if');
                     return redirect()->route('stripe.add.money');
                 }
                  

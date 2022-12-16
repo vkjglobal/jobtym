@@ -121,17 +121,20 @@ class ProfileController extends Controller
      */
     public function changePassword(Request $request, $id)
     {
-        $updateData = $request->validate([
-            'password' => 'required|min:6|confirmed',
-            'password_confirmation' => 'required'
-        ]);
-        $update_passwd = User::whereId($id)->update(['password' => Hash::make($request->password)]);
-        dd($update_passwd);
-        if ($update_passwd) {
-            notify()->success(__('Password Updated successfully.'));
-        } else {
-            notify()->error(__('Failed to update password. Please try again'));
+        try {
+            $updateData = $request->validate([
+                'password' => 'required|min:6|confirmed',
+                'password_confirmation' => 'required'
+            ]);
+            $update_passwd = User::whereId($id)->update(['password' => Hash::make($request->password)]);
+            if ($update_passwd) {
+                notify()->success(__('Password Updated successfully.'));
+            } else {
+                notify()->error(__('Failed to update password. Please try again'));
+            }
+            return Redirect()->back();
+        } catch (\Throwable $th) {
+            return back()->withError($th->getMessage())->withInput();
         }
-        return Redirect()->back();
     }
 }

@@ -10,6 +10,25 @@
                     <h6 class="card-title">Aptitude Test Create</h6>
                     <form method="POST" action="{{ route('employer.aptitude-tests.store') }}" enctype="multipart/form-data">
                         @csrf
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Job <span class="text-danger">*</span></label>
+                                    <select name="job_id"
+                                        class="text-dark form-control @if ($errors->has('job_id')) is-invalid @endif"
+                                        required>
+                                        <option disabled selected>Select option...</option>
+                                        @foreach ($jobs as $job)
+                                            <option value="{{ $job->id }}"
+                                                {{ old('job_id') == $job->id ? 'selected' : '' }}>
+                                                {{ $job->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">{{ $errors->first('category_id') }}</div>
+                                </div>
+                            </div><!-- Col -->
+                        </div><!-- Row -->
 
                         <div class="row">
                             <div class="col-sm-12">

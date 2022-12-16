@@ -24,23 +24,28 @@ class IsVerifyEmail
     {
         $email = $request->email;
         $user = User::where('email','=',$email)->first();
-        if ($user->is_verify_otp == 0) {
-            $token = Str::random(64);
-            $otp = random_int(1000, 9999);
-
-            DB::table('verify_register_otp')->insert([
-                'email' => $request->email,
-                'token' => $token,
-                'otp' => $otp,
-                'created_at' => Carbon::now(),
-            ]);
-            Mail::send('user.auth.otpConfirmation', ['token' => $token, 'otp' => $otp], function ($message) use ($request) {
-                $message->to($request->email);
-                $message->subject('Registration Confirmation'); 
-            });
-            return redirect()->route('user.viewVerifyotp', ['email'=> $email]);
-          }
+        if($user){
+            if ($user->is_verify_otp == 0) {
+                $token = Str::random(64);
+                $otp = random_int(1000, 9999);
+    
+                DB::table('verify_register_otp')->insert([
+                    'email' => $request->email,
+                    'token' => $token,
+                    'otp' => $otp,
+                    'created_at' => Carbon::now(),
+                ]);
+                Mail::send('user.auth.otpConfirmation', ['token' => $token, 'otp' => $otp], function ($message) use ($request) {
+                    $message->to($request->email);
+                    $message->subject('Registration Confirmation'); 
+                });
+                return redirect()->route('user.viewVerifyotp', ['email'=> $email]);
+            }else{
+                return $next($request);
+            }
+        }else{
+            return $next($request);
+        }
    
-        return $next($request);
     }
 }
