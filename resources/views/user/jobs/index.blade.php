@@ -11,15 +11,17 @@
                         <input type="text" name="job-keyword" class="pos-rel search-field-top" placeholder="Job title, keywords....">
                     </div>
                     <div class="col-lg-2 col-md-6 text-left">
-                        <input type="text" class="pos-rel top-city-top" placeholder="City or postcode">
+                        <input type="text" name="city" class="pos-rel top-city-top" placeholder="City or postcode">
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <select class="category-dropdown" name="category">
-                            <option disabled selected>All Category</option>
-                            <option>IT</option>
-                            <option>Architect</option>
+                        <select class="category-dropdown" name="country">
+                            <option disabled selected>Country</option>
+                            @foreach ($jobs as $job)
+                            <option name="{{ $job->country }}" >{{ $job->country }}</option>
+                            @endforeach
+                            {{-- <option>Architect</option>
                             <option>Banking</option>
-                            <option>Writing</option>
+                            <option>Writing</option> --}}
                         </select>
                     </div>
                     <div class="col-lg-2 col-md-6">
@@ -34,12 +36,13 @@
     </section>
     <section class="featured-job-sec job-search-page">
         <div class="container pt-4 pb-4">
+            {!! $jobs->withQueryString()->links('pagination::bootstrap-5') !!}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="justify-content-between row mb-4">
                         <div class="search-result col-md-6"></div>
                         <div class="col-md-6 d-flex justify-content-end search-filter">
-                            <select class="category-dropdown" name="states[]">
+                            {{-- <select class="category-dropdown" name="states[]">
                                 <option disabled selected>Sort by (Default)</option>
                                 <option>IT</option>
                                 <option>Architect</option>
@@ -52,7 +55,7 @@
                                 <option>Architect</option>
                                 <option>Banking</option>
                                 <option>Writing</option>
-                            </select>
+                            </select> --}}
                         </div>
                     </div>
                     <div class="row job-box-wrap pl-3 pr-3">

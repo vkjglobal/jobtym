@@ -54,12 +54,12 @@ Route::post('profile/changepassword/{id}', [ProfileController::class, 'changePas
 
 Route::get('contactUs', function()
 {
-    return view('user.contactus');
+    return view('user.contactUs');
 });
 
 Route::get('aboutUs', function()
 {
-    return view('user.aboutus');
+    return view('user.aboutUs');
 });
 
 Route::get('terms-condition', function()

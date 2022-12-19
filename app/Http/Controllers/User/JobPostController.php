@@ -22,9 +22,11 @@ class JobPostController extends Controller
     public function index(Request $request)
     {
 
-        if($request->filled('job-keyword')){
+        if($request->filled('job-keyword') || $request->has('city') || $request->has('category')){
             $term = $request['job-keyword'];
-            $jobs = JobPost::where('skills','LIKE','%'.$term.'%')->orwhere('title','LIKE','%'.$term.'%')->orwhere('city','LIKE','%'.$term.'%')->paginate(6);
+            $city = $request['city'];
+            $country = $request['country'];
+            $jobs = JobPost::orwhere('skills','LIKE', "%{$term}%")->orwhere('title','LIKE',"%{$term}%")->orwhere('country','LIKE',"%{$country}%")->where('city','LIKE',"%{$city}%")->paginate(6);
         }else{
             $jobs = JobPost::where('status','=','1')->paginate(6);
         }

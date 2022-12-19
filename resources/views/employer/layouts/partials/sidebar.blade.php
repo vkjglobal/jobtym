@@ -74,25 +74,106 @@
             </li>
             <!-- Aptitude Tests End -->
 
+             <!-- Question Tests -->
+             <li class="nav-item {{ request()->is('employer/question*') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#question-tests" role="button" aria-expanded="false"
+                    aria-controls="question-tests">
+                    <i class="link-icon" data-feather="cpu"></i>
+                    <span class="link-title">Questions</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->is('employer/question*') ? 'show' : '' }}" id="question-tests">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('employer.questions.create') }}"
+                                class="nav-link {{ request()->is('employer/questions/create') ? 'active' : '' }}">
+                                Create
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('employer.questions.index') }}"
+                                class="nav-link {{ request()->is('employer/questions') ? 'active' : '' }}">
+                                List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Question Tests End -->
+
+            <!-- Option Tests -->
+            <li class="nav-item {{ request()->is('employer/option*') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#option-tests" role="button" aria-expanded="false"
+                    aria-controls="option-tests">
+                    <i class="link-icon" data-feather="cpu"></i>
+                    <span class="link-title">Option</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->is('employer/option*') ? 'show' : '' }}" id="option-tests">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('employer.options.create') }}"
+                                class="nav-link {{ request()->is('employer/options/create') ? 'active' : '' }}">
+                                Create
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('employer.options.index') }}"
+                                class="nav-link {{ request()->is('employer/options') ? 'active' : '' }}">
+                                List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Option Tests End -->
+
+            <!-- Result Tests -->
+            <li class="nav-item {{ request()->is('employer/result*') ? 'active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#result-tests" role="button" aria-expanded="false"
+                    aria-controls="result-tests">
+                    <i class="link-icon" data-feather="cpu"></i>
+                    <span class="link-title">result</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ request()->is('employer/result*') ? 'show' : '' }}" id="result-tests">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('employer.results.create') }}"
+                                class="nav-link {{ request()->is('employer/results/create') ? 'active' : '' }}">
+                                Create
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('employer.results.index') }}"
+                                class="nav-link {{ request()->is('employer/results') ? 'active' : '' }}">
+                                List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Result Tests End -->
+
             <!---Employees--->
-            <li class="nav-item">
+            <li class="nav-item {{ request()->is('employer/employee*') ? 'active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#employees" role="button" aria-expanded="false"
                     aria-controls="employees">
                     <i class="link-icon" data-feather="cpu"></i>
                     <span class="link-title">Employees</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="employees">
+                <div class="collapse {{ request()->is('employer/employee*') ? 'show' : '' }}" id="employees">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('employer.employee.create') }}"
-                                class="nav-link {{ request()->is('admin/employers/create') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('employer/employee/create') ? 'active' : '' }}">
                                 Create
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('employer.employee.index') }}"
-                                class="nav-link {{ request()->is('admin/employers') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('employer/employee') ? 'active' : '' }}">
                                 List
                             </a>
                         </li>

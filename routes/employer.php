@@ -8,7 +8,10 @@ use App\Http\Controllers\Employer\Auth\ResetPasswordController;
 use App\Http\Controllers\Employer\EmployeeController;
 use App\Http\Controllers\Employer\HomeController;
 use App\Http\Controllers\Employer\JobPostController;
+use App\Http\Controllers\Employer\OptionController;
 use App\Http\Controllers\Employer\ProfileController;
+use App\Http\Controllers\Employer\QuestionController;
+use App\Http\Controllers\Employer\ResultController;
 use App\Http\Controllers\Employer\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +51,12 @@ Route::middleware('employer.auth')->group(function () {
     // Aptitude Tests
     Route::get('aptitude-test-status', [AptitudeTestController::class, 'changeStatus'])->name('aptitudeTest.status');
     Route::resource('aptitude-tests', AptitudeTestController::class);
+
+    Route::resource('questions', QuestionController::class);
+
+    Route::resource('options', OptionController::class);
+
+    Route::resource('results', ResultController::class);
 
     // Robin-- 03-12-22
     Route::get('user-status', [EmployeeController::class, 'changeStatus'])->name('user.status');
