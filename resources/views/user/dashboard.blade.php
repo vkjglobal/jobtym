@@ -1570,7 +1570,7 @@
                                             {{ $applyJob->attend_interview }}
                                         </td>
                                         <td class="aptitude" data-label="Aptitude">
-                                            {{ $applyJob->apptitude }}
+                                            <a href="{{ url('user/test', $applyJob->job_id) }}" class="btn btn-primary text-white">Join Exam</a>
                                         </td>
                                     </tr>
                                     @endforeach

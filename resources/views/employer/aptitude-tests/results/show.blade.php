@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('employer.layouts.app')
 
 @section('content')
 <div class="container-fluid">
@@ -13,14 +13,14 @@
                 Total points: {{ $result->total_points }} points
                 </h6>
                 <div class="ml-auto">
-                    <a href="{{ route('admin.results.index') }}" class="btn btn-primary">
+                    <a href="{{ route('employer.results.index') }}" class="btn btn-primary">
                         <span class="text">{{ __('Go Back') }}</span>
                     </a>
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover" cellspacing="0" width="100%">
+                    <table class="table table-bordered table-hover" cellspacing="0" width="100%">
                     <thead>
                             <tr>
                                 <th>Question Text</th>

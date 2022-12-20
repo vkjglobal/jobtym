@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobPost;
+use App\Models\Result;
 use App\Models\SaveJob;
 use App\Models\UserJobApply;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class DashboardController extends Controller
             $user = Auth::user();
             $appliedJob = UserJobApply::where('user_id',$user->id)->latest()->get();
             $savedJob = SaveJob::where('user_id',$user->id)->latest()->get();
+            $results = Result::where('user_id',$user->id)->latest()->get();
             $getSaveJob = array();
             foreach ($savedJob as $key => $value) {
                 $saveJobPost = JobPost::where('id', $value->job_id)->get();

@@ -17,7 +17,7 @@ class OptionController extends Controller
      */
     public function index()
     {
-        $options = Option::all();
+        $options = Option::paginate(10);
 
         return view('employer.aptitude-tests.options.index', compact('options'));
     }
@@ -42,11 +42,17 @@ class OptionController extends Controller
      */
     public function store(OptionRequest $request)
     {
-        Option::create($request->validated());
+        $res = Option::create($request->validated());
+
+        if ($res) {
+            notify()->success(__('Created successfully'));
+        } else {
+            notify()->error(__('Failed to Create. Please try again'));
+        }
 
         return redirect()->route('employer.options.index')->with([
             'message' => 'successfully created !',
-            'alert-type' => 'success'
+            'alert-type' => 'success',
         ]);
     }
 

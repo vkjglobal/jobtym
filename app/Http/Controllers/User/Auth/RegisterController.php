@@ -126,7 +126,7 @@ class RegisterController extends Controller
         $res = User::where('email','=',$request->email)->update($updateData);
         
         DB::table('verify_register_otp')->where(['email' => $request->email])->delete();
-        return Redirect("user/login")->with('message', 'Great! You have Successfully Registered! Please Login Again');
+        return Redirect("user")->with('message', 'Great! You have Successfully Registered! Please Login Again');
     }
 
     /**

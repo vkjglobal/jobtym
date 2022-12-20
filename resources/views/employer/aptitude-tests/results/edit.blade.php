@@ -1,9 +1,18 @@
-@extends('layouts.admin')
+@extends('employer.layouts.app')
 
 @section('content')
-<div class="container-fluid">
 
-    <!-- Page Heading -->
+<!-- Page Heading -->
+
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h6 class="m-0">
+            {{ __('Edit Result') }}
+        </h6>
+        <a href="{{ route('employer.results.index') }}" class="btn btn-primary btn-sm shadow-sm">{{ __('Go Back') }}</a>
+    </div>
+
     @if($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -18,12 +27,12 @@
         <div class="card shadow">
             <div class="card-header">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">{{ __('edit result')}}</h1>
-                    <a href="{{ route('admin.results.index') }}" class="btn btn-primary btn-sm shadow-sm">{{ __('Go Back') }}</a>
+                    {{-- <h1 class="h3 mb-0 text-gray-800">{{ __('edit result')}}</h1> --}}
+                    {{-- <a href="{{ route('employer.results.index') }}" class="btn btn-primary btn-sm shadow-sm">{{ __('Go Back') }}</a> --}}
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.results.update', $result->id) }}" method="POST">
+                <form action="{{ route('employer.results.update', $result->id) }}" method="POST">
                     @csrf
                     @method('put')
                     <div class="form-group">

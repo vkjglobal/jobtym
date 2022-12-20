@@ -17,7 +17,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::all();
+        $questions = Question::paginate(10);
 
         return view('employer.aptitude-tests.questions.index', compact('questions'));
     }
@@ -42,7 +42,13 @@ class QuestionController extends Controller
      */
     public function store(QuestionRequest $request)
     {
-        Question::create($request->validated());
+        $res = Question::create($request->validated());
+
+        if ($res) {
+            notify()->success(__('Created successfully'));
+        } else {
+            notify()->error(__('Failed to Create. Please try again'));
+        }
 
         return redirect()->route('employer.questions.index')->with([
             'message' => 'successfully created !',

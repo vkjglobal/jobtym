@@ -18,7 +18,7 @@ class ResultController extends Controller
      */
     public function index()
     {
-        $results = Result::all();
+        $results = Result::paginate(10);
         // dd($results);
 
         return view('employer.aptitude-tests.results.index', compact('results'));
@@ -44,8 +44,7 @@ class ResultController extends Controller
      */
     public function store(ResultRequest $request)
     {
-        $employer = Auth::guard('employer')->user();
-        $result = Result::create($request->validated() + ['user_id' => $employer->id]);
+        $result = Result::create($request->validated() + ['employer_id' => auth()->guard('employer')->user()->id]);
         $result->questions()->sync($request->input('questions', []));
 
         return redirect()->route('employer.results.index')->with([
@@ -60,9 +59,9 @@ class ResultController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Result $result)
     {
-        //
+        return view('employer.aptitude-tests.results.show', compact('result'));
     }
 
     /**
@@ -71,9 +70,11 @@ class ResultController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Result $result)
     {
-        //
+        $questions = Question::all()->pluck('question_text', 'id');
+
+        return view('employer.aptitude-tests.results.edit', compact('result', 'questions'));
     }
 
     /**
@@ -83,9 +84,15 @@ class ResultController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ResultRequest $request, Result $result)
     {
-        //
+        $result->update($request->validated() + ['user_id' => auth()->id()]);
+        $result->questions()->sync($request->input('questions', []));
+
+        return redirect()->route('employer.results.index')->with([
+            'message' => 'successfully updated !',
+            'alert-type' => 'info'
+        ]);
     }
 
     /**
@@ -94,8 +101,13 @@ class ResultController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Result $result)
     {
-        //
+        $result->delete();
+
+        return back()->with([
+            'message' => 'successfully deleted !',
+            'alert-type' => 'danger'
+        ]);
     }
 }

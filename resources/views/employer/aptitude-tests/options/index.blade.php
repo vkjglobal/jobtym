@@ -13,12 +13,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover datatable datatable-option" cellspacing="0" width="100%">
+                    <table class="table table-bordered table-hover datatable datatable-option" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th width="10">
+                                {{-- <th width="10">
 
-                                </th>
+                                </th> --}}
                                 <th>No</th>
                                 <th>Question</th>
                                 <th>option Text</th>
@@ -29,9 +29,9 @@
                         <tbody>
                             @forelse($options as $option)
                             <tr data-entry-id="{{ $option->id }}">
-                                <td>
+                                {{-- <td>
 
-                                </td>
+                                </td> --}}
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $option->question->question_text }}</td>
                                 <td>{{ $option->option_text}}</td>
@@ -86,6 +86,7 @@
             </div>
         </div>
     <!-- Content Row -->
+    {!! $options->withQueryString()->links('pagination::bootstrap-5') !!}
 
 </div>
 @endsection

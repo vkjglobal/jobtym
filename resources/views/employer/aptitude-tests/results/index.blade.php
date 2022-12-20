@@ -1,17 +1,25 @@
 @extends('employer.layouts.app')
 
 @section('content')
+
+<!-- Page Heading -->
+
+<div class="card-header py-3 d-flex">
+    <h6 class="m-0">
+        {{ __('Result') }}
+    </h6>
+</div>
+
 <div class="container-fluid">
 
-    <!-- Page Heading -->
    
 
     <!-- Content Row -->
         <div class="card">
             <div class="card-header py-3 d-flex">
-                <h6 class="m-0 font-weight-bold text-primary">
+                {{-- <h6 class="m-0 font-weight-bold text-primary">
                     {{ __('result') }}
-                </h6>
+                </h6> --}}
                 <div class="ml-auto">
                     <a href="{{ route('employer.results.create') }}" class="btn btn-primary">
                         <span class="icon text-white-50">
@@ -23,12 +31,12 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover datatable datatable-result" cellspacing="0" width="100%">
+                    <table class="table table-bordered table-hover datatable datatable-result" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th width="10">
+                                {{-- <th width="10">
 
-                                </th>
+                                </th> --}}
                                 <th>No</th>
                                 <th>User</th>
                                 <th>Points</th>
@@ -39,11 +47,11 @@
                         <tbody>
                             @forelse($results as $result)
                             <tr data-entry-id="{{ $result->id }}">
-                                <td>
+                                {{-- <td>
 
-                                </td>
+                                </td> --}}
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $result->employer->name }}</td>
+                                <td>{{ $result->user_id }}</td>
                                 <td>{{ $result->total_points }}</td>
                                 <td>
                                     @foreach($result->questions as $key => $question)
@@ -52,17 +60,17 @@
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
-                                        <a href="{{ route('admin.results.show', $result->id) }}" class="btn btn-success">
-                                            <i class="fa fa-eye"></i>
+                                        <a href="{{ route('employer.results.show', $result->id) }}" class="text-success ml-2">
+                                            <i data-feather="eye"></i>
                                         </a>
-                                        <a href="{{ route('admin.results.edit', $result->id) }}" class="btn btn-info">
-                                            <i class="fa fa-pencil-alt"></i>
+                                        <a href="{{ route('employer.results.edit', $result->id) }}" class="text-warning ml-2">
+                                            <i data-feather="edit"></i>
                                         </a>
-                                        <form onclick="return confirm('are you sure ? ')" class="d-inline" action="{{ route('admin.results.destroy', $result->id) }}" method="POST">
+                                        <form onclick="return confirm('are you sure ? ')" class="d-inline" action="{{ route('employer.results.destroy', $result->id) }}" method="POST">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-danger" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
-                                                <i class="fa fa-trash"></i>
+                                            <button class="text-danger ml-2" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
+                                                <i data-feather="trash"></i>
                                             </button>
                                         </form>
                                     </div>

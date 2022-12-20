@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Employer\TestController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\JobPostController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ResultController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +53,10 @@ Route::post('apply-job', [JobPostController::class, 'applyJob'])->name('job.job-
 
 Route::resource('profile', ProfileController::class);
 Route::post('profile/changepassword/{id}', [ProfileController::class, 'changePassword'])->name('changePassword');
+
+Route::get('test/{id}',[TestController::class, 'index'])->name('test');
+Route::post('test',[TestController::class, 'store'])->name('test.store');
+Route::get('results/{result_id}',[ResultController::class, 'show'])->name('results.show');
 
 Route::get('contactUs', function()
 {

@@ -16,12 +16,19 @@
         </div>
     @endif
 
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h6 class="m-0">
+            {{ __('Create Result') }}
+        </h6>
+        <a href="{{ route('employer.results.index') }}" class="btn btn-primary btn-sm shadow-sm">{{ __('Go Back') }}</a>
+    </div>
+
 <!-- Content Row -->
         <div class="card shadow">
             <div class="card-header">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">{{ __('create result') }}</h1>
-                    <a href="{{ route('employer.results.index') }}" class="btn btn-primary btn-sm shadow-sm">{{ __('Go Back') }}</a>
+                    {{-- <h1 class="h3 mb-0 text-gray-800">{{ __('create result') }}</h1> --}}
+                    {{-- <a href="{{ route('employer.results.index') }}" class="btn btn-primary btn-sm shadow-sm">{{ __('Go Back') }}</a> --}}
                 </div>
             </div>
             <div class="card-body">
