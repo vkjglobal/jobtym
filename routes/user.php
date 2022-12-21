@@ -4,6 +4,7 @@ use App\Http\Controllers\Employer\TestController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\JobPostController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\ResultController;
@@ -21,9 +22,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user.home');
-});
+// Route::get('/', function () {
+//     return view('user.home');
+// });
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('categories', [HomeController::class, 'categories']);
+Route::get('contactUs', [HomeController::class, 'contactUs']);
+Route::get('aboutUs', [HomeController::class, 'aboutUs']);
+Route::get('terms-condition', [HomeController::class, 'termsCondition']);
+Route::get('faq', [HomeController::class, 'faq']);
+Route::get('privacy-policy', [HomeController::class, 'privacyPolicy']);
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('post-login', [LoginController::class, 'postLogin'])->name('post-login')->middleware(['is_verify_email']); 
@@ -58,27 +67,3 @@ Route::get('test/{id}',[TestController::class, 'index'])->name('test');
 Route::post('test',[TestController::class, 'store'])->name('test.store');
 Route::get('results/{result_id}',[ResultController::class, 'show'])->name('results.show');
 
-Route::get('contactUs', function()
-{
-    return view('user.contactUs');
-});
-
-Route::get('aboutUs', function()
-{
-    return view('user.aboutUs');
-});
-
-Route::get('terms-condition', function()
-{
-    return view('user.termsConditions');
-});
-
-Route::get('faq', function()
-{
-    return view('user.faq');
-});
-
-Route::get('privacy-policy', function()
-{
-    return view('user.privacyPolicy');
-});

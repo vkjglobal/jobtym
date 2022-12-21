@@ -15,14 +15,16 @@
                                     in one place</h1>
                                 <div class="srch-title">Find jobs that match your interests with us.</div>
                                 <div class="srch-form">
-                                    <form action="">
+                                    <form action="{{ route('user.job.find-job') }}">
                                         <div class="form-group row">
                                             <div class="col-lg-4 col-xl-3">
                                                 <label for="jobTitle">What</label>
-                                                <select class="form-control job-dropdown" id="jobTitle">
+                                                <select class="form-control job-dropdown" id="jobTitle" name="job-keyword">
                                                     <option disabled selected>Job Title</option>
-                                                    <option>Developer</option>
-                                                    <option>Designer</option>
+                                                    @foreach ($jobs as $jobTitle)
+                                                        <option name='{{ $jobTitle->title }}'>{{ $jobTitle->title }}</option>
+                                                    @endforeach
+                                                    {{-- <option>Designer</option>
                                                     <option>Architect</option>
                                                     <option>Engineer</option>
                                                     <option>PHP</option>
@@ -30,27 +32,34 @@
                                                     <option>Ios</option>
                                                     <option>Freelance</option>
                                                     <option>Writing</option>
-                                                    <option>Accountancy</option>
+                                                    <option>Accountancy</option> --}}
                                                 </select>
                                             </div>
                                             <div class="col-lg-4 col-xl-3">
                                                 <label for="jobCategory">Type</label>
-                                                <select class="form-control category-dropdown" id="jobCategory">
-                                                    <option disabled selected>All Category</option>
-                                                    <option>IT</option>
-                                                    <option>Architect</option>
-                                                    <option>Banking</option>
-                                                    <option>Writing</option>
+                                                <select class="form-control category-dropdown" id="jobCategory" name="jobType">
+                                                    <option disabled selected>All Types</option>
+                                                    <option name="fullTime">Full Time</option>
+                                                    <option name="partTime">Part Time</option>
+                                                    <option name="fresher">Fresher</option>
+                                                    <option name="internship">Internship</option>
+                                                    <option name="contract">Contract</option>
+                                                    <option name="temporary">Temporary</option>
+                                                    {{-- <option>Banking</option>
+                                                    <option>Writing</option> --}}
                                                 </select>
                                             </div>
                                             <div class="col-lg-4 col-xl-3">
                                                 <label for="jobLocation">Location</label>
-                                                <select class="form-control location-dropdown" id="jobLocation">
+                                                <select class="form-control location-dropdown" id="jobLocation" name="country">
                                                     <option disabled selected>Location</option>
-                                                    <option>Location1</option>
+                                                    @foreach ($jobs as $jobLocation)
+                                                        <option name={{ $jobLocation->country }}>{{ $jobLocation->country }}</option>
+                                                    @endforeach
+                                                    {{-- <option>Location1</option>
                                                     <option>Location2</option>
                                                     <option>Location3</option>
-                                                    <option>Location4</option>
+                                                    <option>Location4</option> --}}
                                                 </select>
                                             </div>
                                             <div class="col-lg-4 col-xl-3">
@@ -196,7 +205,7 @@
                         <div class="col-xl-7 col-md-12" data-aos="zoom-in" data-aos-duration="2000">
                             <ul class="cat-list row">
                                 <li class="list-item list-item1 slctd-cat">
-                                    <a href="categories.html">
+                                    <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/bd-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
@@ -204,7 +213,7 @@
                                     </a>
                                 </li>
                                 <li class="list-item list-item2">
-                                    <a href="categories.html">
+                                    <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/pm-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
@@ -212,7 +221,7 @@
                                     </a>
                                 </li>
                                 <li class="list-item list-item3">
-                                    <a href="categories.html">
+                                    <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/cwb-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
@@ -220,7 +229,7 @@
                                     </a>
                                 </li>
                                 <li class="list-item list-item4">
-                                    <a href="categories.html">
+                                    <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/cs-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
@@ -228,7 +237,7 @@
                                     </a>
                                 </li>
                                 <li class="list-item list-item5">
-                                    <a href="categories.html">
+                                    <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/swd-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
@@ -236,7 +245,7 @@
                                     </a>
                                 </li>
                                 <li class="list-item list-item6">
-                                    <a href="categories.html">
+                                    <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/ITdm-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
@@ -244,7 +253,7 @@
                                     </a>
                                 </li>
                                 <li class="list-item list-item7">
-                                    <a href="categories.html">
+                                    <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/aps-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
@@ -252,7 +261,7 @@
                                     </a>
                                 </li>
                                 <li class="list-item list-item8 ">
-                                    <a href="categories.html">
+                                    <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/rf-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
@@ -262,7 +271,7 @@
                                 </li>
 
                             </ul>
-                            <a href="categories.html" class="all-cat-btn">All Categories</a>
+                            <a href="{{ url('user/categories') }}" class="all-cat-btn">All Categories</a>
                         </div>
                         <div class="col-xl-5 col-md-12" data-aos="fade-up" data-aos-duration="2000">
                             <div class="cv-upload-sec">
@@ -296,7 +305,37 @@
             <h2 class="hd-typ2" data-aos="fade-up" data-aos-duration="2000">The #1 Job Board for Hiring Creative
                 Professionals</h2>
             <div class="row job-box-wrap" data-aos="zoom-in" data-aos-duration="2000">
-                <a href="job-detail.html" class="job-box job-box-type1">
+                @foreach ($jobs as $job)
+                    <a href="{{ url('user/job-detail',base64_encode($job['id'])) }}" class="job-box job-box-type1">
+                        <span class="job-title-sec">
+                            <strong class="title-icon">D</strong>
+                            <span class="job-title">
+                                <h4>{{ $job->title }}</h4>
+                                <span class="job-info-sec">
+                                    <ul class="job-info">
+                                        <li class="cmpny-name">{{ $job->employer->company_name }}</li>
+                                        <li class="company-location">{{ $job->employer->country }}</li>
+                                        <li class="work-duration">{{ $job->type }}</li>
+                                        {{-- <li class="notification">3mins ago</li> --}}
+                                    </ul>
+                                    <span class="pay-dtls">
+                                        <strong>${{ $job['salaryFrom'] }} - ${{ $job['salaryTo'] }}</strong> / week
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                        <span class="job-info-text">
+                            We want someone who has been doing this for a solid 2=3 yeras. We want someone who can demonstrate a
+                            extremely storng portfolio.
+                        </span>
+                        <span class="req-info-box">
+                            <span class="urgent">Urgent</span>
+                            <span class="senior">Senior</span>
+                            <span class="full-time">Full time</span>
+                        </span>
+                    </a>
+                @endforeach
+                {{-- <a href="job-detail.html" class="job-box job-box-type1">
                     <span class="job-title-sec">
                         <strong class="title-icon">D</strong>
                         <span class="job-title">
@@ -435,37 +474,9 @@
                         <span class="senior">Senior</span>
                         <span class="full-time">Full time</span>
                     </span>
-                </a>
-                <a href="job-detail.html" class="job-box job-box-type1">
-                    <span class="job-title-sec">
-                        <strong class="title-icon">D</strong>
-                        <span class="job-title">
-                            <h4>Digital marketing Manager</h4>
-                            <span class="job-info-sec">
-                                <ul class="job-info">
-                                    <li class="cmpny-name">AliStudio, Inc</li>
-                                    <li class="company-location">New York, NY</li>
-                                    <li class="work-duration">Full time</li>
-                                    <li class="notification">3mins ago</li>
-                                </ul>
-                                <span class="pay-dtls">
-                                    <strong>$500</strong>/Hour
-                                </span>
-                            </span>
-                        </span>
-                    </span>
-                    <span class="job-info-text">
-                        We want someone who has been doing this for a solid 2=3 yeras. We want someone who can demonstrate a
-                        extremely storng portfolio.
-                    </span>
-                    <span class="req-info-box">
-                        <span class="urgent">Urgent</span>
-                        <span class="senior">Senior</span>
-                        <span class="full-time">Full time</span>
-                    </span>
-                </a>
-                <a href="{{ url('user/find-job') }}" class="btn-typ1">Browse All Jobs</a>
+                </a> --}}
             </div>
+            <a href="{{ url('user/find-job') }}" class="btn-typ1">Browse All Jobs</a>
         </div>
     </section>
     <section class="how-it-works-sec">

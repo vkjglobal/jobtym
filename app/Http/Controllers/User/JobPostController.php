@@ -26,7 +26,8 @@ class JobPostController extends Controller
             $term = $request['job-keyword'];
             $city = $request['city'];
             $country = $request['country'];
-            $jobs = JobPost::orwhere('skills','LIKE', "%{$term}%")->orwhere('title','LIKE',"%{$term}%")->orwhere('country','LIKE',"%{$country}%")->where('city','LIKE',"%{$city}%")->paginate(6);
+            $jobType = $request['jobType'];
+            $jobs = JobPost::orwhere('skills','LIKE', "%{$term}%")->orwhere('title','LIKE',"%{$term}%")->orwhere('country','LIKE',"%{$country}%")->where('city','LIKE',"%{$city}%")->where('type','LIKE',"%{$jobType}%")->paginate(6);
         }else{
             $jobs = JobPost::where('status','=','1')->paginate(6);
         }

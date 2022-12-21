@@ -106,14 +106,31 @@
                                                     </div>
                                                     <div class="modal-body row">
                                                         <div class="form-group col-md-12">
+                                                            <label for="role">Role</label>
+                                                            <Select name="role" class="form-control" required>
+                                                                <option selected disabled>Select Role</option>
+                                                                <option name="employer" value="employer">Employer</option>    
+                                                                <option name="user" value="user">User</option>    
+                                                            </Select>
+                                                            @if($errors->has('role'))
+                                                                <div class="text-danger">{{ $errors->first('role') }}</div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group col-md-12">
                                                             <label for="e-mail">Email</label>
                                                             <input type="email" name="email" class="form-control"
                                                                 id="e-mail" placeholder="">
+                                                            @if($errors->has('email'))
+                                                                <div class="text-danger">{{ $errors->first('email') }}</div>
+                                                            @endif
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label for="pAssword">Password</label>
                                                             <input id="password-field" name="password" type="password"
                                                                 class="form-control" name="password">
+                                                            @if($errors->has('password'))
+                                                                <div class="text-danger">{{ $errors->first('password') }}</div>
+                                                            @endif
                                                             <span class="error-msg">Password error</span>
                                                             <span toggle="#password-field"
                                                                 class="fa fa-fw fa-eye field-icon toggle-password"></span>
@@ -124,7 +141,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <button class="btn-typ1">Login</button>
+                                                            <button type="submit" class="btn-typ1">Login</button>
                                                         </div>
                                                         <div class="col-md-12 division">
                                                             <hr>
@@ -163,7 +180,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 bottom-link">
-                                                            Don't you have an account? <a href="register">Register</a>
+                                                            Don't you have an account? <a href="{{ url('user/register') }}">Register</a>
                                                         </div>
                                                     </div>
 

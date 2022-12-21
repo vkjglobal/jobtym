@@ -37,15 +37,26 @@ class LoginController extends Controller
     public function postLogin(Request $request)
     {
         $request->validate([
+            'role' => 'required',
             'email' => 'required',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email', 'password');
-        // dd($request->all(),Auth::attempt($credentials));
-        if (Auth::attempt($credentials)) {
-            FacadesSession::put('user', $request->input('email'));
-            return Redirect('user/dashboard')->with('message', 'Great! You have Successfully Login.');
+        if ($request->role == 'user') {
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)) {
+                FacadesSession::put('user', $request->input('email'));
+                return Redirect('user/dashboard')->with('message', 'Great! You have Successfully Login.');
+            }else {
+                return Redirect("user")->with('error', 'Oppes! You have entered invalid credentials');
+            }
+        } else {
+            $credentials = $request->only('email', 'password');
+            if (Auth::guard('employer')->attempt($credentials)) {
+                return redirect()->route('employer.home');
+            }else {
+                return Redirect("user")->with('error', 'Oppes! You have entered invalid credentials');
+            }
         }
 
         return Redirect("user")->with('error', 'Oppes! You have entered invalid credentials');

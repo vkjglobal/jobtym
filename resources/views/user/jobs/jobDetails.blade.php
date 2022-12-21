@@ -78,11 +78,11 @@
                                                     fill="#A0A0A0" />
                                             </svg>
                                         </span>
-                                        ${{ $job['salaryFrom'] }} - ${{ $job['salaryFrom'] }} / week
+                                        ${{ $job['salaryFrom'] }} - ${{ $job['salaryTo'] }} / week
                                     </li>
                                 </ul>
                                 <span class="req-info-box">
-                                    <span class="full-time">Full time</span>
+                                    <span class="full-time">{{ $job['type'] }}</span>
                                     <span class="urgent ml-2">Urgent</span>
                                 </span>
                             </span>
@@ -352,7 +352,7 @@
                             </li>
                             <li class="offered-salary">
                                 <strong>Offered Salary:</strong>
-                                <span>${{ $job['salaryFrom'] }} - ${{ $job['salaryFrom'] }} / week</span>
+                                <span>${{ $job['salaryFrom'] }} - ${{ $job['salaryTo'] }} / week</span>
                             </li>
                             <li class="expiration-date">
                                 <strong>Expiration date</strong>
