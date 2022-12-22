@@ -106,7 +106,7 @@
                         </a>
                     </div>
 
-                    <form method="POST" action="{{ route('user.job.job-apply') }}" class="register-form-modal register-form applynowform">
+                    <form method="POST" action="{{ route('user.job.job-apply') }}" class="register-form-modal register-form applynowform" enctype="multipart/form-data">
                         @csrf
                         <div class="modal fade" id="ApplyNow" tabindex="-1" role="dialog" aria-labelledby="ApplyNow"
                             aria-hidden="true">
@@ -253,15 +253,15 @@
                                             <input type="checkbox" name="accept" id="regChck">
                                             <label for="regChck">
                                                 <span class="chk-txt">By clicking checkbox, you agree to our <a
-                                                        href="">Terms and Conditions</a> and <a
-                                                        href="">Privacy Policy</a></span>
+                                                        href="{{ url('user/terms-condition') }}"  target="_blank">Terms and Conditions</a> and <a
+                                                        href="{{ url('user/privacy-policy') }}"  target="_blank">Privacy Policy</a></span>
                                             </label>
                                             @if($errors->has('accept'))
                                                 <div class="text-danger">{{ $errors->first('accept') }}</div>
                                             @endif
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <button type="submit" class="btn-typ1 w-100 rounded-btn5">Register Now</button>
+                                            <button type="submit" class="btn-typ1 w-100 rounded-btn5">Apply for job</button>
                                         </div>
                                     </div>
 

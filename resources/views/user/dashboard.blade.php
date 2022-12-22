@@ -87,9 +87,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('user') }}">Upload Your Resume</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('user') }}">Hiring?   Post a job for free</a>
-                            </li>
+                            {{-- <li class="nav-item">
+                                <a class="nav-link" href="{{ url('user') }}">Hiring? Post a job for free</a>
+                            </li> --}}
                         </ul>                        
                     </div>
                     
@@ -111,7 +111,8 @@
                         </svg>
                         Resume
                     </button>
-                    <form class="dwnld-btn-wrp">
+                    <form method="POST" action="{{ route('user.uploadFile') }}" class="dwnld-btn-wrp" enctype="multipart/form-data">
+                        @csrf
                         <ul>
                             <li class="lng-slct">
                                 <section class="lng-slct-drpdwn">
@@ -121,6 +122,7 @@
                                 </section>
                             </li>
                             <li class="resume-import">
+                                <input type="file" name="uploadResume" id="fileInput" style="font-size: 0;line-height: 0;position: absolute;top: 0;opacity: 0;height: 100%;width: 100%;cursor: pointer;">
                                 <button>
                                     <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1.57895L1 1.57895C0.734784 1.57895 0.48043 1.49577 0.292894 1.34771C0.105357 1.19966 1.22402e-06 0.998853 1.24232e-06 0.789472C1.26063e-06 0.58009 0.105357 0.379284 0.292894 0.231229C0.48043 0.0831743 0.734784 -2.2882e-06 1 -2.26502e-06L15 -1.0411e-06C15.2652 -1.01791e-06 15.5196 0.0831756 15.7071 0.231231C15.8946 0.379286 16 0.580091 16 0.789474C16 0.998855 15.8946 1.19966 15.7071 1.34772C15.5196 1.49577 15.2652 1.57895 15 1.57895ZM7 6.17763L3.757 8.7371L2.343 7.62079L8 3.15474L13.657 7.62079L12.243 8.73711L9 6.17763L9 15L7 15L7 6.17763Z" fill="#3E9FFF"/>
@@ -138,6 +140,17 @@
                             </li>
                         </ul>
                     </form>
+
+                    <script>
+                        // Get the file input element
+                        var fileInput = document.getElementById('fileInput');
+                        // Add a change event listener to the file input element
+                        fileInput.addEventListener('change', function() {
+                            console.log('here');
+                          // When the user selects a file, submit the form
+                          this.form.submit();
+                        });
+                    </script>
                 </div>
                 <div class="container white-bg">
                     <form class="row form-dash" name="formval" onsubmit="return false">
@@ -1540,7 +1553,7 @@
                         
                         <form class="form-dash">
                             
-                            <table class="table reports-table">
+                            <table class="table reports-table" id="reportTable">
                                 <thead>
                                     <th class="applied-date">Date Applied</th>
                                     <th class="job-title">Job Title</th>
@@ -1558,10 +1571,10 @@
                                             <span>{{ $applyJob->created_at }}</span>
                                         </td>
                                         <td class="job-title" data-label="Job Title">
-                                            {{ $applyJob->job_title }} 
+                                            {{ $applyJob->jobApply->title }} 
                                         </td>
                                         <td class="employer" data-label="Employer">
-                                            {{ $applyJob->employer }}
+                                            {{ $applyJob->employeName->name }}
                                         </td>
                                         <td class="shortlisted" data-label="Shortlisted">
                                             {{ $applyJob->shortlist }}
@@ -1570,7 +1583,11 @@
                                             {{ $applyJob->attend_interview }}
                                         </td>
                                         <td class="aptitude" data-label="Aptitude">
-                                            <a href="{{ url('user/test', $applyJob->job_id) }}" class="btn btn-primary text-white">Join Exam</a>
+                                            @if ($applyJob->examJoined)
+                                                <a href="{{ url('user/results', $applyJob->resultId) }}" class="btn btn-primary text-white">View Result</a>
+                                            @else
+                                                <a href="{{ url('user/test', $applyJob->job_id) }}" class="btn btn-primary text-white">Join Exam {{ $applyJob->examJoined }}</a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -1659,7 +1676,7 @@
                         <li class="link-title">Helpful Resources</li>
                         <li class="link-item"><a href="">Site Map</a></li>
                         <li class="link-item"><a href="">Terms of Use</a></li>
-                        <li class="link-item"><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li class="link-item"><a href="{{ url('user/privacy-policy') }}">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>

@@ -32,9 +32,7 @@ class TestController extends Controller
 
     public function store(StoreTestRequest $request)
     {
-        // dd($request->job_id);
         $options = Option::find(array_values($request->input('questions')));
-        // dd(Auth::user());
         $result = auth()->user()->userResults()->create([
             'job_id' => $request->job_id,
             'total_points' => $options->sum('points')

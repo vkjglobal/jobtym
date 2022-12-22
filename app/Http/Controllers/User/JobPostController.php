@@ -21,13 +21,31 @@ class JobPostController extends Controller
      */
     public function index(Request $request)
     {
-
-        if($request->filled('job-keyword') || $request->has('city') || $request->has('category')){
+        if($request->filled('job-keyword') || $request->has('city') || $request->has('category') || $request->has('jobTitle') || $request->has('jobType') || $request->has('country')){
             $term = $request['job-keyword'];
             $city = $request['city'];
             $country = $request['country'];
+            $jobTitle = $request['jobTitle'];
             $jobType = $request['jobType'];
-            $jobs = JobPost::orwhere('skills','LIKE', "%{$term}%")->orwhere('title','LIKE',"%{$term}%")->orwhere('country','LIKE',"%{$country}%")->where('city','LIKE',"%{$city}%")->where('type','LIKE',"%{$jobType}%")->paginate(6);
+            
+            $jobs = JobPost::where(function($query) use($term, $city, $country, $jobTitle, $jobType)
+            {
+                if($term) {
+                    $query->where('skills','LIKE', "%{$term}%")->orwhere('title','LIKE',"%{$term}%");
+                }
+                if($city) {
+                    $query->where('city','LIKE',"%{$city}%");
+                }
+                if($country) {
+                    $query->where('country','LIKE',"%{$country}%");
+                }
+                if($jobTitle) {
+                    $query->where('title','LIKE',"%{$jobTitle}%");
+                }
+                if($jobType) {
+                    $query->where('type','LIKE',"%{$jobType}%");
+                }
+            })->paginate(6);
         }else{
             $jobs = JobPost::where('status','=','1')->paginate(6);
         }
@@ -96,6 +114,7 @@ class JobPostController extends Controller
      */
     public function applyJob(Request $request)
     {   
+        // dd($request->all());
         $validated = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -106,8 +125,8 @@ class JobPostController extends Controller
             'industry' => 'required',
             'accept' => 'required',
         ]);
-        // dd($request->file);
-        // if($request->file == ""){
+        // dd($request->file());
+        // if($request->file() == ""){
         //     $validated = $request->validate([
         //         'resumeUpload' => 'required|mimes:pdf,xlx,csv|max:2048',
         //     ]);
@@ -123,7 +142,7 @@ class JobPostController extends Controller
         DB::table('user_job_applies')->insert([
             'job_id' => $request->job_id,
             'user_id' => $request->user_id,
-            'job_title' => $request->job_title,
+            'job_title' => $request->job_id,
             'employer' => $request->employer,
             'shortlist' => $request->shortlist,
             'attend_interview' => $request->attend_interview,

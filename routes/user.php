@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [HomeController::class, 'index']);
+Route::post('upload-file', [HomeController::class, 'uploadFile'])->name('uploadFile');
 Route::get('categories', [HomeController::class, 'categories']);
 Route::get('contactUs', [HomeController::class, 'contactUs']);
 Route::get('aboutUs', [HomeController::class, 'aboutUs']);

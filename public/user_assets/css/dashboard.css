@@ -306,6 +306,7 @@ a.btn.btn-primary.register {
   min-width: 52px;
   height: 52px;
   border-radius: 50%;
+  margin-left: 88px;
 }
 
 .user-menu {
@@ -1365,7 +1366,7 @@ footer .copy-right {
 }
 @media (min-width: 992px) {
   .navbar-expand-lg .navbar-collapse {
-    justify-content: space-around;
+    justify-content: right;
   }
   .navbar-expand-lg .navbar-nav {
     align-items: center;

@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class UserJobApply extends Model
 {
     use HasFactory;
+
+    public function jobApply()
+    {
+        return $this->belongsTo(JobPost::class,'job_id');
+    }
+
+    public function employeName()
+    {
+        return $this->belongsTo(Employer::class,'employer');
+    }
 }

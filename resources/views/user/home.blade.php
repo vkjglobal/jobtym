@@ -7,6 +7,9 @@
         <div class="container">
             <div class="row">
                 <div class="midbar">
+                    @if($errors->has('uploadResume'))
+                        <div class="alert alert-danger text-center">{{ $errors->first('uploadResume') }}</div>
+                    @endif
                     <div class="top-info">Millions of jobs. Find the one that’s right for you.</div>
                     <div class="mid-info row no-gutters">
                         <div class="col-lg-6 col-md-12" data-aos="zoom-in" data-aos-duration="2000">
@@ -16,37 +19,27 @@
                                 <div class="srch-title">Find jobs that match your interests with us.</div>
                                 <div class="srch-form">
                                     <form action="{{ route('user.job.find-job') }}">
+                                        {{-- @csrf --}}
                                         <div class="form-group row">
                                             <div class="col-lg-4 col-xl-3">
                                                 <label for="jobTitle">What</label>
-                                                <select class="form-control job-dropdown" id="jobTitle" name="job-keyword">
+                                                <select class="form-control job-dropdown" id="jobTitle" name="jobTitle">
                                                     <option disabled selected>Job Title</option>
                                                     @foreach ($jobs as $jobTitle)
                                                         <option name='{{ $jobTitle->title }}'>{{ $jobTitle->title }}</option>
                                                     @endforeach
-                                                    {{-- <option>Designer</option>
-                                                    <option>Architect</option>
-                                                    <option>Engineer</option>
-                                                    <option>PHP</option>
-                                                    <option>Banking</option>
-                                                    <option>Ios</option>
-                                                    <option>Freelance</option>
-                                                    <option>Writing</option>
-                                                    <option>Accountancy</option> --}}
                                                 </select>
                                             </div>
                                             <div class="col-lg-4 col-xl-3">
                                                 <label for="jobCategory">Type</label>
                                                 <select class="form-control category-dropdown" id="jobCategory" name="jobType">
                                                     <option disabled selected>All Types</option>
-                                                    <option name="fullTime">Full Time</option>
-                                                    <option name="partTime">Part Time</option>
-                                                    <option name="fresher">Fresher</option>
-                                                    <option name="internship">Internship</option>
-                                                    <option name="contract">Contract</option>
-                                                    <option name="temporary">Temporary</option>
-                                                    {{-- <option>Banking</option>
-                                                    <option>Writing</option> --}}
+                                                    <option name="fullTime" value="fullTime">Full Time</option>
+                                                    <option name="partTime" value="partTime">Part Time</option>
+                                                    <option name="fresher" value="fresher">Fresher</option>
+                                                    <option name="internship" value="internship">Internship</option>
+                                                    <option name="contract" value="contract">Contract</option>
+                                                    <option name="temporary" value="temporary">Temporary</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-4 col-xl-3">
@@ -56,10 +49,6 @@
                                                     @foreach ($jobs as $jobLocation)
                                                         <option name={{ $jobLocation->country }}>{{ $jobLocation->country }}</option>
                                                     @endforeach
-                                                    {{-- <option>Location1</option>
-                                                    <option>Location2</option>
-                                                    <option>Location3</option>
-                                                    <option>Location4</option> --}}
                                                 </select>
                                             </div>
                                             <div class="col-lg-4 col-xl-3">
@@ -280,18 +269,29 @@
                                     employers</div>
                                 <div class="info-text">We have found Indeed very helpful <br>in finding the right candidate
                                     for our <br>organization...</div>
-                                <form action="" class="cv-upload">
+                                <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="file-icon">
                                         <img src="{{ asset('user_assets/images/file-upload.svg')}}" alt="">
                                     </div>
                                     <div class="upload-btn-wrapper">
-                                        <input type="file" name="myfile" />
+                                        <input type="file" name="uploadResume" id="fileInput"/>
                                         <button class="btn">Upload a file</button>
                                     </div>
                                 </form>
                                 <div class="cv-upload-bg d-none d-sm-block">
                                     <img src="{{ asset('user_assets/images/Lady-img2.png')}}" alt="">
                                 </div>
+                                <script>
+                                    // Get the file input element
+                                    var fileInput = document.getElementById('fileInput');
+                                    // Add a change event listener to the file input element
+                                    fileInput.addEventListener('change', function() {
+                                        console.log('here');
+                                      // When the user selects a file, submit the form
+                                      this.form.submit();
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>

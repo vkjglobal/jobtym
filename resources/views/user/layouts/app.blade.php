@@ -38,11 +38,15 @@
                                 <a class="nav-link" href="{{ url('user/find-job') }}">Find Jobs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('user') }}">Upload Your Resume</a>
+                                <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
+                                    @csrf
+                                    <input id="upload" name="uploadResume" type="file" style="display: none"/>
+                                    <a class="nav-link" href="" id="upload_link">Upload Your Resume</a>
+                                </form>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ url('user') }}">Hiring? Post a job for free</a>
-                            </li>
+                            </li> --}}
 
                             @auth
                                 <li class="user-logo">
@@ -330,6 +334,22 @@
     <script src="{{ asset('user_assets/js/select2.min.js')}}"></script>
     <script src="{{ asset('user_assets/js/aos.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#upload_link").on('click', function(e){
+                e.preventDefault();
+                $("#upload:hidden").trigger('click');
+            });
+        });
+        // Get the file input element
+        var fileInput = document.getElementById('upload');
+        // Add a change event listener to the file input element
+        fileInput.addEventListener('change', function() {
+            console.log('here');
+            // When the user selects a file, submit the form
+            this.form.submit();
+        });
+    </script>
     <script>
         AOS.init();
 

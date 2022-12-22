@@ -22,8 +22,14 @@ class DashboardController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $appliedJob = UserJobApply::where('user_id',$user->id)->latest()->get();
+            foreach ($appliedJob as $ajkey => $aj) {
+                $jobId = $aj->job_id;
+                $userID = $user->id;
+                $resultExam = Result::where('user_id',$user->id)->where('job_id',$jobId)->first();
+                $aj->examJoined = $resultExam ? true : false;
+                $aj->resultId = $resultExam ? $resultExam->id : "";
+            }
             $savedJob = SaveJob::where('user_id',$user->id)->latest()->get();
-            $results = Result::where('user_id',$user->id)->latest()->get();
             $getSaveJob = array();
             foreach ($savedJob as $key => $value) {
                 $saveJobPost = JobPost::where('id', $value->job_id)->get();
