@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\JobPost;
 use App\Models\SaveJob;
+use App\Models\UserJobApply;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,9 +64,11 @@ class JobPostController extends Controller
         $id = base64_decode($id);
         $userid = isset($user['id']) ? $user['id'] : '';
         $job = JobPost::where('id', $id)->first();
+        $applyJob = UserJobApply::where('user_id',$user->id)->where('job_id',$id)->count();
+        // dd($applyJob < 0);
         $countSavedJob = SaveJob::where('job_id', $id)->where('user_id', $userid )->count();
         $isSavedJob = $countSavedJob > 0 ? true : false;
-        return view('user.jobs.jobDetails', compact('job','isSavedJob','user'));
+        return view('user.jobs.jobDetails', compact('job','isSavedJob','user', 'applyJob'));
     }
 
     /**
@@ -115,53 +118,59 @@ class JobPostController extends Controller
     public function applyJob(Request $request)
     {   
         // dd($request->all());
-        $validated = $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|email',
-            'academic' => 'required',
-            'age' => 'required',
-            'gender' => 'required|in:male,female,other',
-            'industry' => 'required',
-            'accept' => 'required',
-        ]);
-        // dd($request->file());
-        // if($request->file() == ""){
-        //     $validated = $request->validate([
-        //         'resumeUpload' => 'required|mimes:pdf,xlx,csv|max:2048',
-        //     ]);
-        // }
-        // dd($validated->fails());
+        $user = Auth::user();
+        $resultExam = UserJobApply::where('user_id',$user->id)->where('job_id',$request->job_id)->first();
+        if ($resultExam) {
+            return Redirect("user/find-job")->with('error', 'You already applied this job');
+        }else {
+            $fieldValidtion = [
+                'first_name' => 'required|string',
+                'last_name' => 'required|string',
+                'email' => 'required|email',
+                'academic' => 'required',
+                'age' => 'required',
+                'gender' => 'required|in:male,female,other',
+                'industry' => 'required',
+                'accept' => 'required',
+            ];
+            // dd($request->file());
+            if($request->file() == []){
+                $fieldValidtion ['resumeUpload'] = 'required|mimes:pdf,xlx,csv|max:2048';
+            }else{
+                $fieldValidtion ['resumeUpload'] = 'mimes:pdf,xlx,csv|max:2048';
+            }
+            $validated = $request->validate($fieldValidtion,[
+                'accept.required' => 'Please accept the terms and conditions.',
+            ]);
 
-        // dd($request->all());
+            $fileName = time().'.'.$request['resumeUpload']->extension();
+            $request->file('resumeUpload')->move(('user_assets/uploadResumes'), $fileName);
+            $data['resumeUpload'] = $fileName;
 
-        // $fileName = time().'.'.$request['uploadResume']->extension();
-        // $request->file('uploadResume')->move(('user_assets/uploadResumes'), $fileName);
-        // $data['uploadResume'] = $fileName;
+            DB::table('user_job_applies')->insert([
+                'job_id' => $request->job_id,
+                'user_id' => $request->user_id,
+                'job_title' => $request->job_id,
+                'employer' => $request->employer,
+                'shortlist' => $request->shortlist,
+                'attend_interview' => $request->attend_interview,
+                'apptitude' => $request->apptitude,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'current_job' => $request->current_job,
+                'current_salary' => $request->current_salary,
+                'academic' => $request->academic,
+                'age' => $request->age,
+                'salary' => $request->salary,
+                'gender' => $request->gender,
+                'industry' => $request->industry,
+                'resumeUpload' => $request->resumeUpload,
+                'file' => $request->file,
+            ]);
+            return Redirect("user/find-job")->with('message', 'Your Application has been successfully uploaded');
+        }
 
-        DB::table('user_job_applies')->insert([
-            'job_id' => $request->job_id,
-            'user_id' => $request->user_id,
-            'job_title' => $request->job_id,
-            'employer' => $request->employer,
-            'shortlist' => $request->shortlist,
-            'attend_interview' => $request->attend_interview,
-            'apptitude' => $request->apptitude,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'current_job' => $request->current_job,
-            'current_salary' => $request->current_salary,
-            'academic' => $request->academic,
-            'age' => $request->age,
-            'salary' => $request->salary,
-            'gender' => $request->gender,
-            'industry' => $request->industry,
-            'resumeUpload' => $request->resumeUpload,
-            'file' => $request->file,
-        ]);
-
-        return Redirect("user/find-job")->with('message', 'Your Application has been successfully uploaded');
     }
 }

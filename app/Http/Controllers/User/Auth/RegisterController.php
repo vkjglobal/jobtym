@@ -37,7 +37,7 @@ class RegisterController extends Controller
     public function postRegistration(Request $request)
     {
         $data = $request->all();
-
+        // dd($request->file());
         $fieldValidtion = [
             'firstName' => 'required|string',
             'lastName' => 'required|string',
@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'accept' => 'required',
         ];
 
-        if($request->file() == ""){
+        if($request->file() == []){
             $fieldValidtion ['uploadResume'] = 'required|mimes:pdf,xlx,csv|max:2048';
         }else{
             $fieldValidtion ['uploadResume'] = 'mimes:pdf,xlx,csv|max:2048';

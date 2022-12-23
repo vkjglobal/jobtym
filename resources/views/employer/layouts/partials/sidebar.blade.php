@@ -48,7 +48,7 @@
             <!-- Job Posts End -->
 
             <!-- Aptitude Tests -->
-            <li class="nav-item {{ request()->is('employer/aptitude-tests*') ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ request()->is('employer/aptitude-tests*') ? 'active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#aptitude-tests" role="button" aria-expanded="false"
                     aria-controls="aptitude-tests">
                     <i class="link-icon" data-feather="cpu"></i>
@@ -71,7 +71,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             <!-- Aptitude Tests End -->
 
              <!-- Question Tests -->
@@ -138,12 +138,12 @@
                 </a>
                 <div class="collapse {{ request()->is('employer/result*') ? 'show' : '' }}" id="result-tests">
                     <ul class="nav sub-menu">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('employer.results.create') }}"
                                 class="nav-link {{ request()->is('employer/results/create') ? 'active' : '' }}">
                                 Create
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('employer.results.index') }}"
                                 class="nav-link {{ request()->is('employer/results') ? 'active' : '' }}">

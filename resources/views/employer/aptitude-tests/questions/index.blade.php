@@ -82,6 +82,7 @@
             </div>
         </div>
     <!-- Content Row -->
+    {!! $questions->withQueryString()->links('pagination::bootstrap-5') !!}
 
 </div>
 @endsection

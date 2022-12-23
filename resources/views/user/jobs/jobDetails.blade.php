@@ -25,6 +25,29 @@
     </section>
     @endif
 
+    @if($errors->has('resumeUpload'))
+    <section class="popup">
+        <div class="popup-inner">
+            <div class="popup-content">
+                <div class="content alert alert-danger text-center">
+                    {{ $errors->first('resumeUpload') }}
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+    @if($errors->has('accept'))
+    <section class="popup">
+        <div class="popup-inner">
+            <div class="popup-content">
+                <div class="content alert alert-danger text-center">
+                    {{ $errors->first('accept') }}
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+
 </div>
     <section class="main-title-wrp find-job-sec d-flex align-items-center">
         <div class="container featured-job-sec job-search-page">
@@ -92,8 +115,12 @@
                 <div class="col-lg-4 col-12 mob-align text-right">
                     <div class="end-date mb-2">Application ends: <span>{{ $job['deadline'] }}</span></div>
                     <div class="d-flex">
-                        <button type="button" class="btn-typ1 mt-0 mr-3" data-toggle="modal" data-target="#ApplyNow">
-                            Apply Now!
+                        <button type="button" class="btn-typ1 mt-0 mr-3" data-toggle="modal" data-target="#ApplyNow" @if ($applyJob > 0) @disabled(true) @endif>
+                            @if ($applyJob > 0)
+                                Already Applied!
+                            @else
+                                Apply Now!
+                            @endif
                         </button>
                         <input type="hidden" id="authId" value="{{ isset($user['id']) ? $user['id'] : '' }}">
                         <a href="javascript:void(0)" id="saveJobButton" class="boolmark d-flex justify-content-center align-items-center @if (isset($isSavedJob) && $isSavedJob == true) saveBtnClicks @endif">

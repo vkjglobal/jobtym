@@ -27,9 +27,9 @@ class StoreTestRequest extends FormRequest
             'questions'     => [
                 'required', 'array'
             ],
-            'questions.*' => [
-                'required', 'integer', 'exists:options,id'
-            ],
+            // 'questions.*' => [
+            //     'required', 'integer', 'exists:options,id'
+            // ],
         ];
     }
 }
