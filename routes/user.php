@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Employer\TestController;
+use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\DashboardController;
@@ -68,3 +69,8 @@ Route::get('test/{id}',[TestController::class, 'index'])->name('test');
 Route::post('test',[TestController::class, 'store'])->name('test.store');
 Route::get('results/{result_id}',[ResultController::class, 'show'])->name('results.show');
 
+Route::get('/googleLogin', [SocialAuthController::class, 'googleRedirect'])->name('googleLogin');
+Route::get('/public/callback', [SocialAuthController::class, 'googleCallaback'])->name('googleCallaback');
+
+Route::get('/facebookLogin', [SocialAuthController::class, 'facebookRedirect'])->name('facebookLogin');
+Route::get('/facebook/callback', [SocialAuthController::class, 'facebookCallaback'])->name('facebookCallaback');

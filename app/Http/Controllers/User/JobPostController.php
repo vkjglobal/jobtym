@@ -64,8 +64,11 @@ class JobPostController extends Controller
         $id = base64_decode($id);
         $userid = isset($user['id']) ? $user['id'] : '';
         $job = JobPost::where('id', $id)->first();
-        $applyJob = UserJobApply::where('user_id',$user->id)->where('job_id',$id)->count();
-        // dd($applyJob < 0);
+        if ($userid) {
+            $applyJob = UserJobApply::where('user_id',$user->id)->where('job_id',$id)->count();
+        }else{
+            $applyJob = 0;
+        }
         $countSavedJob = SaveJob::where('job_id', $id)->where('user_id', $userid )->count();
         $isSavedJob = $countSavedJob > 0 ? true : false;
         return view('user.jobs.jobDetails', compact('job','isSavedJob','user', 'applyJob'));
@@ -119,9 +122,9 @@ class JobPostController extends Controller
     {   
         // dd($request->all());
         $user = Auth::user();
-        $resultExam = UserJobApply::where('user_id',$user->id)->where('job_id',$request->job_id)->first();
-        if ($resultExam) {
-            return Redirect("user/find-job")->with('error', 'You already applied this job');
+        // $resultExam = UserJobApply::where('user_id',$user->id)->where('job_id',$request->job_id)->first();
+        if (!$user) {
+            return Redirect("user/find-job")->with('error', 'Oops! You are not allowed to apply this job. Please login first.');
         }else {
             $fieldValidtion = [
                 'first_name' => 'required|string',

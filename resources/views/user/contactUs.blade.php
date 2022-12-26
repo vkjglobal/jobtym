@@ -31,7 +31,7 @@
                         <textarea class="form-control" name="" id="yourComment" cols="10" rows="5"></textarea>
                     </div>
                     <div class="form-group col-md-6">
-                        <a href="" class="btn-typ1">Sens Message</a>
+                        <a href="" class="btn-typ1">Send Message</a>
                     </div>
                 </form>
             </div>
