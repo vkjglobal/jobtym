@@ -40,4 +40,40 @@ class DashboardController extends Controller
             return redirect('user');
         }
     }
+
+    public function loadSearchData(Request $request)
+    {
+        // $categories = Category::all();
+        $searchSavedJob = $request->query('searchSavedJob');
+        $sortingQuery = $request->query('sortingQuery');
+
+        $user = Auth::user();
+
+        $savedJob = SaveJob::where(function($query) use($user, $searchSavedJob, $sortingQuery)
+            {
+                $query->where('user_id',$user->id);
+                if($searchSavedJob) {
+                    $query->where('job_posts.title','LIKE',"%{$searchSavedJob}%");
+                }
+            })->join('job_posts', 'job_posts.id', '=', 'save_jobs.job_id')->get();
+
+            // if($sortingQuery == 'new'){
+            //     $savedJob::orderBy('save_jobs.created_at', 'asc')->get();
+            // }elseif ($sortingQuery == 'old') {
+            //     $savedJob::orderBy('save_jobs.created_at', 'desc')->get();
+            // }
+
+
+
+
+
+        // $getSaveJob = array();
+        foreach ($savedJob as $key => $value) {
+            $savedJob[$key]["deleteUrl"] = url('user/delete-saveJob',base64_encode($value->id) );
+            $savedJob[$key]["viewUrl"] = url('user/job-detail',base64_encode($value->id));
+        }
+
+        // dd($savedJob);
+        return response()->json($savedJob);
+    }
 }

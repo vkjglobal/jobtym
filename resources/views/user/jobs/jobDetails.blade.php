@@ -255,7 +255,7 @@
                                             <label>Upload File <a href="javascript:void(0)" class="custom-file-container__image-clear d-none" title="Clear Image">&times;</a></label>
                                             <div class="custom-file-container__image-preview"></div>
                                             <label class="custom-file-container__custom-file" >
-                                                <input type="file" name="coverLatter" class="custom-file-container__custom-file__custom-file-input" accept="*" multiple aria-label="Choose File">
+                                                <input type="file" class="custom-file-container__custom-file__custom-file-input" accept="*" multiple aria-label="Choose File">
                                                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                                                 <span class="custom-file-container__custom-file__custom-file-control">
                                                     <span class="btn-lbl">Upload Cover Letter</span>
@@ -335,7 +335,8 @@
                     <div class="social-media-left row">
                         <strong class="col-lg-3">Share this post</strong>
                         <div class="col-lg-9 d-flex justify-content-between">
-                            <a href="" class="social-btn fb-btn">
+                                                      
+                            <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.title), 'facebook-share-window', 'height=450, width=550'); return false;" class="social-btn fb-btn">
                                 <svg width="11" height="20" viewBox="0 0 11 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -486,5 +487,10 @@
             </div>
         </div>
     </section>
+    <script>
+        $(document).ready(function() {
+            
+        });
+    </script>
 
 @endsection

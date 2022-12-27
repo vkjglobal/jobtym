@@ -51,6 +51,7 @@ class RegisterController extends Controller
             'street' => 'required',
             'city' => 'required',
             'town' => 'required',
+            'division' => 'required',
             'postCode' => 'required',
             'accept' => 'required',
         ];

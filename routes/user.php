@@ -54,6 +54,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('index');
+Route::get('loadSearchData', [DashboardController::class, 'loadSearchData'])->name('loadSearchData');
 
 
 Route::get('find-job', [JobPostController::class, 'index'])->name('job.find-job');
@@ -74,3 +75,6 @@ Route::get('/public/callback', [SocialAuthController::class, 'googleCallaback'])
 
 Route::get('/facebookLogin', [SocialAuthController::class, 'facebookRedirect'])->name('facebookLogin');
 Route::get('/facebook/callback', [SocialAuthController::class, 'facebookCallaback'])->name('facebookCallaback');
+
+Route::get('/twitterLogin', [SocialAuthController::class, 'twitterRedirect'])->name('twitterLogin');
+Route::get('/twitter/callback', [SocialAuthController::class, 'twitterCallaback'])->name('twitterCallaback');

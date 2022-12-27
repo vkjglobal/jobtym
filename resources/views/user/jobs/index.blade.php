@@ -11,7 +11,7 @@
                         <input type="text" name="job-keyword" class="pos-rel search-field-top" placeholder="Job title, keywords....">
                     </div>
                     <div class="col-lg-2 col-md-6 text-left">
-                        <input type="text" name="city" class="pos-rel top-city-top" placeholder="City or postcode">
+                        <input type="text" name="city" class="pos-rel top-city-top" placeholder="City">
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <select class="category-dropdown" name="country">

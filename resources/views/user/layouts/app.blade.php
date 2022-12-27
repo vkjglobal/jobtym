@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('user_assets/css/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('user_assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('user_assets/css/file-upload-with-preview.min.css') }}">
 </head>
 
 <body>
@@ -334,6 +335,7 @@
     <script src="{{ asset('user_assets/js/select2.min.js')}}"></script>
     <script src="{{ asset('user_assets/js/aos.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('user_assets/js/file-upload-with-preview.min.js')}}"></script>
     <script type="text/javascript">
         $(function(){
             $("#upload_link").on('click', function(e){
@@ -382,6 +384,11 @@
             $('.job-dropdown').select2();
             $('.category-dropdown').select2();
             $('.location-dropdown').select2();
+
+            /********FileUploadWithPreview*********/
+            var upload = new FileUploadWithPreview('myUniqueUploadId')
+
+            /**************************************/
 
 
             //Get the button

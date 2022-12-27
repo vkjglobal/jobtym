@@ -232,6 +232,9 @@
                                                         <label for="DivisionName">Division</label>
                                                         <input type="text" name="division" class="form-control" id="DivisionName"
                                                             placeholder="">
+                                                        @if($errors->has('division'))
+                                                            <div class="text-danger">{{ $errors->first('division') }}</div>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="PostalCode">Postal Code</label>
