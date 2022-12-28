@@ -49,19 +49,20 @@ class DashboardController extends Controller
 
         $user = Auth::user();
 
+        $sort = "job_posts.created_at";
+        $direction = "asc";
+        if ($sortingQuery == "new") {
+            $direction = "desc";
+        }
+
         $savedJob = SaveJob::where(function($query) use($user, $searchSavedJob, $sortingQuery)
             {
                 $query->where('user_id',$user->id);
                 if($searchSavedJob) {
                     $query->where('job_posts.title','LIKE',"%{$searchSavedJob}%");
                 }
-            })->join('job_posts', 'job_posts.id', '=', 'save_jobs.job_id')->get();
+            })->join('job_posts', 'job_posts.id', '=', 'save_jobs.job_id')->orderBy($sort,$direction)->get();
 
-            // if($sortingQuery == 'new'){
-            //     $savedJob::orderBy('save_jobs.created_at', 'asc')->get();
-            // }elseif ($sortingQuery == 'old') {
-            //     $savedJob::orderBy('save_jobs.created_at', 'desc')->get();
-            // }
 
 
 
@@ -69,6 +70,7 @@ class DashboardController extends Controller
 
         // $getSaveJob = array();
         foreach ($savedJob as $key => $value) {
+            $savedJob[$key]["crateDate"] = date_format($value->created_at,"M d,Y");
             $savedJob[$key]["deleteUrl"] = url('user/delete-saveJob',base64_encode($value->id) );
             $savedJob[$key]["viewUrl"] = url('user/job-detail',base64_encode($value->id));
         }

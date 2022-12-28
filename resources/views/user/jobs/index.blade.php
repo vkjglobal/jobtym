@@ -96,7 +96,7 @@
                                                     </li>
                                                 </ul>
                                                 <span class="req-info-box">
-                                                    <span class="full-time">{{ $job->type }}</span>
+                                                    <span class="full-time">{{ ucfirst($job->type) }}</span>
                                                     <span class="urgent ml-2">Urgent</span>
                                                 </span>
                                             </span>

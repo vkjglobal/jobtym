@@ -464,13 +464,15 @@
         }
         function run_clock(id,endtime){
             var clock = document.getElementById(id);
-            function update_clock(){
-                var t = time_remaining(endtime);
-                clock.innerHTML = t.minutes+':'+t.seconds+' Time Left';
-                if(t.total<=0){ clearInterval(timeinterval); redirectPage()}
+            if (clock) {
+                function update_clock(){
+                    var t = time_remaining(endtime);
+                    clock.innerHTML = t.minutes+':'+t.seconds+' Time Left';
+                    if(t.total<=0){ clearInterval(timeinterval); redirectPage()}
+                }
+                update_clock(); // run function once at first to avoid delay
+                var timeinterval = setInterval(update_clock,1000);
             }
-            update_clock(); // run function once at first to avoid delay
-            var timeinterval = setInterval(update_clock,1000);
         }
         run_clock('timer',deadline);
 
@@ -487,6 +489,11 @@
                 timer: 2000
             })
         }
+
+        setTimeout(() => {
+            $('.alert').alert('close');
+        }, 2000);
+
     </script>
 
 </body>

@@ -192,7 +192,7 @@ class RegisterController extends Controller
      */
     protected function Empcreate(Request $request)
     {
-        $data = $request->validate([
+        $fieldValidtion = [
             'EmplyrName' => 'required|string',
             'CompanyName' => 'required|string',
             'EmplyrEmail' => 'required|email|unique:employers,email',
@@ -200,6 +200,8 @@ class RegisterController extends Controller
             'EmplyrPhoneNumber' => 'required',
             'EmplyrCompanyPhone' => 'required',
             'EmplyrTINnumber' => 'required',
+            'StreetNameEmplyr' => 'required',
+            'CityNameEmplyr' => 'required',
             'CountryNameEmplyr' => 'required',
             'AboutCompany' => 'required',
             'CompanyWebsite' => 'required',
@@ -207,6 +209,25 @@ class RegisterController extends Controller
             'CompanyInstagram' => 'required',
             'CompanyLinkedIn' => 'required',
             'terms' => 'required',
+        ];
+
+        $validated = $request->validate($fieldValidtion,[
+            'EmplyrName.required' => 'Please Enter Name',
+            'CompanyName.required' => 'Please Enter Company Name',
+            'EmplyrEmail.required' => 'Please Enter Email Address',
+            'EmplyrPassword.required' => 'Please Enter Password',
+            'EmplyrPhoneNumber.required' => 'Please Enter Phone Number',
+            'EmplyrCompanyPhone.required' => 'Please Enter Company Phone Number',
+            'EmplyrTINnumber.required' => 'Please Enter TIN Number',
+            'StreetNameEmplyr.required' => 'Please Enter Street Name',
+            'CityNameEmplyr.required' => 'Please Enter City Name',
+            'CountryNameEmplyr.required' => 'Please Enter Country Name',
+            'AboutCompany.required' => 'Please Enter About Company',
+            'CompanyWebsite.required' => 'Please Enter Company Website',
+            'CompanyFacebook.required' => 'Please Enter Facebook Link',
+            'CompanyInstagram.required' => 'Please Enter Instagram Link',
+            'CompanyLinkedIn.required' => 'Please Enter LinkedIn Link',
+            'terms.required' => 'Please accept the terms and conditions.',
         ]);
        
         $employer = new Employer();

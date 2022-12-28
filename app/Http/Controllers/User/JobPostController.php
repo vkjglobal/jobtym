@@ -130,8 +130,12 @@ class JobPostController extends Controller
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
                 'email' => 'required|email',
+                'phone' => 'required',
+                'current_job' => 'required',
+                'current_salary' => 'required',
                 'academic' => 'required',
                 'age' => 'required',
+                'salary' => 'required',
                 'gender' => 'required|in:male,female,other',
                 'industry' => 'required',
                 'accept' => 'required',
@@ -139,15 +143,32 @@ class JobPostController extends Controller
             // dd($request->file());
             if($request->file() == []){
                 $fieldValidtion ['resumeUpload'] = 'required|mimes:pdf,xlx,csv|max:2048';
+                $fieldValidtion ['coverLatter'] = 'required|mimes:pdf,doc,docx|max:2048';
             }else{
                 $fieldValidtion ['resumeUpload'] = 'mimes:pdf,xlx,csv|max:2048';
+                $fieldValidtion ['coverLatter'] = 'mimes:pdf,xlx,csv|max:2048';
             }
             $validated = $request->validate($fieldValidtion,[
+                'first_name' => 'Please Enter First Name',
+                'last_name' => 'Please Enter Last Name',
+                'email' => 'Please Enter Email',
+                'phone' => 'Please Enter Phone Number',
+                'current_job' => 'Please Enter Current Job',
+                'current_salary' => 'Please Enter Current Salary',
+                'academic' => 'Please Enter Academic Level',
+                'age' => 'Please Enter Age',
+                'salary' => 'Please Enter Salary',
+                'gender' => 'Please Select Gender',
+                'industry' => 'Please Enter Industry',
+                'resumeUpload' => 'Please Upload Resume',
+                'coverLatter' => 'Please Upload Cover Letter',
                 'accept.required' => 'Please accept the terms and conditions.',
             ]);
 
             $fileName = time().'.'.$request['resumeUpload']->extension();
+            $coverLatter = time().'.'.$request['coverLatter']->extension();
             $request->file('resumeUpload')->move(('user_assets/uploadResumes'), $fileName);
+            $request->file('coverLatter')->move(('user_assets/uploadResumes'), $coverLatter);
             $data['resumeUpload'] = $fileName;
 
             DB::table('user_job_applies')->insert([

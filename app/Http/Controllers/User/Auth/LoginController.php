@@ -46,20 +46,20 @@ class LoginController extends Controller
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 FacadesSession::put('user', $request->input('email'));
-                return Redirect('user/dashboard')->with('message', 'Great! You have Successfully Login.');
+                return Redirect('user/dashboard')->with('message', 'Great! You have Successfully Logged in.');
             }else {
-                return Redirect("user")->with('error', 'Oppes! You have entered invalid credentials');
+                return Redirect("user")->with('error', 'Oops! You have entered invalid credentials');
             }
         } else {
             $credentials = $request->only('email', 'password');
             if (Auth::guard('employer')->attempt($credentials)) {
                 return redirect()->route('employer.home');
             }else {
-                return Redirect("user")->with('error', 'Oppes! You have entered invalid credentials');
+                return Redirect("user")->with('error', 'Oops! You have entered invalid credentials');
             }
         }
 
-        return Redirect("user")->with('error', 'Oppes! You have entered invalid credentials');
+        return Redirect("user")->with('error', 'Oops! You have entered invalid credentials');
     }
 
     /**

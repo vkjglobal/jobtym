@@ -355,16 +355,25 @@
                                                             <label for="StreetNameEmplyr">Street</label>
                                                             <input type="text" name="StreetNameEmplyr" class="form-control" id="StreetNameEmplyr"
                                                                 placeholder="">
+                                                            @if($errors->has('StreetNameEmplyr'))
+                                                                <div class="text-danger">{{ $errors->first('StreetNameEmplyr') }}</div>
+                                                            @endif
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="CityNameEmplyr">City</label>
                                                             <input type="text" name="CityNameEmplyr" class="form-control" id="CityNameEmplyr"
                                                                 placeholder="">
+                                                            @if($errors->has('CityNameEmplyr'))
+                                                                <div class="text-danger">{{ $errors->first('CityNameEmplyr') }}</div>
+                                                            @endif
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="CountryNameEmplyr">Country</label>
                                                             <input type="text" name="CountryNameEmplyr" class="form-control" id="CountryNameEmplyr"
                                                                 placeholder="">
+                                                            @if($errors->has('CountryNameEmplyr'))
+                                                                <div class="text-danger">{{ $errors->first('CountryNameEmplyr') }}</div>
+                                                            @endif
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label for="AboutCompany">About</label>

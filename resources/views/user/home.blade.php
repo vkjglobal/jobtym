@@ -184,7 +184,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="jobs-by-categories">
         <div class="container">
             <div class="row no-gutters">
                 <div class="cat-sec">
@@ -193,15 +193,17 @@
                     <div class="row">
                         <div class="col-xl-7 col-md-12" data-aos="zoom-in" data-aos-duration="2000">
                             <ul class="cat-list row">
+                                @foreach ($categories as $category)
                                 <li class="list-item list-item1 slctd-cat">
                                     <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/bd-icon.svg')}}"
                                                 alt=""></span>
                                         <span class="cat-count">9,185 Jobs</span>
-                                        <span class="cat-name">Business Development</span>
+                                        <span class="cat-name">{{ $category->name }}</span>
                                     </a>
                                 </li>
-                                <li class="list-item list-item2">
+                                @endforeach
+                                {{-- <li class="list-item list-item2">
                                     <a href="{{ url('user/categories') }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/pm-icon.svg')}}"
                                                 alt=""></span>
@@ -257,7 +259,7 @@
                                         <span class="cat-name">Recreation
                                             &amp; Fitness</span>
                                     </a>
-                                </li>
+                                </li> --}}
 
                             </ul>
                             <a href="{{ url('user/categories') }}" class="all-cat-btn">All Categories</a>

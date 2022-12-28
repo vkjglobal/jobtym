@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\JobPost;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,9 @@ class HomeController extends Controller
     {
         $jobs = JobPost::where('status','=','1')->latest()->paginate(6);
         // dd($jobs);
-        return view('user.home', compact('jobs'));
+        $categories = Category::where('status','=','1')->latest()->paginate(8);
+        // dd($categories);
+        return view('user.home', compact('jobs', 'categories'));
     }
 
     /**

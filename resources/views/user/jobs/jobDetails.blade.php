@@ -25,18 +25,18 @@
     </section>
     @endif
 
-    @if($errors->has('resumeUpload'))
+    @if($errors->any())
     <section class="popup">
         <div class="popup-inner">
             <div class="popup-content">
                 <div class="content alert alert-danger text-center">
-                    {{ $errors->first('resumeUpload') }}
+                    Something went wrong. Please try again.
                 </div>
             </div>
         </div>
     </section>
     @endif
-    @if($errors->has('accept'))
+    {{-- @if($errors->has('accept'))
     <section class="popup">
         <div class="popup-inner">
             <div class="popup-content">
@@ -46,7 +46,7 @@
             </div>
         </div>
     </section>
-    @endif
+    @endif --}}
 
 </div>
     <section class="main-title-wrp find-job-sec d-flex align-items-center">
@@ -105,7 +105,7 @@
                                     </li>
                                 </ul>
                                 <span class="req-info-box">
-                                    <span class="full-time">{{ $job['type'] }}</span>
+                                    <span class="full-time">{{ ucfirst($job['type']) }}</span>
                                     <span class="urgent ml-2">Urgent</span>
                                 </span>
                             </span>
@@ -113,7 +113,7 @@
                     </span>
                 </div>
                 <div class="col-lg-4 col-12 mob-align text-right">
-                    <div class="end-date mb-2">Application ends: <span>{{ $job['deadline'] }}</span></div>
+                    <div class="end-date mb-2">Application ends: <span>{{ date("M d, Y", strtotime($job['deadline'])) }}</span></div>
                     <div class="d-flex">
                         <button type="button" class="btn-typ1 mt-0 mr-3" data-toggle="modal" data-target="#ApplyNow" @if ($applyJob > 0) @disabled(true) @endif>
                             @if ($applyJob > 0)
@@ -133,7 +133,7 @@
                         </a>
                     </div>
 
-                    <form method="POST" action="{{ route('user.job.job-apply') }}" class="register-form-modal register-form applynowform" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('user.job.job-apply') }}" class="register-form-modal register-form applynowform" id="applyJob" enctype="multipart/form-data">
                         @csrf
                         <div class="modal fade" id="ApplyNow" tabindex="-1" role="dialog" aria-labelledby="ApplyNow"
                             aria-hidden="true">
@@ -152,47 +152,56 @@
                                     <div class="modal-body row">
                                         <div class="form-group col-md-6">
                                             <label for="FirstName">First Name</label>
-                                            <input type="text" class="form-control" name="first_name" id="FirstName" placeholder="" required required>
+                                            <input type="text" class="form-control" name="first_name" id="FirstName" placeholder="">
                                             @if($errors->has('first_name'))
                                                 <div class="text-danger">{{ $errors->first('first_name') }}</div>
                                             @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="LastName">Last Name</label>
-                                            <input type="text" class="form-control" name="last_name" id="LastName" placeholder="" required>
+                                            <input type="text" class="form-control" name="last_name" id="LastName" placeholder="">
                                             @if($errors->has('last_name'))
                                                 <div class="text-danger">{{ $errors->first('last_name') }}</div>
                                             @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="eMail">Email</label>
-                                            <input type="email" class="form-control" name="email" id="eMail" placeholder="" required>
+                                            <input type="email" class="form-control" name="email" id="eMail" placeholder="">
                                             @if($errors->has('email'))
                                                 <div class="text-danger">{{ $errors->first('email') }}</div>
                                             @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="PhoneNumber">Phone</label>
-                                            <input type="text" class="form-control" name="phone" id="PhoneNumber" placeholder="" required>
+                                            <input type="text" class="form-control" name="phone" id="PhoneNumber" placeholder="">
+                                            @if($errors->has('phone'))
+                                                <div class="text-danger">{{ $errors->first('phone') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="CurrentJobTitle">Current Job Title</label>
                                             <input type="text" class="form-control" name="current_job" id="CurrentJobTitle" placeholder="">
+                                            @if($errors->has('current_job'))
+                                                <div class="text-danger">{{ $errors->first('current_job') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="CurrentSalary">Current Salary</label>
                                             <input type="text" class="form-control" name="current_salary" id="CurrentSalary" placeholder="">
+                                            @if($errors->has('current_salary'))
+                                                <div class="text-danger">{{ $errors->first('current_salary') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="AcademicLevel">Academic Level*</label>
-                                            <input type="text" class="form-control" name="academic" id="AcademicLevel" placeholder="" required>
+                                            <input type="text" class="form-control" name="academic" id="AcademicLevel" placeholder="">
                                             @if($errors->has('academic'))
                                                 <div class="text-danger">{{ $errors->first('academic') }}</div>
                                             @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="candidateAge">Age*</label>
-                                            <input type="text" class="form-control" name="age" id="candidateAge" placeholder="" required>
+                                            <input type="text" class="form-control" name="age" id="candidateAge" placeholder="">
                                             @if($errors->has('age'))
                                                 <div class="text-danger">{{ $errors->first('age') }}</div>
                                             @endif
@@ -200,6 +209,9 @@
                                         <div class="form-group col-md-6">
                                             <label for="ExpectedSalary">Salary</label>
                                             <input type="text" class="form-control" name="salary" id="ExpectedSalary" placeholder="">
+                                            @if($errors->has('salary'))
+                                                <div class="text-danger">{{ $errors->first('salary') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Gender</label>
@@ -215,7 +227,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="WorkingIndustry">Industry*</label>
-                                            <input type="text" class="form-control" name="industry" id="WorkingIndustry" placeholder="" required>
+                                            <input type="text" class="form-control" name="industry" id="WorkingIndustry" placeholder="">
                                             @if($errors->has('industry'))
                                                 <div class="text-danger">{{ $errors->first('industry') }}</div>
                                             @endif
@@ -241,7 +253,7 @@
                                                         <span>OR</span>
                                                     </div>
                                                     <div class="btn-typ1 custom-file-uploader">
-                                                        <input type="file" name="resumeUpload" required/>
+                                                        <input type="file" name="resumeUpload"/>
                                                         Upload Resume
                                                     </div>
                                                     @if($errors->has('resumeUpload'))
@@ -253,9 +265,12 @@
                                         </div>
                                         <div class="form-group col-md-12 upload-cover custom-file-container" data-upload-id="myUniqueUploadId">
                                             <label>Upload File <a href="javascript:void(0)" class="custom-file-container__image-clear d-none" title="Clear Image">&times;</a></label>
+                                            @if($errors->has('coverLatter'))
+                                                <div class="text-danger">{{ $errors->first('coverLatter') }}</div>
+                                            @endif
                                             <div class="custom-file-container__image-preview"></div>
                                             <label class="custom-file-container__custom-file" >
-                                                <input type="file" class="custom-file-container__custom-file__custom-file-input" accept="*" multiple aria-label="Choose File">
+                                                <input type="file" name="coverLatter" class="custom-file-container__custom-file__custom-file-input" accept="*" multiple aria-label="Choose File">
                                                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                                                 <span class="custom-file-container__custom-file__custom-file-control">
                                                     <span class="btn-lbl">Upload Cover Letter</span>
@@ -268,7 +283,7 @@
                                                         Upload Cover Letter
                                                     </span>
                                                     <span class="upload-info-txt">
-                                                        To upload file size is <b>(Max 1Mb)</b> and allowed file type are <b>(.doc, docx, pdf)</b>
+                                                        To upload file size is <b>(Max 5Mb)</b> and allowed file type are <b>(.doc, docx, pdf)</b>
                                                     </span>
                                                 </div>
                                             </label>
@@ -288,7 +303,7 @@
                                             @endif
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <button type="submit" class="btn-typ1 w-100 rounded-btn5">Apply for job</button>
+                                            <button type="submit" class="btn-typ1 w-100 rounded-btn5" id="ApplyJob">Apply for job</button>
                                         </div>
                                     </div>
 
@@ -345,7 +360,7 @@
                                 </svg>&nbsp;
                                 Facebook
                             </a>
-                            <a href="" class="social-btn twtr-btn">
+                            <a href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(document.URL) + '&text=' + encodeURIComponent(document.title), 'twitter-share-window', 'height=450, width=550'); return false;" class="social-btn twtr-btn">
                                 <svg width="19" height="15" viewBox="0 0 19 15" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -354,7 +369,7 @@
                                 </svg>&nbsp;
                                 Twitter
                             </a>
-                            <a href="" class="social-btn pntrst-btn">
+                            <a href="#" onclick="window.open('https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(document.URL) + '&text=' + encodeURIComponent(document.title), 'pinterest-share-window', 'height=450, width=750'); return false;" class="social-btn pntrst-btn">
                                 <svg width="16" height="20" viewBox="0 0 16 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -372,7 +387,7 @@
                         <ul class="list-overview">
                             <li class="post-date">
                                 <strong>Date Posted</strong>
-                                <span>{{ $job['created_at'] }}</span>
+                                <span>{{ date_format($job['created_at'],"M d,Y") }}</span>
                             </li>
                             <li class="location">
                                 <strong>Location</strong>
@@ -384,7 +399,7 @@
                             </li>
                             <li class="expiration-date">
                                 <strong>Expiration date</strong>
-                                <span>{{ $job['deadline'] }}</span>
+                                <span>{{ date("M d, Y", strtotime($job['deadline'])) }}</span>
                             </li>
                             <li class="Experience">
                                 <strong>experience</strong>
@@ -407,10 +422,8 @@
                     <div class="job-location grey-bg">
                         <div class="sidebar-title">Job Location</div>
                         <div class="sidebar-map">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.637032435699!2d76.28798331428173!3d9.964126276386063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0872b72eb96457%3A0xf0f993910b89e1d7!2sReubro%20International!5e0!3m2!1sen!2sin!4v1667965144321!5m2!1sen!2sin"
-                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.637032435699!2d76.28798331428173!3d9.964126276386063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0872b72eb96457%3A0xf0f993910b89e1d7!2sReubro%20International!5e0!3m2!1sen!2sin!4v1667965144321!5m2!1sen!2sin"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
@@ -487,10 +500,4 @@
             </div>
         </div>
     </section>
-    <script>
-        $(document).ready(function() {
-            
-        });
-    </script>
-
 @endsection
