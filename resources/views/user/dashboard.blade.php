@@ -29,7 +29,11 @@
                         <ul class="user-menu d-md-flex d-none">
                             <li class="user-logo">
                                 <a class="nav-link user-img" id="" data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="false" style="background: #ffffff;">
-                                    <img src="{{ asset('user_assets/images/user_img.jpg')}}" alt="" style="width: 52px;height: 52px;border-radius: 50%;">
+                                    <img @if ($user->image)
+                                        src="{{ asset('user_assets/uploadProfile/'.$user->image)}}"
+                                    @else
+                                        src="{{ asset('user_assets/images/user_img.jpg')}}"
+                                    @endif  alt="" style="width: 52px;height: 52px;border-radius: 50%;">
                                 </a>
                             </li>
                             <li class="user-name">{{ $user->first_name }} {{ $user->last_name }} </li>
@@ -63,7 +67,7 @@
                                 </ul>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-primary register ">Job Post</a>
+                        {{-- <a href="#" class="btn btn-primary register ">Job Post</a> --}}
                         <div class="message-top ">
                             <a class="message-notification" href="javascript:void(0);">
                                 <svg width="23" height="25" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +135,7 @@
                                 </li>
                             </form>
                             <li class="resume-download">
-                                <button>
+                                <button id="downloadResume">
                                     <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1.57895L1 1.57895C0.734784 1.57895 0.48043 1.49577 0.292894 1.34771C0.105357 1.19966 1.22402e-06 0.998853 1.24232e-06 0.789472C1.26063e-06 0.58009 0.105357 0.379284 0.292894 0.231229C0.48043 0.0831743 0.734784 -2.2882e-06 1 -2.26502e-06L15 -1.0411e-06C15.2652 -1.01791e-06 15.5196 0.0831756 15.7071 0.231231C15.8946 0.379286 16 0.580091 16 0.789474C16 0.998855 15.8946 1.19966 15.7071 1.34772C15.5196 1.49577 15.2652 1.57895 15 1.57895ZM7 6.17763L3.757 8.7371L2.343 7.62079L8 3.15474L13.657 7.62079L12.243 8.73711L9 6.17763L9 15L7 15L7 6.17763Z" fill="#3E9FFF"/>
                                     </svg>
@@ -672,7 +676,11 @@
                         <ul class="user-menu">
                             <li class="user-logo">
                                 <a class="nav-link user-img" id="" data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="false" style=" background: #ffffff;">
-                                    <img src="{{ asset('user_assets/images/user_img.jpg')}}" alt="" style="width: 52px;height: 52px;border-radius: 50%;">
+                                    <img @if ($user->image)
+                                        src="{{ asset('user_assets/uploadProfile/'.$user->image)}}"
+                                    @else
+                                        src="{{ asset('user_assets/images/user_img.jpg')}}"
+                                    @endif alt="" style="width: 52px;height: 52px;border-radius: 50%;">
                                 </a>
                             </li>
                             <li class="user-name">{{ $user->first_name }} {{ $user->last_name }} 
@@ -762,7 +770,7 @@
                                     <path d="M1 2.70571V15.1455C1 15.9045 1.91853 16.2857 2.45583 15.7484L7.82285 10.3814L13.1899 15.7484C13.7272 16.2857 14.6457 15.9054 14.6457 15.1455V2.70571C14.6457 2.25333 14.466 1.81947 14.1461 1.49959C13.8262 1.17971 13.3924 1 12.94 1H2.70571C2.25333 1 1.81947 1.17971 1.49959 1.49959C1.17971 1.81947 1 2.25333 1 2.70571Z" stroke="#8599AD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </span>
-                            Shortlist Jobs
+                            Saved Jobs
                         </a>
                     </li>
                     {{-- Sidebar Shortlist Jobs End --}}
@@ -937,7 +945,7 @@
                     </div>
                     <div class="tab-pane fade" id="Profile" role="tabpanel" aria-labelledby="second-tab">
                         <h5 class="card-title">Edit Profile</h5>
-                        <form method="POST" action="{{ route('user.profile.update',$user->id) }}" class="form-dash">
+                        <form method="POST" action="{{ route('user.profile.update',$user->id) }}" class="form-dash" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -1060,6 +1068,13 @@
                                     <input type="text" name="vaccination_ref_number" class="form-control" id="VaccRefNum" value="{{ $user->vaccination_ref_number }}" placeholder="">
                                     @if($errors->has('vaccination_ref_number'))
                                         <div class="text-danger">{{ $errors->first('vaccination_ref_number') }}</div>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="formFileLg">Upload Profile Image</label>
+                                    <input name="profileImage" class="form-control form-control-lg" id="formFileLg" type="file">
+                                    @if($errors->has('profileImage'))
+                                        <div class="text-danger">{{ $errors->first('profileImage') }}</div>
                                     @endif
                                 </div>
                             </div>
@@ -1270,7 +1285,7 @@
                         </form>
                     </div>
                     <div class="tab-pane fade" id="ShortlistJobs" role="tabpanel" aria-labelledby="sixth-tab">
-                        <h5 class="card-title">Jobs Shortlist</h5>
+                        <h5 class="card-title">Jobs Saved</h5>
                         <form class="form-dash">
                             <div class="d-flex flex-lg-row flex-column justify-content-lg-between justify-content-sm-start align-items-lg-center align-items-sm-start mb-3">
                                 <input type="search" class="pos-rel search-field-top dash-job-search" placeholder="" id="saveJobSearch">
@@ -1564,14 +1579,14 @@
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title">Reports</h5>
                             <ul class="print-btn-wrp d-flex align-items-center">
-                                <li><button class="dwnld-btn">
+                                <li><button class="dwnld-btn" id="DownloadReportPDF">
                                     <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10 12L14 7H11V0H9V7H6L10 12Z" fill="black"/>
                                         <path d="M18 14H2V7H0V14C0 15.103 0.897 16 2 16H18C19.103 16 20 15.103 20 14V7H18V14Z" fill="black"/>
                                         </svg>                                        
                                     </button>
                                 </li>
-                                <li><button class="print-btn">
+                                <li><button class="print-btn" id="PrintReportPDF">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.33333 0V4.66667H2C0.903333 4.66667 0 5.57 0 6.66667V13.3333H3.33333V16H12.6667V13.3333H16V6.66667C16 5.57 15.0967 4.66667 14 4.66667H12.6667V0H3.33333ZM4.66667 1.33333H11.3333V4.66667H4.66667V1.33333ZM2 6H14C14.3773 6 14.6667 6.28933 14.6667 6.66667V12H12.6667V9.33333H3.33333V12H1.33333V6.66667C1.33333 6.28933 1.62267 6 2 6ZM2.66667 6.66667C2.3 6.66667 2 6.96667 2 7.33333C2 7.7 2.3 8 2.66667 8C3.03333 8 3.33333 7.7 3.33333 7.33333C3.33333 6.96667 3.03333 6.66667 2.66667 6.66667ZM4.66667 10.6667H11.3333V14.6667H4.66667V10.6667Z" fill="white"/>
                                     </svg>                                        
@@ -1850,6 +1865,30 @@
             });
         });
 
+        $('#downloadResume').click(function(){
+            var doc = new jsPDF("p", "mm", "a4");
+            html2canvas(document.querySelector('#target')).then(function(canvas){
+                var imgData = canvas.toDataURL('image/png');
+                var pageHeight = 297;  
+                var imgWidth =  210 ; 
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+                var heightLeft = imgHeight;
+                var position = 0;
+
+                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight; 
+                }
+                // doc.output('dataurlnewwindow');
+                doc.save('new-resume.pdf');
+            });
+        });
+
         $('#propic-resume').change(function(){
             var curElement = $('#box .image');
             console.log(curElement);
@@ -2040,6 +2079,37 @@
                 sortingQuery = $(this).val();
                 loadCategories();
             })
+        });
+
+        $('#DownloadReportPDF').click(function(){
+            var doc = new jsPDF("p", "mm", "a4");
+            html2canvas(document.querySelector('#reportTable')).then(function(canvas){
+                var imgData = canvas.toDataURL('image/png');
+                var pageHeight = 297;  
+                var imgWidth =  210 ; 
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+                var heightLeft = imgHeight;
+                var position = 0;
+
+                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight; 
+                }
+                // doc.output('dataurlnewwindow');
+                doc.save('JobTymReport.pdf');
+            });
+        });
+
+        $('#PrintReportPDF').click(function(){
+            var table = document.querySelector('#reportTable');
+            var newWindow = window.open();
+            newWindow.document.write(table.outerHTML);
+            newWindow.print();
         });
 
 

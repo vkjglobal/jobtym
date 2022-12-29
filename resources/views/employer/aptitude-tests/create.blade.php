@@ -61,7 +61,7 @@
                             </div><!-- Col -->
                         </div><!-- Row -->
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="control-label">Option One <span class="text-danger">*</span></label>
@@ -128,6 +128,51 @@
                                     <div class="invalid-feedback">{{ $errors->first('answer') }}</div>
                                 </div>
                             </div><!-- Col -->
+                        </div><!-- Row --> --}}
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">Answer Type <span class="text-danger">*</span></label>
+                                    <select id="answerType" name="answerType" class="text-dark form-control @if ($errors->has('answerType')) is-invalid @endif"
+                                        required>
+                                        <option disabled selected>Select option...</option>
+                                        <option value="radio">Radio Button</option>
+                                        <option value="checkbox">Checkbox</option>
+                                        <option value="text">Text Box</option>
+                                        {{-- <option value="">Option Four</option> --}}
+                                    </select>
+                                    <div class="invalid-feedback">{{ $errors->first('answerType') }}</div>
+                                </div>
+                            </div><!-- Col -->
+                        </div><!-- Row -->
+
+                        <div class="row" id="ansRadio" style="display: none">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control " name="option_one" value="Radio Button">
+                                </div>
+                            </div><!-- Col -->
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary" id="addRadioBtn" type="button">Add new Row </button>
+                            </div>
+                        </div><!-- Row -->
+                        <div class="row" id="ansCheckbox" style="display: none">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control " name="option_one" value="Check Box">
+                                </div>
+                            </div><!-- Col -->
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary" id="addCheckBoxBtn" type="button">Add new Row </button>
+                            </div>
+                        </div><!-- Row -->
+                        <div class="row" id="ansText" style="display: none">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control " name="option_one" value="Text Field">
+                                </div>
+                            </div><!-- Col -->
                         </div><!-- Row -->
 
 
@@ -186,6 +231,49 @@
             'minChars': 0,
             'maxChars': 20,
             'placeholderColor': '#666666'
+        });
+
+        $('#answerType').click(function() {
+            if ($('#answerType').val() == 'radio') {
+                $('#ansRadio').removeAttr('style');
+                $('#ansCheckbox').css({'display': 'none'});
+                $('#ansText').css({'display': 'none'});
+            }else if ($('#answerType').val() == 'checkbox') {
+                $('#ansCheckbox').removeAttr('style');
+                $('#ansRadio').css({'display': 'none'});
+                $('#ansText').css({'display': 'none'});
+            }else if ($('#answerType').val() == 'text'){
+                $('#ansText').removeAttr('style');
+                $('#ansCheckbox').css({'display': 'none'});
+                $('#ansRadio').css({'display': 'none'});
+            }
+        });
+        
+
+          // Add row
+        var row=1;
+        $(document).on("click", "#addRadioBtn", function () {
+        var new_row = `<div class="col-sm-6" id="R${++row}">
+                                <div class="form-group">
+                                    <input id="R${++row}" type="text" class="form-control " name="option_one" value="Radio_${row}">
+                                </div>
+                            </div><div class="col-sm-6">
+                                <button class="btn btn-danger remove" id="removeBtn" type="button">Remove</button>
+                            </div>`;
+            // alert(new_row);
+        $('#ansRadio').append(new_row);
+        row++;
+        return false;
+        });
+        
+        // Remove criterion
+        $(document).on("click", "#", function () {
+        //  alert("deleting row#"+row);
+            if(row>1) {
+            $(this).closest('tr').remove();
+            row--;
+            }
+        return false;
         });
     </script>
 @endpush

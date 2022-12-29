@@ -92,6 +92,12 @@ class ProfileController extends Controller
             "vaccination_ref_number" => "required",
         ]);
 
+        if($request->file()){
+            $fileName = time().'.'.$request['profileImage']->extension();
+            $request->file('profileImage')->move(('user_assets/uploadProfile'), $fileName);
+            $updateData['image'] = $fileName;
+        }
+
         $res = User::whereId($id)->update($updateData);
 
         if ($res) {

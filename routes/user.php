@@ -55,6 +55,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('index');
 Route::get('loadSearchData', [DashboardController::class, 'loadSearchData'])->name('loadSearchData');
+Route::get('pdfDownload/{table}', [DashboardController::class, 'pdfDownload'])->name('pdf.download');
 
 
 Route::get('find-job', [JobPostController::class, 'index'])->name('job.find-job');

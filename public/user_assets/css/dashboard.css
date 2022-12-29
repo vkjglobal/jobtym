@@ -66,6 +66,7 @@ header {
   width: 172px;
   height: 53px;
   background-size: contain;
+  margin-left: 50px;
 }
 
 .navbar {
@@ -261,6 +262,7 @@ a.btn.btn-primary.register {
   display: flex;
   align-items: center;
   order: 1;
+  margin-right: 50px;
 }
 .nav-right .user-menu {
   margin: 0;

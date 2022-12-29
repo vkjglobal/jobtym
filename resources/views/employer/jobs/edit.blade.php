@@ -113,7 +113,7 @@
                                     <label class="control-label">Street <span class="text-danger">*</span></label>
                                     <input type="text"
                                         class="form-control @if ($errors->has('street')) is-invalid @endif"
-                                        name="street" value="{{ old('street') }}" placeholder="Enter Street" required>
+                                        name="street" value="{{ old('street', $jobPost->street) }}" placeholder="Enter Street" required>
                                     <div class="invalid-feedback">{{ $errors->first('street') }}</div>
                                 </div>
                             </div><!-- Col -->

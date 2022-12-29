@@ -47,10 +47,12 @@ class JobPostController extends Controller
                     $query->where('type','LIKE',"%{$jobType}%");
                 }
             })->paginate(6);
+            $getCountry = JobPost::where('status','=','1')->select('country')->distinct()->get();
         }else{
             $jobs = JobPost::where('status','=','1')->paginate(6);
+            $getCountry = JobPost::where('status','=','1')->select('country')->distinct()->get();
         }
-        return view('user.jobs.index',compact('jobs'));
+        return view('user.jobs.index',compact('jobs','getCountry'));
     }
 
     /**
@@ -71,7 +73,9 @@ class JobPostController extends Controller
         }
         $countSavedJob = SaveJob::where('job_id', $id)->where('user_id', $userid )->count();
         $isSavedJob = $countSavedJob > 0 ? true : false;
-        return view('user.jobs.jobDetails', compact('job','isSavedJob','user', 'applyJob'));
+        $relatedJob = JobPost::latest()->first();
+        // dd($relatedJob);
+        return view('user.jobs.jobDetails', compact('job','isSavedJob','user', 'applyJob', 'relatedJob'));
     }
 
     /**

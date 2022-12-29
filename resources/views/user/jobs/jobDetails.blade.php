@@ -342,10 +342,13 @@
                     </ul>
                     <strong class="mb-4">Skill & Experience</strong>
                     <ul class="mb-5">
-                        <li>You have at least 3 years’ experience working as a Product Designer.</li>
-                        <li>You have experience using Sketch and InVision or Framer X</li>
-                        <li>You have some previous experience working in an agile environment – Think two-week sprints.</li>
-                        <li>You are familiar using Jira and Confluence in your workflow</li>
+                        @php
+                            $string = $job['skills'];
+                            $array = explode(',', $string);
+                        @endphp
+                        @foreach ($array as $item)
+                            <li>{{ $item }}</li>
+                        @endforeach
                     </ul>
                     <div class="social-media-left row">
                         <strong class="col-lg-3">Share this post</strong>
@@ -432,7 +435,7 @@
             <div class="row job-box-wrap related-jobs">
                 <div class="col-md-8">
                     <div class="row">
-                        <a href="" class="job-box job-box-type1 col-md-8">
+                        <a href="{{ url('user/job-detail', base64_encode($relatedJob->id)) }}" class="job-box job-box-type1 col-md-8">
                             <span class="job-title-sec">
                                 <strong class="title-icon blue-bg"><svg width="23" height="33"
                                         viewBox="0 0 23 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -442,7 +445,7 @@
                                     </svg>
                                 </strong>
                                 <span class="job-title">
-                                    <h4>Junior Graphic Designer (Web)</h4>
+                                    <h4>{{ $relatedJob->title }}</h4>
                                     <span class="featured">Featured</span>
                                     <span class="job-info-sec">
                                         <ul class="job-info mb-2">
@@ -457,7 +460,7 @@
                                                             fill="#A0A0A0"></path>
                                                     </svg>
                                                 </span>
-                                                Design, Development
+                                                {{ $relatedJob->skills }}
                                             </li>
                                             <li class="company-location">
                                                 <span><svg width="12" height="15" viewBox="0 0 12 15"
@@ -470,7 +473,7 @@
                                                             fill="#AFAFAF"></path>
                                                     </svg>
                                                 </span>
-                                                New York
+                                                {{ $relatedJob->country }}
                                             </li>
                                             <li class="work-price">
                                                 <span><svg width="19" height="15" viewBox="0 0 19 15"
@@ -484,11 +487,11 @@
                                                             fill="#A0A0A0"></path>
                                                     </svg>
                                                 </span>
-                                                $150 - $180 / week
+                                                ${{ $relatedJob->salaryFrom }} - ${{ $relatedJob->salaryTo }} / week
                                             </li>
                                         </ul>
                                         <span class="req-info-box">
-                                            <span class="full-time">Full time</span>
+                                            <span class="full-time">{{ ucfirst($relatedJob->type) }}</span>
                                             <span class="urgent ml-2">Urgent</span>
                                         </span>
                                     </span>

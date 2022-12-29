@@ -308,7 +308,7 @@
                 Professionals</h2>
             <div class="row job-box-wrap" data-aos="zoom-in" data-aos-duration="2000">
                 @foreach ($jobs as $job)
-                    <a href="{{ url('user/job-detail',base64_encode($job['id'])) }}" class="job-box job-box-type1">
+                    <a href="{{ url('user/job-detail',base64_encode($job['id'])) }}" class="col-md-6 job-box job-box-type1">
                         <span class="job-title-sec">
                             <strong class="title-icon">D</strong>
                             <span class="job-title">
@@ -317,7 +317,7 @@
                                     <ul class="job-info">
                                         <li class="cmpny-name">{{ $job->employer->company_name }}</li>
                                         <li class="company-location">{{ $job->employer->country }}</li>
-                                        <li class="work-duration">{{ $job->type }}</li>
+                                        <li class="work-duration">{{ ucfirst($job->type) }}</li>
                                         {{-- <li class="notification">3mins ago</li> --}}
                                     </ul>
                                     <span class="pay-dtls">
@@ -327,13 +327,12 @@
                             </span>
                         </span>
                         <span class="job-info-text">
-                            We want someone who has been doing this for a solid 2=3 yeras. We want someone who can demonstrate a
-                            extremely storng portfolio.
+                            {{ $job->description }}
                         </span>
                         <span class="req-info-box">
                             <span class="urgent">Urgent</span>
                             <span class="senior">Senior</span>
-                            <span class="full-time">Full time</span>
+                            <span class="full-time">{{ ucfirst($job->type) }}</span>
                         </span>
                     </a>
                 @endforeach

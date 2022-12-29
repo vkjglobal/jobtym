@@ -16,8 +16,8 @@
                     <div class="col-lg-3 col-md-6">
                         <select class="category-dropdown" name="country">
                             <option disabled selected>Country</option>
-                            @foreach ($jobs as $job)
-                            <option name="{{ $job->country }}" >{{ $job->country }}</option>
+                            @foreach ($getCountry as $singleCountry)
+                            <option name="{{ $singleCountry->country }}" >{{ $singleCountry->country }}</option>
                             @endforeach
                             {{-- <option>Architect</option>
                             <option>Banking</option>

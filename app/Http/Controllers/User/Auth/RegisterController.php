@@ -178,7 +178,7 @@ class RegisterController extends Controller
             'postal_address' => $data['postCode'],
             'tin' => $data['tinNo'],
             'vaccination_ref_number' => $data['vaccNo'],
-            'image' => $data['uploadResume'],
+            'uploadResume' => $data['uploadResume'],
         ]);
     }
 

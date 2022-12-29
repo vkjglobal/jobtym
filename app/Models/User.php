@@ -36,7 +36,8 @@ class User extends Authenticatable
         'postal_address',
         'tin',
         'vaccination_ref_number',
-        'image',
+        'uploadResume',
+        'image'
     ];
 
     /**
