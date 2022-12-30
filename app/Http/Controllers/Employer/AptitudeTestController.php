@@ -60,12 +60,83 @@ class AptitudeTestController extends Controller
             "job_id" => "required",
             "category_id" => "required",
             "question" => "required",
-            "option_one" => "required",
-            "option_two" => "required",
-            "option_three" => "required",
-            "option_four" => "required",
-            "answer" => "required",
+            "questionType" => "required",
         ]);
+
+
+        $option_one = '';
+        $option_two = '';
+        $option_three = '';
+        $option_four = '';
+        $option_text = '';
+        $answer = [];
+
+        if ($request->questionType == "radio") {
+            $radioOptions = $request->radioOption;
+
+            $i = 4;
+            foreach ($radioOptions as $chkey => $radioVal) {
+                $optionName = $radioVal["answer"];
+                $correctOption = isset($radioVal["correctOption"]) ? 1 : 0;
+
+                if($correctOption === 1) {
+                    array_push($answer,$optionName);
+                }
+                
+                if($i === 4) {
+                    $option_four = $optionName;
+                }
+                else if($i === 3) {
+                    $option_three = $optionName;
+                }
+                else if($i === 2) {
+                    $option_two = $optionName;
+                }
+                else if($i === 1) {
+                    $option_one = $optionName;
+                }
+
+                $i--;
+                
+            }
+
+        }
+
+        if ($request->questionType == "checkbox") {
+            $checkboxOptions = $request->checkboxOption;
+            $i = 4;
+            foreach ($checkboxOptions as $chkey => $checkboxVal) {
+                $optionName = $checkboxVal["answer"];
+                
+                $correctOption = isset($checkboxVal["correctOption"]) ? 1 : 0;
+
+                if($correctOption === 1) {
+                    array_push($answer,$optionName);
+                }
+                if($i === 4) {
+                    $option_four = $optionName;
+                }
+                else if($i === 3) {
+                    $option_three = $optionName;
+                }
+                else if($i === 2) {
+                    $option_two = $optionName;
+                }
+                else if($i === 1) {
+                    $option_one = $optionName;
+                }
+
+                $i--;
+                
+            }
+        }
+
+
+
+        if ($request->questionType == "text") {
+            $option_text = $request->textOption;
+            array_push($answer,$option_text);
+        }
 
         $employer = Auth::guard('employer')->user();
 
@@ -74,11 +145,13 @@ class AptitudeTestController extends Controller
         $test->job_id = $validated['job_id'];
         $test->category_id = $validated['category_id'];
         $test->question = $validated['question'];
-        $test->option_one = $validated['option_one'];
-        $test->option_two = $validated['option_two'];
-        $test->option_three = $validated['option_three'];
-        $test->option_four = $validated['option_four'];
-        $test->answer = $validated['answer'];
+        $test->option_one = $option_one;
+        $test->option_two = $option_two;
+        $test->option_three = $option_three;
+        $test->option_four = $option_four;
+        $test->question_type = $request->questionType;
+        $test->answer = implode(',',$answer);
+        $test->text_box = $option_text;
         $test->time_alloted = urlencode(time());
         $test->status = 1;
         $res = $test->save();

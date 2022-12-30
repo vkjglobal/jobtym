@@ -52,7 +52,11 @@
                             @auth
                                 <li class="user-logo">
                                     <a class="user-img" id="" href="{{ url('/user/dashboard') }}">
-                                        <img src="{{ asset('user_assets/images/user_img.jpg')}}" alt="" style="width: 52px;height: 52px;border-radius: 50%;">
+                                        <img @if (Auth::user()->image)
+                                            src="{{ asset('user_assets/uploadProfile/'.Auth::user()->image)}}"
+                                        @else
+                                            src="{{ asset('user_assets/images/user_img.jpg')}}"
+                                        @endif alt="" style="width: 52px;height: 52px;border-radius: 50%;">
                                     </a>    
                                     {{-- <a class="nav-link" id="" data-toggle="tab" href="{{ url('/user/dashboard') }}" role="tab" aria-controls="Profile" aria-selected="false"><img src="" alt=""></a> --}}
                                 </li>

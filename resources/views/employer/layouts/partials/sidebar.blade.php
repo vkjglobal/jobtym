@@ -48,7 +48,7 @@
             <!-- Job Posts End -->
 
             <!-- Aptitude Tests -->
-            {{-- <li class="nav-item {{ request()->is('employer/aptitude-tests*') ? 'active' : '' }}">
+            <li class="nav-item {{ request()->is('employer/aptitude-tests*') ? 'active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#aptitude-tests" role="button" aria-expanded="false"
                     aria-controls="aptitude-tests">
                     <i class="link-icon" data-feather="cpu"></i>
@@ -71,11 +71,11 @@
                         </li>
                     </ul>
                 </div>
-            </li> --}}
+            </li>
             <!-- Aptitude Tests End -->
 
              <!-- Question Tests -->
-             <li class="nav-item {{ request()->is('employer/question*') ? 'active' : '' }}">
+             {{-- <li class="nav-item {{ request()->is('employer/question*') ? 'active' : '' }}">
                 <a class="nav-link" data-toggle="collapse" href="#question-tests" role="button" aria-expanded="false"
                     aria-controls="question-tests">
                     <i class="link-icon" data-feather="cpu"></i>
@@ -125,7 +125,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             <!-- Option Tests End -->
 
             <!-- Result Tests -->

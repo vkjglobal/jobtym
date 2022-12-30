@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Question <span class="text-danger">*</span></label>
                                     <textarea name="question" class="form-control @if ($errors->has('question')) is-invalid @endif" cols="30"
-                                        rows="5" required>{{ old('question') }}</textarea>
+                                        rows="5">{{ old('question') }}</textarea>
                                     <div class="invalid-feedback">{{ $errors->first('question') }}</div>
                                 </div>
                             </div><!-- Col -->
@@ -133,46 +133,105 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label class="control-label">Answer Type <span class="text-danger">*</span></label>
-                                    <select id="answerType" name="answerType" class="text-dark form-control @if ($errors->has('answerType')) is-invalid @endif"
+                                    <label class="control-label">Question Type <span class="text-danger">*</span></label>
+                                    <select id="answerType" name="questionType"
+                                        class="text-dark form-control @if ($errors->has('questionType')) is-invalid @endif"
                                         required>
                                         <option disabled selected>Select option...</option>
-                                        <option value="radio">Radio Button</option>
-                                        <option value="checkbox">Checkbox</option>
+                                        <option value="radio">Options</option>
+                                        <option value="checkbox">Multiple Options</option>
                                         <option value="text">Text Box</option>
                                         {{-- <option value="">Option Four</option> --}}
                                     </select>
-                                    <div class="invalid-feedback">{{ $errors->first('answerType') }}</div>
+                                    <div class="invalid-feedback">{{ $errors->first('questionType') }}</div>
                                 </div>
                             </div><!-- Col -->
                         </div><!-- Row -->
 
-                        <div class="row" id="ansRadio" style="display: none">
-                            <div class="col-sm-6">
+                        <div class="showContainer" style="display: none;">
+                            <div class="radioSection">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control ansRadio" id="ansRadio"
+                                                name="radioOption[0][answer]" placeholder="Option">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="checkbox" class="form-control ansRadio" id="ansRadio"
+                                                name="radioOption[0][correctOption]" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-primary" id="addRadioBtn" type="button">Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkboxSection">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control ansCheckbox" id="ansCheckbox"
+                                                name="checkboxOption[0][answer]" placeholder="Option">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="checkbox" class="form-control ansCheckbox" id="ansCheckbox"
+                                                name="checkboxOption[0][correctOption]" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-primary" id="addCheckBoxBtn" type="button">Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="textboxSection">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" name="textOption" class="form-control" placeholder="Enter your answer">
+                                        </div>
+                                    </div><!-- Col -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="show_item">
+                            <div class="row ansRadio" id="ansRadio" style="display: none">
+                                {{-- <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control " name="option_one" value="Radio Button">
+                                    <input type="text" class="form-control" name="option[]" value="Radio Button">
                                 </div>
                             </div><!-- Col -->
                             <div class="col-sm-6">
                                 <button class="btn btn-primary" id="addRadioBtn" type="button">Add new Row </button>
-                            </div>
-                        </div><!-- Row -->
+                            </div> --}}
+
+
+
+
+                            </div><!-- Row -->
+                        </div>
                         <div class="row" id="ansCheckbox" style="display: none">
-                            <div class="col-sm-6">
+                            {{-- <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control " name="option_one" value="Check Box">
+                                    <input type="text" class="form-control " value="Check Box">
                                 </div>
                             </div><!-- Col -->
                             <div class="col-sm-6">
                                 <button class="btn btn-primary" id="addCheckBoxBtn" type="button">Add new Row </button>
-                            </div>
+                            </div> --}}
                         </div><!-- Row -->
                         <div class="row" id="ansText" style="display: none">
-                            <div class="col-sm-6">
+                            {{-- <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control " name="option_one" value="Text Field">
+                                    <input type="text" class="form-control"  value="Text Field">
                                 </div>
-                            </div><!-- Col -->
+                            </div><!-- Col --> --}}
                         </div><!-- Row -->
 
 
@@ -199,6 +258,12 @@
         div.tagsinput span.tag {
             margin: 5px;
         }
+
+        .showContainer {
+            border: solid 1px #bbbbbb;
+            padding: 15px 15px 15px;
+            margin-bottom: 5px;
+        }
     </style>
 @endpush
 @push('custom_js')
@@ -208,6 +273,9 @@
     <script src="{{ asset('admin_assets/vendors/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
     <script>
         $(function() {
+
+            var radioRow = 1;
+            var checkboxRow = 1;
             $("#deadline").datepicker({
                 changeMonth: true,
                 changeYear: true,
@@ -220,60 +288,129 @@
                 yearRange: "-3:+2",
                 dateFormat: "dd-mm-yy"
             });
-        });
 
-        $('#skills').tagsInput({
-            'width': '100%',
-            'height': '75%',
-            'interactive': true,
-            'defaultText': 'Add More',
-            'removeWithBackspace': true,
-            'minChars': 0,
-            'maxChars': 20,
-            'placeholderColor': '#666666'
-        });
+            $('#skills').tagsInput({
+                'width': '100%',
+                'height': '75%',
+                'interactive': true,
+                'defaultText': 'Add More',
+                'removeWithBackspace': true,
+                'minChars': 0,
+                'maxChars': 20,
+                'placeholderColor': '#666666'
+            });
 
-        $('#answerType').click(function() {
-            if ($('#answerType').val() == 'radio') {
-                $('#ansRadio').removeAttr('style');
-                $('#ansCheckbox').css({'display': 'none'});
-                $('#ansText').css({'display': 'none'});
-            }else if ($('#answerType').val() == 'checkbox') {
-                $('#ansCheckbox').removeAttr('style');
-                $('#ansRadio').css({'display': 'none'});
-                $('#ansText').css({'display': 'none'});
-            }else if ($('#answerType').val() == 'text'){
-                $('#ansText').removeAttr('style');
-                $('#ansCheckbox').css({'display': 'none'});
-                $('#ansRadio').css({'display': 'none'});
-            }
-        });
-        
+            $('#answerType').change(function() {
+                let value = $(this).val();
+                // alert(value); 
+                $(".textboxSection, .checkboxSection, .radioSection").hide();
+                // $(".textboxSection, .checkboxSection, .radioSection").html('');
+                radioRow = 1;
+                checkboxRow = 1;
+                $('.singleRadioRow, .singleCheckboxRow').remove();
+                // $('.class-name').remove();
 
-          // Add row
-        var row=1;
-        $(document).on("click", "#addRadioBtn", function () {
-        var new_row = `<div class="col-sm-6" id="R${++row}">
+                $(".showContainer").show();
+                if (value == "radio") {
+                    $(".radioSection").show();
+                }
+                if (value == "checkbox") {
+                    $(".checkboxSection").show();
+                }
+                if (value == "text") {
+                    $(".textboxSection").show();
+                }
+                // $(".show_item").show();
+                // if ($('#answerType').val() == 'radio') {
+                //     $('#ansRadio').removeAttr('style');
+                //     $('#ansCheckbox').css({'display': 'none'});
+                //     $('#ansText').css({'display': 'none'});
+                // }else if ($('#answerType').val() == 'checkbox') {
+                //     $('#ansCheckbox').removeAttr('style');
+                //     $('.ansRadio').css({'display': 'none'});
+                //     $('#ansText').css({'display': 'none'});
+                // }else if ($('#answerType').val() == 'text'){
+                //     $('#ansText').removeAttr('style');
+                //     $('#ansCheckbox').css({'display': 'none'});
+                //     $('.ansRadio').css({'display': 'none'});
+                // }
+            });
+
+            var i = 1;
+            var max_fields = 4; //maximum input boxes allowed
+            $('#addRadioBtn').click(function(e) {
+                e.preventDefault();
+                console.log({dd:radioRow});
+                
+                if (radioRow < max_fields) {
+                    $('.radioSection').prepend(`<div class="row singleRadioRow">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input id="R${++row}" type="text" class="form-control " name="option_one" value="Radio_${row}">
+                                    <input type="text" class="form-control " id="ansRadio" name="radioOption[${i}][answer]" placeholder="Option">
                                 </div>
-                            </div><div class="col-sm-6">
-                                <button class="btn btn-danger remove" id="removeBtn" type="button">Remove</button>
-                            </div>`;
-            // alert(new_row);
-        $('#ansRadio').append(new_row);
-        row++;
-        return false;
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input type="checkbox" class="form-control ansRadio" id="ansRadio" name="radioOption[${i}][correctOption]" value="1">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-danger" id="removeRadioBtn" type="button">Remove</button>
+                            </div>
+                    </div>`);
+                    radioRow++;
+                    i++;
+                }
+
+            });
+            $(document).on('click', '#removeRadioBtn', function(e) {
+                e.preventDefault();
+                let row_items = $(this).parent().parent();
+                $(row_items).remove();
+                radioRow--;
+                console.log({after:radioRow});
+            });
+
+            var j = 1;
+            var max_fields = 4; //maximum input boxes allowed
+            $('#addCheckBoxBtn').click(function(e) {
+                e.preventDefault();
+                if (checkboxRow < max_fields) {
+                    $('.checkboxSection').prepend(`<div class="row singleCheckboxRow">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control ansCheckbox" id="ansCheckbox" name="checkboxOption[${j}][answer]" placeholder="Option">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input type="checkbox" class="form-control ansCheckbox" id="ansCheckbox" name="checkboxOption[${j}][correctOption]" value="1">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-danger" id="removeCheckboxBtn" type="button">Remove</button>
+                            </div>
+                    </div>`);
+                    checkboxRow++;
+                    j++;
+                }
+
+            });
+            $(document).on('click', '#removeCheckboxBtn', function(e) {
+                e.preventDefault();
+                let row_items = $(this).parent().parent();
+                $(row_items).remove();
+                checkboxRow--;
+            });
         });
-        
-        // Remove criterion
-        $(document).on("click", "#", function () {
-        //  alert("deleting row#"+row);
-            if(row>1) {
-            $(this).closest('tr').remove();
-            row--;
-            }
-        return false;
-        });
+
+        // $("#checkbox1, #checkbox2").change(function(){
+        //     if ($("#checkbox1").is(":checked")) {
+        //         $("#checkbox2").prop("checked", false);
+        //     } else {
+        //         $("#checkbox2").prop("checked", true);
+        //     }
+        // });
+
     </script>
 @endpush
