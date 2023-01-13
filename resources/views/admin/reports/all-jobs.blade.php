@@ -73,7 +73,7 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script >
-    $(document).ready(function () {
+    $(function () {
         
         $("#title, #industry, #employer, #datefrom, #dateto").on('change', function(){
             var title = $(this).val();
@@ -94,7 +94,7 @@
                  },
                 success:function(data){
                     console.log(data);
-                    $('#dataTableExample').html(data); 
+                    $('#list_table').html(data); 
                     feather.replace();
                 }
             });

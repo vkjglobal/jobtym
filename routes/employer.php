@@ -13,7 +13,14 @@ use App\Http\Controllers\Employer\ProfileController;
 use App\Http\Controllers\Employer\QuestionController;
 use App\Http\Controllers\Employer\ResultController;
 use App\Http\Controllers\Employer\StripePaymentController;
+use App\Mail\MailNotify;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;       
+use App\Models\JobPost;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+
+// Auth::routes(['verify' => true]);
 
 // Login
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -21,6 +28,7 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 // Register
+
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
 
@@ -35,11 +43,11 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 // Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
 
 // Verify Email
-// Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-// Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
-// Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-Route::middleware('employer.auth')->group(function () {
+Route::middleware(['employer.auth', 'employer.verified'])->group(function () {
     // Dashboard
     Route::get('/', [HomeController::class, 'index'])->name('home');
 

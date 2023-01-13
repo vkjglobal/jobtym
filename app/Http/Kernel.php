@@ -58,7 +58,7 @@ class Kernel extends HttpKernel
         // 'user.guest' => \App\Http\Middleware\RedirectIfUser::class,
         'employer.auth' => \App\Http\Middleware\RedirectIfNotEmployer::class,
         'employer.guest' => \App\Http\Middleware\RedirectIfEmployer::class,
-        // 'employer.verified' => \App\Http\Middleware\EnsureEmployerEmailIsVerified::class,
+        'employer.verified' => \App\Http\Middleware\EnsureEmployerEmailIsVerified::class,
         // 'employer.password.confirm' => \App\Http\Middleware\RequireEmployerPassword::class,
         'admin.auth' => \App\Http\Middleware\RedirectIfNotAdmin::class,
         'admin.guest' => \App\Http\Middleware\RedirectIfAdmin::class,

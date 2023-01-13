@@ -79,7 +79,7 @@ class ProfileController extends Controller
             "email" => "required",
             "gender" => "required",
             "phone" => "required",
-            "secondary_phone" => "required",
+            // "secondary_phone" => "required",
             "date_of_birth" => "required",
             "isResident" => "required",
             "country" => "required",
@@ -88,8 +88,8 @@ class ProfileController extends Controller
             "town" => "required",
             "division" => "required",
             "postal_address" => "required",
-            "tin" => "required",
-            "vaccination_ref_number" => "required",
+            // "tin" => "required",
+            // "vaccination_ref_number" => "required",
         ]);
 
         if($request->file()){
