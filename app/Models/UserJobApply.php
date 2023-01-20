@@ -18,4 +18,9 @@ class UserJobApply extends Model
     {
         return $this->belongsTo(Employer::class,'employer');
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

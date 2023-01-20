@@ -8,6 +8,7 @@ use App\Models\MatchedJobs;
 use Illuminate\Http\Request;
 use App\Models\Employer;
 use App\Models\Category;
+use App\Models\UserJobApply;
 
 class ReportController extends Controller
 {
@@ -69,7 +70,8 @@ class ReportController extends Controller
             [(__('Matched Jobs Report')), null]
         ];
 
-        $jobs = MatchedJobs::with('employer')->with('users')->with('jobposts')->latest()->get();
+        // $jobs = MatchedJobs::with('employer')->with('users')->with('jobposts')->latest()->get();
+        $jobs = UserJobApply::with('employeName')->with('users')->with('jobApply')->get();
         return view('admin.reports.matched-jobs', compact('breadcrumbs', 'jobs'));
     }
 

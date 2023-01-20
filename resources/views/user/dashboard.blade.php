@@ -68,14 +68,14 @@
                             </li>
                         </ul>
                         {{-- <a href="#" class="btn btn-primary register ">Job Post</a> --}}
-                        <div class="message-top ">
+                        {{-- <div class="message-top ">
                             <a class="message-notification" href="javascript:void(0);">
                                 <svg width="23" height="25" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M20 14.4825V10C20 5.97875 17.2687 2.59125 13.5687 1.5725C13.2025 0.65 12.3075 0 11.25 0C10.1925 0 9.2975 0.65 8.93125 1.5725C5.23125 2.5925 2.5 5.97875 2.5 10V14.4825L0.366251 16.6162C0.249948 16.7321 0.157713 16.8699 0.0948567 17.0215C0.0320002 17.1732 -0.000236811 17.3358 1.30959e-06 17.5V20C1.30959e-06 20.3315 0.131697 20.6495 0.366118 20.8839C0.600538 21.1183 0.918481 21.25 1.25 21.25H21.25C21.5815 21.25 21.8995 21.1183 22.1339 20.8839C22.3683 20.6495 22.5 20.3315 22.5 20V17.5C22.5002 17.3358 22.468 17.1732 22.4051 17.0215C22.3423 16.8699 22.2501 16.7321 22.1338 16.6162L20 14.4825ZM20 18.75H2.5V18.0175L4.63375 15.8837C4.75005 15.7679 4.84229 15.6301 4.90515 15.4785C4.968 15.3268 5.00024 15.1642 5 15V10C5 6.55375 7.80375 3.75 11.25 3.75C14.6962 3.75 17.5 6.55375 17.5 10V15C17.5 15.3325 17.6312 15.65 17.8662 15.8837L20 18.0175V18.75ZM11.25 25C12.0241 25.001 12.7793 24.7607 13.4106 24.3127C14.0419 23.8647 14.5179 23.2311 14.7725 22.5H7.7275C7.98208 23.2311 8.4581 23.8647 9.08939 24.3127C9.72068 24.7607 10.4759 25.001 11.25 25Z" fill="black"/>
                                 </svg>                                
                                 <span class="notification"></span>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -89,7 +89,12 @@
                                 <a class="nav-link" href="{{ url('user/find-job') }}">Find Jobs</a>
                             </li>                    
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('user') }}">Upload Your Resume</a>
+                                {{-- <a class="nav-link" href="{{ url('user') }}">Upload Your Resume</a> --}}
+                                <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
+                                    @csrf
+                                    <input id="upload" name="uploadResume" type="file" style="display: none"/>
+                                    <a class="nav-link" href="" id="upload_link">Upload Your Resume</a>
+                                </form>
                             </li>
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ url('user') }}">Hiring? Post a job for free</a>
@@ -1671,9 +1676,9 @@
                     <ul class="footer-links">
                         <li class="link-title">For Candidates</li>
                         <li class="link-item"><a href="{{ route('user.job.find-job') }}">Browse Jobs</a></li>
-                        <li class="link-item"><a href="">Browse Candidates</a></li>
+                        {{-- <li class="link-item"><a href="">Browse Candidates</a></li> --}}
                         <li class="link-item"><a href="{{ route('user.index') }}">Candidate Dashboard</a></li>
-                        <li class="link-item"><a href="">Job Alerts</a></li>
+                        <li class="link-item"><a href="{{ route('user.job.find-job') }}">Job Alerts</a></li>
                     </ul>
                 </div>
                 @guest
@@ -1691,15 +1696,15 @@
                         <li class="link-title">Quick Links</li>
                         <li class="link-item"><a href="{{ url('user/contactUs') }}">Contact Us</a></li>
                         <li class="link-item"><a href="{{ url('user/aboutUs') }}">About Us</a></li>
-                        <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms</a></li>
+                        {{-- <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms</a></li> --}}
                         <li class="link-item"><a href="{{ url('user/faq') }}">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">Helpful Resources</li>
-                        <li class="link-item"><a href="">Site Map</a></li>
-                        <li class="link-item"><a href="">Terms of Use</a></li>
+                        <li class="link-item"><a href="#">Site Map</a></li>
+                        <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms of Use</a></li>
                         <li class="link-item"><a href="{{ url('user/privacy-policy') }}">Privacy Policy</a></li>
                     </ul>
                 </div>

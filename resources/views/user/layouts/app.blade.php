@@ -39,11 +39,12 @@
                                 <a class="nav-link" href="{{ url('user/find-job') }}">Find Jobs</a>
                             </li>
                             <li class="nav-item">
-                                <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
+                                {{-- <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
                                     @csrf
                                     <input id="upload" name="uploadResume" type="file" style="display: none"/>
                                     <a class="nav-link" href="" id="upload_link">Upload Your Resume</a>
-                                </form>
+                                </form> --}}
+                                <a class="nav-link" href="{{ url('user/dashboard') }}" >Create Your Resume</a>
                             </li>
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ url('user') }}">Hiring? Post a job for free</a>
@@ -289,9 +290,9 @@
                     <ul class="footer-links">
                         <li class="link-title">For Candidates</li>
                         <li class="link-item"><a href="{{ route('user.job.find-job') }}">Browse Jobs</a></li>
-                        <li class="link-item"><a href="">Browse Candidates</a></li>
+                        {{-- <li class="link-item"><a href="">Browse Candidates</a></li> --}}
                         <li class="link-item"><a href="{{ route('user.index') }}">Candidate Dashboard</a></li>
-                        <li class="link-item"><a href="">Job Alerts</a></li>
+                        <li class="link-item"><a href="{{ route('user.job.find-job') }}">Job Alerts</a></li>
                     </ul>
                 </div>
                 @guest    
@@ -309,7 +310,7 @@
                         <li class="link-title">Quick Links</li>
                         <li class="link-item"><a href="{{ url('user/contactUs') }}">Contact Us</a></li>
                         <li class="link-item"><a href="{{ url('user/aboutUs') }}">About Us</a></li>
-                        <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms</a></li>
+                        {{-- <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms</a></li> --}}
                         <li class="link-item"><a href="{{ url('user/faq') }}">FAQ</a></li>
                     </ul>
                 </div>
@@ -317,7 +318,7 @@
                     <ul class="footer-links">
                         <li class="link-title">Helpful Resources</li>
                         <li class="link-item"><a href="">Site Map</a></li>
-                        <li class="link-item"><a href="">Terms of Use</a></li>
+                        <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms of Use</a></li>
                         <li class="link-item"><a href="{{ url('user/privacy-policy') }}">Privacy Policy</a></li>
                     </ul>
                 </div>

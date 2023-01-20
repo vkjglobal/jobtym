@@ -16,7 +16,7 @@
                                     <th>Applicant Name</th>
                                     <th>Industry</th>
                                     <th>Job Title</th>
-                                    <th>Amount</th>
+                                    <th>Employer</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -24,9 +24,9 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $job->users->first_name }}</td>
-                                        <td>{{ $job->jobposts->industry }}</td>
-                                        <td>{{ $job->jobposts->title }}</td>
-                                        <td>5000</td>
+                                        <td>{{ $job->jobApply->industry }}</td>
+                                        <td>{{ $job->jobApply->title }}</td>
+                                        <td>{{ $job->employeName->name }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

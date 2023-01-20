@@ -29,7 +29,7 @@
                                         <td>{{ $job->created_at }}</td>
                                         <td>{{ $job->deadline }}</td>
                                         <td>{{ $job->industry }}</td>
-                                        <td>123[Testing]</td>
+                                        <td>{{}}</td>
                                         <td>
                                             <div class="btn-toolbar" role="toolbar">
                                                 <!-- edit button -->
