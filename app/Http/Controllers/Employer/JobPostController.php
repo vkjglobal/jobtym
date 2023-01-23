@@ -59,10 +59,11 @@ class JobPostController extends Controller
 
         $employer = Auth::guard('employer')->user();
         $jobCheck = JobPost::where('employer_id',$employer->id)->count();
-        if ($jobCheck >= 1) {
-            notify()->error(__('Failed to Create. Please make payment for create second job.'));
-        } 
-        else {
+        // for demo 23-10-23
+        // if ($jobCheck >= 1) {
+        //     notify()->error(__('Failed to Create. Please make payment for create second job.'));
+        // } 
+        // else {
             $job = new JobPost();
             $job->employer_id = $employer->id;
             $job->title = $validated['title'];
@@ -116,7 +117,7 @@ class JobPostController extends Controller
                 notify()->error(__('Failed to Create. Please try again'));
             }
                 
-        }
+        // } end demo
         return redirect()->back();
     }
 
