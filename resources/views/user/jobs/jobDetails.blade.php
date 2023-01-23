@@ -64,7 +64,7 @@
                         <span class="job-title">
                             <h4>{{ $job['title'] }}</h4>
                             <span class="featured d-none">Featured</span>
-                            <span class="filled ml-4">Filled</span>
+                            {{-- <span class="filled ml-4">Filled</span> --}}
                             <span class="job-info-sec">
                                 <ul class="job-info mb-2">
                                     <li class="job-name"><span><svg width="17" height="15" viewBox="0 0 17 15"
@@ -404,22 +404,22 @@
                                 <strong>Expiration date</strong>
                                 <span>{{ date("M d, Y", strtotime($job['deadline'])) }}</span>
                             </li>
-                            <li class="Experience">
+                            {{-- <li class="Experience">
                                 <strong>experience</strong>
                                 <span>3 Year</span>
-                            </li>
-                            <li class="gender">
+                            </li> --}}
+                            {{-- <li class="gender">
                                 <strong>Gender</strong>
                                 <span>Male</span>
-                            </li>
-                            <li class="qualification">
+                            </li> --}}
+                            {{-- <li class="qualification">
                                 <strong>Qualification</strong>
                                 <span>Certificate</span>
-                            </li>
-                            <li class="career-level">
+                            </li> --}}
+                            {{-- <li class="career-level">
                                 <strong>Career Level</strong>
                                 <span>Manager</span>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                     <div class="job-location grey-bg">

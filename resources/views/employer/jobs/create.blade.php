@@ -170,7 +170,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="control-label">Salary Range</label>
+                                    <label class="control-label">Salary Range (per week)</label>
                                     <div class="d-flex">
                                         <input type="number"
                                             class="form-control @if ($errors->has('salaryFrom')) is-invalid @endif"

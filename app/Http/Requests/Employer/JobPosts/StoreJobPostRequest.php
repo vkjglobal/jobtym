@@ -35,11 +35,11 @@ class StoreJobPostRequest extends FormRequest
             'city' => 'nullable',
             'town' => 'nullable',
             'division' => 'nullable',
-            'salaryFrom' => 'nullable',
-            'salaryTo' => 'nullable',
+            'salaryFrom' => 'nullable|gte:10',
+            'salaryTo' => 'nullable|gt:salaryFrom',
             'email' => 'required',
-            'schedule_date' => 'nullable|date',
-            'deadline' => 'required|date',
+            'schedule_date' => 'nullable|date|after_or_equal:today',
+            'deadline' => 'required|date|after:schedule_date',
             'attachment' => 'nullable|max:5000',
         ];
     }

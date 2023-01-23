@@ -49,7 +49,7 @@ class JobPostController extends Controller
             })->paginate(6);
             $getCountry = JobPost::where('status','=','1')->select('country')->distinct()->get();
         }else{
-            $jobs = JobPost::where('status','=','1')->paginate(6);
+            $jobs = JobPost::where('status','=','1')->latest()->paginate(6);
             $getCountry = JobPost::where('status','=','1')->select('country')->distinct()->get();
         }
         return view('user.jobs.index',compact('jobs','getCountry'));
