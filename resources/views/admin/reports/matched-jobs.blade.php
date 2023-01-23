@@ -23,10 +23,10 @@
                                 @foreach ($jobs as $job)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $job->users->first_name }}</td>
-                                        <td>{{ $job->jobApply->industry }}</td>
-                                        <td>{{ $job->jobApply->title }}</td>
-                                        <td>{{ $job->employeName->name }}</td>
+                                        <td>@isset($job->first_name) {{ $job->first_name }}@endisset</td>
+                                        <td>@isset($job->jobApply->industry) {{ $job->jobApply->industry }}@endisset</td>
+                                        <td>@isset($job->jobApply->title) {{ $job->jobApply->title }}@endisset</td>
+                                        <td>@isset($job->employeName->name) {{ $job->employeName->name }}@endisset</td>
                                     </tr>
                                 @endforeach
                             </tbody>

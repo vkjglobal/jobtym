@@ -8,12 +8,14 @@
             <div class="card-body">
                 <h6 class="card-title">Reports</h6>
                 <div class="table-responsive">
+                    <form  id="search-form">
+                        @csrf
                     <div class="mb-3">
                         <div class="row" id="filter">
                             <div class="col-md-2 m-2">
                                 <label for="">Category</label>
                                 <select name="industry" class="form-control category-dropdown" id="industry" placeholder="Industry">
-                                    <option value="">--All--</option>
+                                    <option value=" ">--All--</option>
                                         @foreach($industry as $indus)
                                             <option value="{{$indus->name}}" {{Request::get('industry') == $indus->name ? 'selected': ''}}>{{$indus->name}}</option>
                                         @endforeach 
@@ -22,7 +24,7 @@
                             <div class="col-md-2 m-2" >
                                 <label for="">Job Title</label>
                                 <select name="title" class="form-control category-dropdown" id="title" placeholder="Job Title">
-                                    <option value="">--All--</option>
+                                    <option value=" ">--All--</option>
                                         @foreach($jobs as $job)
                                             <option value="{{$job->id}}" {{Request::get('title') == $job->title ? 'selected': ''}}>{{$job->title}}</option>
                                             
@@ -32,24 +34,28 @@
                             <div class="col-md-2 m-2">
                                 <label for="">Employer</label>
                                 <select name="employer" class="form-control category-dropdown" id="employer" placeholder="Employer">
-                                    <option value="">--All--</option>
+                                    <option value=" ">--All--</option>
                                         @foreach($employers as $employer)
                                             <option value="{{$employer->id}}" {{Request::get('employer') == $employer->id ? 'selected': ''}}>{{$employer->company_name}}</option>
                                             
                                         @endforeach 
                                 </select>
                             </div>
-                            <div class="col-md-2 m-2">
+                            {{-- <div class="col-md-2 m-2">
                                 <label for="">Posted Date</label>
                                 <input type="date" value="{{date('y-m-d')}}" name="datefrom" id="datefrom" placeholder="Posted" class="form-control">
                             </div>
                             <div class="col-md-2 m-2">
                                 <label for="">Due Date</label>
                                 <input type="date" value="{{date('y-m-d')}}" name="dateto" id="dateto" placeholder="Due" class="form-control">
+                            </div> --}}
+                            <div class="col-md-2 mt-5">
+                                <input type="submit" value="Submit" name="submit" id="submit"  class="form-control btn btn-primary">
                             </div>
                         </div>
                         
                     </div>
+                </form>
                 
                     <div id="list_table">
                         @include('admin.reports.all-jobs_table')
@@ -73,28 +79,30 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script >
-    $(function () {
+    $(document).ready(function () {
         
-        $("#title, #industry, #employer, #datefrom, #dateto").on('change', function(){
-            var title = $(this).val();
-            var industry = $(this).val();
-            var employer = $(this).val();
-            var datefrom = $(this).val();
-            var dateto = $(this).val();
+    
+
+        $("#search-form").on('submit', function(e){
+            e.preventDefault();
+            var title = $('#title').val();
+            var industry = $('#industry').val();
+            var employer = $('#employer').val();
+            // var formData = $(this).serializeArray();
+            console.log(industry, title, employer);
 
             $.ajax({
                 url: "{{route('admin.report.allJob')}}",
-                type: "GET",
-
-                data: {'title': title,
-                'industry': industry ,
-                'employer': employer,
-                'datefrom': datefrom,
-                'dateto': dateto,         
-                 },
+                type: "get",
+                
+                data: {
+                        'title': title,
+                        'industry': industry,
+                        'employer': employer,   
+                        },
                 success:function(data){
                     console.log(data);
-                    $('#list_table').html(data); 
+                    $('#dataTableExample').html(data); 
                     feather.replace();
                 }
             });
