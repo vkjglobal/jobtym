@@ -16,8 +16,8 @@ class AptitudeTest extends Model
     }
 
     // Category
-    // public function category()
-    // {
-    //     return $this->hasOne(Category::class);
-    // }
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+    }
 }

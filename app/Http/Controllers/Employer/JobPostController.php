@@ -251,7 +251,7 @@ class JobPostController extends Controller
             [(__('Jobs')), null],
         ];
         $employer = Auth::guard('employer')->user();
-        $jobs = JobPost::with('user_job_applies')->where('employer_id',$employer->id)->get();
+        $jobs = JobPost::with('userApply')->where('employer_id',$employer->id)->get();
         $applicants = UserJobApply::where('employer', $employer->id)->count();
         return view('employer.reports.index', compact('breadcrumbs', 'jobs', 'applicants'));
     }

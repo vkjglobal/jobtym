@@ -43,6 +43,7 @@ class ProfileController extends Controller
             "facebook" => "required",
             "instagram" => "required",
             "linkedin" => "required",
+            'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $res = Employer::whereId($id)->update($updateData);
