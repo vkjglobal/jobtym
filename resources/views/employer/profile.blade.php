@@ -178,7 +178,37 @@
                             </div><!-- Row -->
                             <button type="submit" class="btn btn-primary submit">Update Profile</button>
                         </form>
-                    </div>
+</div><div class="card-body">
+                        <form method="POST" action="{{  route('employer.profile.changePassword',Auth::guard('employer')->user()->id ) }}" class="form-dash mt-3">
+                            @csrf
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <h5 class="card-title">Change Password</h5>
+                                    
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="">
+                                    @if($errors->has('password'))
+                                        <div class="text-danger">{{ $errors->first('password') }}</div>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="confirm_pass">Confirm Password</label>
+                                    <input type="password" name="password_confirmation" class="form-control" id="confirm_pass" placeholder="">
+                                    @if($errors->has('password_confirmation'))
+                                        <div class="text-danger">{{ $errors->first('password_confirmation') }}</div>
+                                    @endif
+                                </div>
+                              
+                                
+                                <div class="form-group col-md-12 text-left">
+                                    <input type="submit" class="btn btn-primary submit" placeholder="Change Password" value="Change Password">
+                                </div>
+                            </div>
+                        </form>
+</div>
+                    
                 </div>
             </div>
         </div>
@@ -188,12 +218,15 @@
     <style>
         @media screen and (min-width: 800px) {
             .page-wrapper {
-                margin-left: 100px !important;
+                /*margin-left: 100px !important;*/
+                margin-left: 230px !important;
             }
         }
 
         .page-content {
-            margin-top: 10px !important
+            /*margin-top: 10px !important;*/
+            margin-top: 80px !important;
+
         }
     </style>
 @endpush

@@ -17,12 +17,22 @@
                 <li class="nav-item dropdown nav-profile">
                     <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="https://picsum.photos/30/30?random=1" alt="userr">
+                        <!-- <img src="https://picsum.photos/30/30?random=1" alt="userr"> -->
+                        <img @if (Auth::guard('employer')->user()->image)
+                                        src="{{ asset('user_assets/uploadProfile/'.Auth::guard('employer')->user()->image)}}"
+                                    @else
+                                        src="{{ asset('user_assets/images/user_img.jpg')}}"
+                                   @endif  alt="" style="width: 52px;height: 52px;border-radius: 50%;">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="profileDropdown">
                         <div class="dropdown-header d-flex flex-column align-items-center">
                             <div class="figure mb-3">
-                                <img src="https://picsum.photos/80/80?random=1" alt="">
+                                <!-- <img src="https://picsum.photos/80/80?random=1" alt=""> -->
+                                <img @if (Auth::guard('employer')->user()->image)
+                                        src="{{ asset('user_assets/uploadProfile/'.Auth::guard('employer')->user()->image)}}"
+                                    @else
+                                        src="{{ asset('user_assets/images/user_img.jpg')}}"
+                                    @endif  alt="" style="width: 80px;height: 80px;border-radius: 80%;">
                             </div>
                             <div class="info text-center">
                                 <p class="name font-weight-bold mb-0">

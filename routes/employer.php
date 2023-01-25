@@ -73,6 +73,8 @@ Route::middleware(['employer.auth', 'employer.verified'])->group(function () {
     // Divyesh-- 09-12-22
     Route::get('profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+     //Neena --18-01-23
+     Route::post('profile/changepassword/{id}', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
 
     Route::get('stripe',[StripePaymentController::class,'paymentStripe'])->name('addmoney.paymentstripe');
     Route::post('add-money-stripe',[StripePaymentController::class,'postPaymentStripe'])->name('addmoney.stripe');
