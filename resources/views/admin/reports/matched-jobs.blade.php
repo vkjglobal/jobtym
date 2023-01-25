@@ -8,29 +8,52 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">Reports</h6>
+
+                    <div class="filter">
+                        <form  id="search-form-matched">
+                            @csrf
+                        <div class="mb-3">
+                            <div class="row" id="mfilter">
+                                <div class="col-md-2 m-2">
+                                    <label for="">Category</label>
+                                    <select name="industry" class="form-control category-dropdown" id="mindustry" placeholder="Industry">
+                                        <option value=" ">--All--</option>
+                                            @foreach($industry as $indus)
+                                                <option value="{{$indus->name}}" {{Request::get('industry') == $indus->name ? 'selected': ''}}>{{$indus->name}}</option>
+                                            @endforeach 
+                                    </select>
+                                </div>
+                                <div class="col-md-2 m-2" >
+                                    <label for="">Job Title</label>
+                                    <select name="title" class="form-control category-dropdown" id="mtitle" placeholder="Job Title">
+                                        <option value=" ">--All--</option>
+                                            @foreach($titles as $title)
+                                                <option value="{{$title->id}}" {{Request::get('title') == $title->title ? 'selected': ''}}>{{$title->title}}</option>
+                                                
+                                            @endforeach 
+                                    </select>
+                                </div>
+                                <div class="col-md-2 m-2">
+                                    <label for="">Employer</label>
+                                    <select name="employer" class="form-control category-dropdown" id="memployer" placeholder="Employer">
+                                        <option value=" ">--All--</option>
+                                            @foreach($employers as $employer)
+                                                <option value="{{$employer->id}}" {{Request::get('employer') == $employer->id ? 'selected': ''}}>{{$employer->company_name}}</option>
+                                                
+                                            @endforeach 
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mt-5">
+                                    <input type="submit" value="Submit" name="submit" id="msubmit"  class="form-control btn btn-primary">
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                    </div>
+
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Sl#</th>
-                                    <th>Applicant Name</th>
-                                    <th>Industry</th>
-                                    <th>Job Title</th>
-                                    <th>Employer</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($jobs as $job)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>@isset($job->first_name) {{ $job->first_name }}@endisset</td>
-                                        <td>@isset($job->jobApply->industry) {{ $job->jobApply->industry }}@endisset</td>
-                                        <td>@isset($job->jobApply->title) {{ $job->jobApply->title }}@endisset</td>
-                                        <td>@isset($job->employeName->name) {{ $job->employeName->name }}@endisset</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        @include('admin.reports.matched-jobs-table')
                     </div>
                 </div>
             </div>
@@ -47,4 +70,33 @@
     <script src="{{ asset('admin_assets/js/data-table.js') }}"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script></script>
+    <script >
+        $(document).ready(function () {
+            $("#search-form-matched").on('submit', function(e){
+                e.preventDefault();
+                var title = $('#mtitle').val();
+                var industry = $('#mindustry').val();
+                var employer = $('#memployer').val();
+                // var formData = $(this).serializeArray();
+                console.log(industry, title, employer);
+    
+                $.ajax({
+                    url: "{{route('admin.report.matchedJob')}}",
+                    type: "get",
+                    
+                    data: {
+                            'mtitle': title,
+                            'mindustry': industry,
+                            'memployer': employer,   
+                            },
+                    success:function(data){
+                        console.log(data);
+                        $('#mdataTableExample').html(data); 
+                        feather.replace();
+                    }
+                });
+            });        
+        });
+    
+    </script>
 @endpush

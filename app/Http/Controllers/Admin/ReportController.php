@@ -63,7 +63,7 @@ class ReportController extends Controller
 
     }
 
-    public function matched_jobs()
+    public function matched_jobs(Request $request)
     {
         $breadcrumbs = [
             [(__('Dashboard')), route('admin.home')],
@@ -73,7 +73,28 @@ class ReportController extends Controller
 
         // $jobs = MatchedJobs::with('employer')->with('users')->with('jobposts')->latest()->get();
         $jobs = UserJobApply::with('employeName')->with('users')->with('jobApply')->get();
-        return view('admin.reports.matched-jobs', compact('breadcrumbs', 'jobs'));
+        
+        $job_id1 = $request->title;
+        $industryname = $request->industry;
+        $emp_id = $request->employer;
+
+
+            
+        if($request->ajax()){ 
+            
+            $jobs = UserJobApply::where('id', $job_id1)->where('employer_id', $emp_id)->get();
+            
+            return view('admin.reports.matched-jobs', compact('jobs'));
+        }
+
+        $titles = JobPost::all();
+        
+        $employers = Employer::orderBy('company_name', 'ASC')->get();
+
+        $industry= Category::all();
+
+        return view('admin.reports.matched-jobs', compact('breadcrumbs', 'jobs', 'employers', 'industry', 'titles'));
+    
     }
 
 

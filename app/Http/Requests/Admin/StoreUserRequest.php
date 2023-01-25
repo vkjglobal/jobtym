@@ -29,18 +29,26 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'gender' => 'required',
             'date_of_birth' => 'required|date',
-            'phone' => 'required|numeric',
-            'secondary_phone' => 'required|numeric',
-            'country' => 'required',
+            'phone' => 'required|numeric|min:7|max:15',
+            'secondary_phone' => 'required|numeric|min:7|max:15',
+            'country' => 'required|min:3',
             'isResident' => 'required',
-            'street' => 'required|string',
-            'city' => 'required|string',
-            'town' => 'required|string',
-            'division' => 'required|string',
+            'street' => 'required|string|min:3',
+            'city' => 'required|string|min:3',
+            'town' => 'required|string|min:3',
+            'division' => 'required|string|min:3',
             'postal_address' => 'required',
             'tin' => 'required|string',
-            'vaccination_ref_number' => 'required|string',
+            'vaccination_ref_number' => 'required|string|min:10',
             'image' => 'nullable|mimes:jpg,jpeg,png,bmp,tiff,svg|max:4096',
+        ];
+    }
+    public function messages(){
+        return [
+            'phone.min' => 'The Phone number must be at least 7 characters.',
+            'phone.max' => 'The phone must not be greater than 15.',
+            'company_phone.min' => 'The company phone number must be at least 7 characters.',
+            'company_phone.max' => 'The company phone must not be greater than 15.',
         ];
     }
 }
