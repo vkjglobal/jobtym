@@ -63,8 +63,6 @@ class RegisterController extends Controller
             'tin' => 'required|string',
             'about' => 'required',
             'website' => 'nullable|url',
-            'facebook' => 'nullable|url',
-            'instagram' => 'nullable|url',
             'linkedin' => 'nullable|url',
             'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
         ]);
