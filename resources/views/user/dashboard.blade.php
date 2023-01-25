@@ -909,7 +909,9 @@
                                 </span>
                                 <div class="overview">
                                     <span class="count">{{ count($appliedJob) }}</span>
-                                    <span class="label">Applied Jobs</span>
+                                    <h6 class="card-title mb-0">
+                                    <a class="nav-link" id="" data-toggle="tab" href="#Reports" role="tab" aria-controls="Reports" aria-selected="false">Applied Jobs</a>
+                                  </h6>
                                 </div>
                             </div>
                             {{-- <div class="overview-info-box review">
@@ -931,7 +933,9 @@
                                 </span>
                                 <div class="overview">
                                     <span class="count">{{ count($getSaveJob) }}</span>
-                                    <span class="label">Shortlisted</span>
+                                    <h6 class="card-title mb-0">
+                                    <a class="nav-link" id="" data-toggle="tab" href="#ShortlistJobs" role="tab" aria-controls="ShortlistJobs" aria-selected="false">Shortlisted</a>
+                            </h6>
                                 </div>
                             </div>
                             <div class="overview-info-box view">
@@ -943,7 +947,7 @@
                                 </span>
                                 <div class="overview">
                                     <span class="count">20</span>
-                                    <span class="label">View</span>
+                                    <h6 class="card-title mb-0"><a class="nav-link" id="" data-toggle="tab" href="" role="tab" aria-controls="Views" aria-selected="false">Views</a></h6>
                                 </div>
                             </div>
                         </div>
