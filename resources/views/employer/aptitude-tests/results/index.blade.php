@@ -51,7 +51,7 @@
 
                                 </td> --}}
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $result->user_id }}</td>
+                                <td>{{ $result->user->first_name }}</td>
                                 <td>{{ $result->total_points }}</td>
                                 <td>
                                     @foreach($result->questions as $key => $question)

@@ -18,7 +18,8 @@ class ResultController extends Controller
      */
     public function index()
     {
-        $results = Result::paginate(10);
+        //$results = Result::paginate(10);
+        $results = Result::with('user')->latest()->get();
         // dd($results);
 
         return view('employer.aptitude-tests.results.index', compact('results'));
