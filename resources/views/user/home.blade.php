@@ -22,7 +22,7 @@
                                         {{-- @csrf --}}
                                         <div class="form-group row">
                                             <div class="col-lg-4 col-xl-3">
-                                                <label for="jobTitle">What</label>
+                                                <label for="jobTitle">Title</label>
                                                 <select class="form-control job-dropdown" id="jobTitle" name="jobTitle">
                                                     <option disabled selected>Job Title</option>
                                                     @foreach ($jobs as $jobTitle)
@@ -195,10 +195,10 @@
                             <ul class="cat-list row">
                                 @foreach ($categories as $category)
                                 <li class="list-item list-item1 slctd-cat">
-                                    <a href="{{ url('user/categories') }}">
+                                    <a href="{{ route('user.category', $category->name) }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/bd-icon.svg')}}"
                                                 alt=""></span>
-                                        <span class="cat-count">Jobs</span>
+                                        {{-- <span class="cat-count">Jobs</span> --}}
                                         <span class="cat-name">{{ $category->name }}</span>
                                     </a>
                                 </li>
@@ -262,7 +262,7 @@
                                 </li> --}}
 
                             </ul>
-                            <a href="{{ url('user/categories') }}" class="all-cat-btn">All Categories</a>
+                            <a href="{{ route('user.job.find-job') }}" class="all-cat-btn">All Categories</a>
                         </div>
                         <div class="col-xl-5 col-md-12" data-aos="fade-up" data-aos-duration="2000">
                             <div class="cv-upload-sec">
@@ -327,7 +327,8 @@
                             </span>
                         </span>
                         <span class="job-info-text">
-                            {{ $job->description }}
+                            {{ Str::limit($job->description, 200) }}
+                
                         </span>
                         <span class="req-info-box">
                             <span class="urgent">Urgent</span>
@@ -528,7 +529,7 @@
             </div>
         </div>
     </section>
-    <section class="top-companies-sec">
+    {{-- <section class="top-companies-sec">
         <div class="container">
             <h2 class="hd-typ2" data-aos="fade-up" data-aos-duration="2000">Top Companies</h2>
             <h3 class="hd-typ3" data-aos="fade-up" data-aos-duration="2000">Get hired in top companies</h3>
@@ -541,5 +542,5 @@
                 <li><img src="{{ asset('user_assets/images/technology-icon.svg')}}" alt=""></li>
             </ul>
         </div>
-    </section>
+    </section> --}}
 @endsection

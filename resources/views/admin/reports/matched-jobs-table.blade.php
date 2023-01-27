@@ -15,7 +15,7 @@
                 <td>@isset($job->first_name) {{ $job->first_name }}@endisset</td>
                 <td>@isset($job->jobApply->industry) {{ $job->jobApply->industry }}@endisset</td>
                 <td>@isset($job->jobApply->title) {{ $job->jobApply->title }}@endisset</td>
-                <td>@isset($job->employeName->name) {{ $job->employeName->name }}@endisset</td>
+                <td>@isset($job->employeName->name) {{ $job->employeName->company_name }}@endisset</td>
             </tr>
         @endforeach
     </tbody>

@@ -174,6 +174,12 @@
                     <span class="link-title">Categories</span>
                 </a>
             </li>
+            <li class="nav-item {{ request()->is('admin/contact-view') ? 'active' : '' }}">
+                <a href="{{ route('admin.contact-view.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Contact Messages</span>
+                </a>
+            </li>
             <!-- categories End -->
 
         </ul>

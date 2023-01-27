@@ -58,9 +58,44 @@ class HomeController extends Controller
      *
      * @return response()
      */
-    public function categories()
+    public function categories($id, Request $request)
     {
-        return view('user.categories');
+        
+        if($request->filled('job-keyword') || $request->has('city') || $request->has('category') || $request->has('jobTitle') || $request->has('jobType') || $request->has('country')){
+            $term = $request['job-keyword'];
+            $city = $request['city'];
+            $country = $request['country'];
+            $jobTitle = $request['jobTitle'];
+            $jobType = $request['jobType'];
+            
+            $jobs = JobPost::where(function($query) use($term, $city, $country, $jobTitle, $jobType)
+            {
+                if($term) {
+                    $query->where('skills','LIKE', "%{$term}%")->orwhere('title','LIKE',"%{$term}%");
+                }
+                if($city) {
+                    $query->where('city','LIKE',"%{$city}%");
+                }
+                if($country) {
+                    $query->where('country','LIKE',"%{$country}%");
+                }
+                if($jobTitle) {
+                    $query->where('title','LIKE',"%{$jobTitle}%");
+                }
+                if($jobType) {
+                    $query->where('type','LIKE',"%{$jobType}%");
+                }
+            })->paginate(6);
+            $getCountry = JobPost::where('status','=','1')->select('country')->distinct()->get();
+        }else{
+            $jobs = JobPost::where('status','=','1')->latest()->paginate(6);
+            $getCountry = JobPost::where('status','=','1')->select('country')->distinct()->get();
+        }
+        
+        $categories = Category::all();
+        $jobs = JobPost::where('industry', $id)->latest()->paginate(6); 
+
+        return view('user.categories', compact('categories', 'jobs', 'getCountry'));
     }
 
     /**

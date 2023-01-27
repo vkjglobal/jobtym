@@ -3,27 +3,27 @@
 @section('content')
     <section class="main-title-wrp find-job-sec d-flex align-items-center">
         <div class="container">
-            <form action="" class="top-search-form">
+            <form action="{{ route('user.job.find-job') }}" class="top-search-form">
+                @csrf
                 <div class="row">
                     <div class="col-lg-3 col-md-6 text-left">
-                        <input type="text" class="pos-rel search-field-top" placeholder="Job title, keywords....">
+                        <input type="text" name="job-keyword" class="pos-rel search-field-top" placeholder="Job title, keywords....">
                     </div>
                     <div class="col-lg-2 col-md-6 text-left">
-                        <input type="text" class="pos-rel top-city-top" placeholder="City or postcode">
+                        <input type="text" name="city" class="pos-rel top-city-top" placeholder="City">
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <select class="category-dropdown" name="states[]">
-                            <option disabled selected>All Category</option>
-                            <option>IT</option>
-                            <option>Architect</option>
-                            <option>Banking</option>
-                            <option>Writing</option>
+                        <select class="category-dropdown" name="country">
+                            <option disabled selected>Country</option>
+                            @foreach ($getCountry as $singleCountry)
+                            <option name="{{ $singleCountry->country }}" >{{ $singleCountry->country }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-2 col-md-6">
+                    {{-- <div class="col-lg-2 col-md-6">
                         <div class="advncd-srch d-flex"><a href="">Advanced</a></div>
-                    </div>
-                    <div class="col-lg-2 col-md-6">
+                    </div> --}}
+                    <div class="col-lg-2 col-md-6 ">
                         <input type="submit" class="btn-submit btn-typ1" value="Find Job">
                     </div>
                 </div>
@@ -37,24 +37,83 @@
                     <div class="justify-content-between row mb-4">
                         <div class="search-result col-md-6">Showing 1 – 10 of 18 results</div>
                         <div class="col-md-6 d-flex justify-content-md-end justify-content-between search-filter">
-                            <select class="category-dropdown" name="states[]">
-                                <option disabled selected>Sort by (Default)</option>
-                                <option>IT</option>
+                            {{-- <select class="category-dropdown" name="industry" id="industry1">
+                                <option value="" disabled selected>Sort by (Default)</option>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->name}}{{Request::get('industry') == $category->name ? 'selected': ''}}>{{$category->name}}">{{$category->name}}</option>
+                                @endforeach --}}
+                                {{-- <option>IT</option>
                                 <option>Architect</option>
                                 <option>Banking</option>
-                                <option>Writing</option>
-                            </select>
-                            <select class="category-dropdown" name="states[]">
+                                <option>Writing</option> --}}
+                            {{-- </select> --}}
+                            {{-- <select class="category-dropdown" name="states[]">
                                 <option disabled selected>12 Per Page</option>
                                 <option>IT</option>
                                 <option>Architect</option>
                                 <option>Banking</option>
                                 <option>Writing</option>
-                            </select>
+                            </select> --}}
                         </div>
                     </div>
                     <div class="row job-box-wrap pl-3 pr-3">
-                        <a href="job-detail.html" class="job-box  job-box-type1">
+                        {{-- Jobpost card --}}
+                        @if (count($jobs) != 0)
+                        @foreach($jobs as $job)
+                        <a href="{{ url('user/job-detail',base64_encode($job['id'])) }}" class="job-box  job-box-type1">
+                            <span class="job-title-sec">
+                                <strong class="title-icon blue-bg"><svg width="23" height="33" viewBox="0 0 23 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.045 26.19C10.7917 26.19 11.6317 26.3183 12.565 26.575C13.4983 26.8317 14.4433 27.1583 15.4 27.555C16.3567 27.975 16.9633 28.22 17.22 28.29C18.3167 28.64 20.0083 28.815 22.295 28.815C22.2017 29.7017 22.05 30.4717 21.84 31.125C21.6533 31.7783 21.3967 32.315 21.07 32.735C19.32 32.6417 17.7683 32.3383 16.415 31.825C16.0417 31.685 15.365 31.3933 14.385 30.95C13.405 30.53 12.5417 30.2033 11.795 29.97C11.0483 29.76 10.3367 29.655 9.66 29.655C9.00667 29.655 8.07333 29.795 6.86 30.075C5.67 30.3783 5.06333 30.53 5.04 30.53C4.2 29.8067 3.78 29.0017 3.78 28.115C5.20333 27.4617 6.41667 26.9717 7.42 26.645C8.44667 26.3417 9.32167 26.19 10.045 26.19ZM11.55 21.71C15.4233 21.71 17.36 18.735 17.36 12.785C17.36 6.835 15.4233 3.86 11.55 3.86C9.87 3.86 8.4 4.11667 7.14 4.63C6.06667 6.87 5.53 9.47167 5.53 12.435C5.53 15.375 5.97333 17.6617 6.86 19.295C7.74667 20.905 9.31 21.71 11.55 21.71ZM11.55 0.0799996C15.4467 0.0799996 18.1883 1.10667 19.775 3.16C21.3617 5.19 22.155 8.305 22.155 12.505C22.155 15.1417 21.8167 17.3933 21.14 19.26C20.4633 21.1267 19.32 22.62 17.71 23.74C16.1 24.86 14.0467 25.42 11.55 25.42C7.74667 25.42 4.98167 24.3583 3.255 22.235C1.55167 20.1117 0.7 17.02 0.7 12.96C0.7 4.37333 4.31667 0.0799996 11.55 0.0799996Z" fill="white"/>
+                                    </svg>
+                                </strong>
+                                <span class="job-title">
+                                    <h4>{{ $job->title }}</h4>
+                                    <span class="featured">Featured</span>
+                                    <span class="job-info-sec">
+                                        <ul class="job-info mb-2">
+                                            <li class="job-name">
+                                                <span>
+                                                    <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1.15385 5.76928H15V4.61543C15 4.30941 14.8784 4.01593 14.662 3.79954C14.4457 3.58315 14.1522 3.46159 13.8462 3.46159H2.30769C2.00167 3.46159 1.70819 3.58315 1.4918 3.79954C1.27541 4.01593 1.15385 4.30941 1.15385 4.61543V5.76928ZM1.15385 6.92312V12.6924C1.15385 12.9984 1.27541 13.2919 1.4918 13.5082C1.70819 13.7246 2.00167 13.8462 2.30769 13.8462H13.8462C14.1522 13.8462 14.4457 13.7246 14.662 13.5082C14.8784 13.2919 15 12.9984 15 12.6924V6.92312H1.15385ZM2.30769 2.30774H13.8462C14.4582 2.30774 15.0452 2.55087 15.4779 2.98365C15.9107 3.41642 16.1538 4.00339 16.1538 4.61543V12.6924C16.1538 13.3044 15.9107 13.8914 15.4779 14.3241C15.0452 14.7569 14.4582 15 13.8462 15H2.30769C1.69565 15 1.10868 14.7569 0.675907 14.3241C0.243131 13.8914 0 13.3044 0 12.6924V4.61543C0 4.00339 0.243131 3.41642 0.675907 2.98365C1.10868 2.55087 1.69565 2.30774 2.30769 2.30774Z" fill="#A0A0A0"/>
+                                                    <path d="M5.76908 1.15385V2.30769H10.3845V1.15385H5.76908ZM5.76908 0H10.3845C10.6905 0 10.984 0.121566 11.2004 0.337954C11.4167 0.554342 11.5383 0.847827 11.5383 1.15385V2.30769C11.5383 2.61371 11.4167 2.9072 11.2004 3.12358C10.984 3.33997 10.6905 3.46154 10.3845 3.46154H5.76908C5.46306 3.46154 5.16958 3.33997 4.95319 3.12358C4.7368 2.9072 4.61523 2.61371 4.61523 2.30769V1.15385C4.61523 0.847827 4.7368 0.554342 4.95319 0.337954C5.16958 0.121566 5.46306 0 5.76908 0Z" fill="#A0A0A0"/>
+                                                    </svg>
+                                                </span>
+                                                {{ $job['skills'] }}
+                                            </li>
+                                            <li class="company-location">{{ $job['country'] }}</li>
+                                            <li class="work-price">
+                                                <span>
+                                                    <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M16.25 0H0V12.5H16.25V0ZM15 11.25H1.25V1.25H15V11.25Z" fill="#A0A0A0"></path>
+                                                    <path d="M17.5 3.125V13.75H3.125V15H18.75V3.125H17.5Z" fill="#A0A0A0"></path>
+                                                    <path d="M8.125 9.31484C9.67578 9.31484 10.9375 7.9423 10.9375 6.25523C10.9375 4.56816 9.67578 3.19562 8.125 3.19562C6.57422 3.19562 5.3125 4.56813 5.3125 6.25523C5.3125 7.94234 6.57422 9.31484 8.125 9.31484ZM8.125 4.44562C8.98656 4.44562 9.6875 5.25742 9.6875 6.25523C9.6875 7.25305 8.98656 8.06484 8.125 8.06484C7.26344 8.06484 6.5625 7.25305 6.5625 6.25523C6.5625 5.25742 7.26344 4.44562 8.125 4.44562ZM2.5 2.8125H3.75V9.6875H2.5V2.8125ZM12.5 2.8125H13.75V9.6875H12.5V2.8125Z" fill="#A0A0A0"></path>
+                                                    </svg>
+                                                </span>
+                                                ${{ $job['salaryFrom'] }} - ${{ $job['salaryTo'] }} / week
+                                            </li>
+                                        </ul>
+                                        <span class="req-info-box">
+                                            <span class="full-time">{{ ucfirst($job->type) }}</span>
+                                            <span class="urgent ml-2">Urgent</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </span>
+                        </a>
+                        @endforeach
+
+                        @else
+                            <h4 class="col-md-12 text-center">
+                                No Job Found
+                            </h4>
+                        @endif
+
+                        {{-- Jobpost card end --}}
+
+                        
+                        
+                        
+                        {{-- <a href="job-detail.html" class="job-box  job-box-type1">
                             <span class="job-title-sec">
                                 <strong class="title-icon blue-bg"><svg width="23" height="33" viewBox="0 0 23 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.045 26.19C10.7917 26.19 11.6317 26.3183 12.565 26.575C13.4983 26.8317 14.4433 27.1583 15.4 27.555C16.3567 27.975 16.9633 28.22 17.22 28.29C18.3167 28.64 20.0083 28.815 22.295 28.815C22.2017 29.7017 22.05 30.4717 21.84 31.125C21.6533 31.7783 21.3967 32.315 21.07 32.735C19.32 32.6417 17.7683 32.3383 16.415 31.825C16.0417 31.685 15.365 31.3933 14.385 30.95C13.405 30.53 12.5417 30.2033 11.795 29.97C11.0483 29.76 10.3367 29.655 9.66 29.655C9.00667 29.655 8.07333 29.795 6.86 30.075C5.67 30.3783 5.06333 30.53 5.04 30.53C4.2 29.8067 3.78 29.0017 3.78 28.115C5.20333 27.4617 6.41667 26.9717 7.42 26.645C8.44667 26.3417 9.32167 26.19 10.045 26.19ZM11.55 21.71C15.4233 21.71 17.36 18.735 17.36 12.785C17.36 6.835 15.4233 3.86 11.55 3.86C9.87 3.86 8.4 4.11667 7.14 4.63C6.06667 6.87 5.53 9.47167 5.53 12.435C5.53 15.375 5.97333 17.6617 6.86 19.295C7.74667 20.905 9.31 21.71 11.55 21.71ZM11.55 0.0799996C15.4467 0.0799996 18.1883 1.10667 19.775 3.16C21.3617 5.19 22.155 8.305 22.155 12.505C22.155 15.1417 21.8167 17.3933 21.14 19.26C20.4633 21.1267 19.32 22.62 17.71 23.74C16.1 24.86 14.0467 25.42 11.55 25.42C7.74667 25.42 4.98167 24.3583 3.255 22.235C1.55167 20.1117 0.7 17.02 0.7 12.96C0.7 4.37333 4.31667 0.0799996 11.55 0.0799996Z" fill="white"/>
@@ -293,9 +352,9 @@
                                     </span>
                                 </span>
                             </span>
-                        </a>
+                        </a> --}}
                     </div>
-                    <ul class="job-pagination d-flex justify-content-center">
+                    {{-- <ul class="job-pagination d-flex justify-content-center">
                         <li><a href="" class="prev-arrow"></a></li>
                         <li><span class="current-sec">1</span></li>
                         <li><a href="">2</a></li>
@@ -303,8 +362,8 @@
                             <path d="M1 8H17M10 1L17 8L10 15" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg></a>
                         </li>
-                    </ul>
-
+                    </ul> --}}
+                    {!! $jobs->withQueryString()->links('pagination::bootstrap-5') !!}
                 </div>
             </div>
         </div>

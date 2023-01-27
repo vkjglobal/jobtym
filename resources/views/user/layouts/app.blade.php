@@ -45,7 +45,7 @@
                                         <input id="upload" name="uploadResume" type="file" style="display: none"/>
                                         <a class="nav-link" href="" id="upload_link">Upload Your Resume</a>
                                     </form> --}}
-                                    <a class="nav-link" href="{{ url('user/dashboard') }}" >Create Your Resume</a>
+                                    <a class="nav-link" href="{{ url('user/dashboard') }}" >Dashboard</a>
                                 </li>
                                 {{-- <li class="nav-item">
                                     <a class="nav-link" href="{{ url('user') }}">Hiring? Post a job for free</a>
@@ -297,16 +297,16 @@
                         <li class="link-item"><a href="{{ route('user.job.find-job') }}">Job Alerts</a></li>
                     </ul>
                 </div>
-                @guest    
+                {{-- @guest    
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">For Employers</li>
-                        <li class="link-item"><a href="">All Employers</a></li>
-                        <li class="link-item"><a href="">Employer Dashboard</a></li>
-                        <li class="link-item"><a href="">Submit Job</a></li>
+                        <li class="link-item"><a href="{{url('user')}}">All Employers</a></li>
+                        <li class="link-item"><a href="{{url('user')}}">Employer Dashboard</a></li>
+                        <li class="link-item"><a href="{{url('user')}}">Submit Job</a></li>
                     </ul>
                 </div>
-                @endguest
+                @endguest --}}
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">Quick Links</li>
@@ -487,19 +487,19 @@
             
             setTimeout(() => {
                 window.location.href = "http://jobtym.dev.com/user";
-            }, 2000);
+            }, 5000);
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
                 title: 'Your work has been saved',
                 showConfirmButton: false,
-                timer: 2000
+                timer: 5000
             })
         }
 
         setTimeout(() => {
             $('.alert').alert('close');
-        }, 2000);
+        }, 5000);
 
     </script>
 

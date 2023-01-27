@@ -8,30 +8,36 @@
 </section>
 <section class="contact-page white-bg">
     <div class="container">
+        @if($errors->has('sucess'))
+                        <div class="alert alert-danger text-center">{{ $errors->first('sucess') }}</div>
+        @endif
         <div class="row justify-content-center flex-md-wrap-reverse">
             <div class="col-lg-8 col-md-10">
-                <form action="" class="row contact-form">
+                <form action="{{route('user.contact.store')}}" method="POST" class="row contact-form">
+                    @csrf
                     <div class="form-group col-md-12 pb-3">
                         <strong>Leave A Message</strong>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="name1">Name</label>
-                        <input type="text" class="form-control" id="name1" placeholder="">
+                        <input type="text" name="name" class="form-control" id="name1" placeholder="" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="e-mail1">Email</label>
-                        <input type="email" class="form-control" id="e-mail1" placeholder="">
+                        <input type="email" name="email" class="form-control" id="e-mail1" placeholder="" required>
                     </div>
                     <div class="form-group col-md-12">
                         <label for="subject">Subject</label>
-                        <input type="text" class="form-control" id="subject" placeholder="">
+                        <input type="text" name="subject" class="form-control" id="subject" placeholder="" required>
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="yourComment">Your Comment</label>
-                        <textarea class="form-control" name="" id="yourComment" cols="10" rows="5"></textarea>
+                        <label for="yourComment">Message</label>
+                        <textarea class="form-control"  name="message" id="yourComment" cols="10" rows="5" required></textarea>
                     </div>
                     <div class="form-group col-md-6">
-                        <a href="" class="btn-typ1">Send Message</a>
+                        {{-- <a href="#" class="btn-typ1">Send Message</a> --}}
+                        <input type="submit" class=" btn-typ1" value="Send Message" placeholder="" >
+
                     </div>
                 </form>
             </div>
@@ -74,4 +80,8 @@
         
     </div>
 </section>
+
+
+
 @endsection
+

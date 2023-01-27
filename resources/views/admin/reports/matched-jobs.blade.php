@@ -9,12 +9,12 @@
                 <div class="card-body">
                     <h6 class="card-title">Reports</h6>
 
-                    <div class="filter">
+                    <div class="table-responsive">
                         <form  id="search-form-matched">
                             @csrf
                         <div class="mb-3">
                             <div class="row" id="mfilter">
-                                <div class="col-md-2 m-2">
+                                {{-- <div class="col-md-2 m-2">
                                     <label for="">Category</label>
                                     <select name="industry" class="form-control category-dropdown" id="mindustry" placeholder="Industry">
                                         <option value=" ">--All--</option>
@@ -22,7 +22,7 @@
                                                 <option value="{{$indus->name}}" {{Request::get('industry') == $indus->name ? 'selected': ''}}>{{$indus->name}}</option>
                                             @endforeach 
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-2 m-2" >
                                     <label for="">Job Title</label>
                                     <select name="title" class="form-control category-dropdown" id="mtitle" placeholder="Job Title">
@@ -50,11 +50,12 @@
                             
                         </div>
                     </form>
+                        <div class="table-responsive" id="matchedjobtable">
+                            @include('admin.reports.matched-jobs-table')
+                        </div>
                     </div>
 
-                    <div class="table-responsive">
-                        @include('admin.reports.matched-jobs-table')
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -65,11 +66,10 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 @endpush
 @push('custom_js')
-    <script src="{{ asset('admin_assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
-    <script src="{{ asset('admin_assets/js/data-table.js') }}"></script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script></script>
+<script src="{{ asset('admin_assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('admin_assets/js/data-table.js') }}"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script >
         $(document).ready(function () {
             $("#search-form-matched").on('submit', function(e){
@@ -85,9 +85,9 @@
                     type: "get",
                     
                     data: {
-                            'mtitle': title,
-                            'mindustry': industry,
-                            'memployer': employer,   
+                            'title': title,
+                            // 'industry': industry,
+                            'employer': employer,   
                             },
                     success:function(data){
                         console.log(data);

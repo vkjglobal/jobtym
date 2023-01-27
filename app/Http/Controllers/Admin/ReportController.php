@@ -26,33 +26,26 @@ class ReportController extends Controller
         $industryname = $request->industry;
         $emp_id = $request->employer;
         // $datefrom = $request->input('datefrom');
-        // $dateto = $request->input('dateto');
-        // return($job_id1);
+        // $dateto = $request->input('dateto');;
         $jobs = JobPost::all();
 
             
         if($request->ajax()){ 
-            
-            // if(!empty($job_id1)){
-            //     $jobs = JobPost::where('id', $job_id1)->get();
-            // }
-            $jobs = JobPost::where('id', $job_id1)->where('industry', 'like', '%'.$industryname.'%')->where('employer_id', $emp_id)->get();
-            
-            
-            
-            // elseif($job_id1 != true){
-                // $jobs = JobPost::where('id', $job_id1)->get();
-            // }elseif($job_id2 != true){
-            //     $jobs = JobPost::where('industry', $job_id2)->get();
-            // }elseif($emp_id != true){
-            //     $jobs = JobPost::where('employer_id', $emp_id)->get();
-            // }elseif($datefrom != true){
-            //     $jobs = JobPost::where('schedule_date', $datefrom)->get();
-            // }elseif($dateto != true){
-            //     $jobs = JobPost::where('deadline', $dateto)->get();
-            // }
-        // return($job_id1);
+        
+        $jobs = JobPost::where(function($query) use($job_id1, $industryname, $emp_id)
+            {
+                if($industryname) {
+                    $query->where('industry', 'like', '%'.$industryname.'%');
+                }
+                if($job_id1) {
+                    $query->where('id', 'like', $job_id1)->orWhere('id', $job_id1);
+                }
+                if($emp_id) {
+                    $query->where('employer_id', $emp_id);
+                }
+            })->paginate(6);
         return view('admin.reports.all-jobs_table', compact('jobs'));
+
         }
 
         $employers = Employer::orderBy('company_name', 'ASC')->get();
@@ -75,25 +68,38 @@ class ReportController extends Controller
         $jobs = UserJobApply::with('employeName')->with('users')->with('jobApply')->get();
         
         $job_id1 = $request->title;
-        $industryname = $request->industry;
+        // $industryname = $request->industry;
         $emp_id = $request->employer;
-
-
-            
-        if($request->ajax()){ 
-            
-            $jobs = UserJobApply::where('id', $job_id1)->where('employer_id', $emp_id)->get();
-            
-            return view('admin.reports.matched-jobs', compact('jobs'));
-        }
 
         $titles = JobPost::all();
         
         $employers = Employer::orderBy('company_name', 'ASC')->get();
 
-        $industry= Category::all();
+            
+        if($request->ajax()){ 
+            
+            // $jobs = UserJobApply::where('id', $job_id1)->where('employer_id', $emp_id)->get();
 
-        return view('admin.reports.matched-jobs', compact('breadcrumbs', 'jobs', 'employers', 'industry', 'titles'));
+            $jobs = UserJobApply::where(function($query) use($job_id1, $emp_id)
+            {
+                // if($industryname) {
+                //     $query->where('industry', 'like', '%'.$industryname.'%');
+                // }
+                if($job_id1) {
+                    $query->where('job_id', $job_id1);
+                }
+                if($emp_id) {
+                    $query->where('employer', $emp_id);
+                }
+            })->paginate(6);
+            
+            return view('admin.reports.matched-jobs', compact('breadcrumbs', 'jobs', 'employers', 'titles'));
+        }
+
+
+        // $industry= Category::all();
+
+        return view('admin.reports.matched-jobs', compact('breadcrumbs', 'jobs', 'employers', 'titles'));
     
     }
 

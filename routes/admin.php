@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ContactController;
 use Illuminate\Support\Facades\Route;
 
 // Login
@@ -73,5 +74,10 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('category-status', [CategoryController::class, 'changeStatus'])->name('category.status');
     Route::resource('categories', CategoryController::class)->only([
         'index', 'edit', 'store', 'update', 'destroy'
+    ]);
+    // Contact
+    Route::get('contact-status', [ContactController::class, 'changeStatus'])->name('contact.status');
+    Route::resource('contact-view', ContactController::class)->only([
+        'index', 'edit', 'show', 'update', 'destroy'
     ]);
 });

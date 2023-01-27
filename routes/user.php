@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Employer\TestController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\User\Auth\LoginController;
@@ -29,8 +30,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::post('upload-file', [HomeController::class, 'uploadFile'])->name('uploadFile');
-Route::get('categories', [HomeController::class, 'categories']);
+Route::get('categories/{id}', [HomeController::class, 'categories'])->name('category');
+
 Route::get('contactUs', [HomeController::class, 'contactUs']);
+Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+
 Route::get('aboutUs', [HomeController::class, 'aboutUs']);
 Route::get('terms-condition', [HomeController::class, 'termsCondition']);
 Route::get('faq', [HomeController::class, 'faq']);
@@ -79,3 +83,4 @@ Route::get('/facebook/callback', [SocialAuthController::class, 'facebookCallabac
 
 Route::get('/twitterLogin', [SocialAuthController::class, 'twitterRedirect'])->name('twitterLogin');
 Route::get('/twitter/callback', [SocialAuthController::class, 'twitterCallaback'])->name('twitterCallaback');
+

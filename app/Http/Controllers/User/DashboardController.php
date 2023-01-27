@@ -22,6 +22,7 @@ class DashboardController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $appliedJob = UserJobApply::where('user_id',$user->id)->latest()->get();
+            $totaljobs = JobPost::all()->count();
             foreach ($appliedJob as $ajkey => $aj) {
                 $jobId = $aj->job_id;
                 $userID = $user->id;
@@ -35,9 +36,10 @@ class DashboardController extends Controller
                 $saveJobPost = JobPost::where('id', $value->job_id)->get();
                 array_push($getSaveJob,$saveJobPost);
             }
-            return view('user.dashboard', compact('user','appliedJob', 'getSaveJob'));
+            return view('user.dashboard', compact('user','appliedJob', 'getSaveJob', 'totaljobs'));
         }else{
-            return redirect('user');
+            return redirect('user')->with('error', 'Please login first')
+            ;
         }
     }
 

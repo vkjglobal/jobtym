@@ -80,9 +80,6 @@
 
 <script >
     $(document).ready(function () {
-        
-    
-
         $("#search-form").on('submit', function(e){
             e.preventDefault();
             var title = $('#title').val();
