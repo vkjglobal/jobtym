@@ -60,7 +60,7 @@ class ReportController extends Controller
     {
         $breadcrumbs = [
             [(__('Dashboard')), route('admin.home')],
-            [(__('Reports')), route('admin.report.allJob')],
+            [(__('Reports')), route('admin.report.matchedJob')],
             [(__('Matched Jobs Report')), null]
         ];
 

@@ -1,4 +1,4 @@
-<table id="mdataTableExample" class="table">
+<table id="dataTableExample" class="table">
     <thead>
         <tr>
             <th>Sl#</th>

@@ -22,7 +22,10 @@ class HomeController extends Controller
         // dd($jobs);
         $categories = Category::where('status','=','1')->latest()->paginate(8);
         // dd($categories);
-        return view('user.home', compact('jobs', 'categories'));
+        $title = JobPost::select('title')->where('status','=','1')->orderBy('title', 'ASC')->distinct()->get();
+        $location = JobPost::select('country')->where('status','=','1')->orderBy('country', 'ASC')->distinct()->get();
+
+        return view('user.home', compact('jobs', 'categories','location','title'));
     }
 
     /**

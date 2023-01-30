@@ -45,15 +45,18 @@ class RegisterController extends Controller
             'newPassword' => 'required',
             'gender' => 'required|in:male,female,other',
             'birthDate' => 'required',
-            'phone' => 'required',
-            'country' => 'required',
+            'phone' => 'required|numeric',
+            'secondary_phone' => 'numeric',
+            'country' => 'required|string',
             'resident' => 'required|in:yes,no',
             'street' => 'required',
-            'city' => 'required',
-            'town' => 'required',
+            'city' => 'required|string',
+            'town' => 'required|string',
             'division' => 'required',
             'postCode' => 'required',
             'accept' => 'required',
+            'tin' =>'numeric',
+            'vaccination_ref_number' => 'numeric',
         ];
 
         if($request->file() == []){
@@ -197,17 +200,17 @@ class RegisterController extends Controller
             'CompanyName' => 'required|string',
             'EmplyrEmail' => 'required|email|unique:employers,email',
             'EmplyrPassword' => 'required',
-            'EmplyrPhoneNumber' => 'required',
-            'EmplyrCompanyPhone' => 'required',
-            'EmplyrTINnumber' => 'required',
+            'EmplyrPhoneNumber' => 'required|numeric',
+            'EmplyrCompanyPhone' => 'required|numeric',
+            'EmplyrTINnumber' => 'required|numeric',
             'StreetNameEmplyr' => 'required',
-            'CityNameEmplyr' => 'required',
-            'CountryNameEmplyr' => 'required',
-            'AboutCompany' => 'required',
-            'CompanyWebsite' => 'required',
-            'CompanyFacebook' => 'required',
-            'CompanyInstagram' => 'required',
-            'CompanyLinkedIn' => 'required',
+            'CityNameEmplyr' => 'required|string',
+            'CountryNameEmplyr' => 'required|string',
+            'AboutCompany' => 'required|min:10',
+            'CompanyWebsite' => 'required|url',
+            'CompanyFacebook' => 'required|url',
+            'CompanyInstagram' => 'required|url',
+            'CompanyLinkedIn' => 'required|url',
             'terms' => 'required',
         ];
 
@@ -239,7 +242,7 @@ class RegisterController extends Controller
         $employer->company_phone = $request->EmplyrCompanyPhone;
         $employer->tin = $request->EmplyrTINnumber;
         $employer->country = $request->CountryNameEmplyr;
-        $employer->address = 'Please enter your address here';
+        $employer->address = $request->StreetNameEmplyr.' '.$request->CityNameEmplyr.' '.$request->CountryNameEmplyr;
         $employer->street = $request->StreetNameEmplyr;
         $employer->city = $request->CityNameEmplyr;
         $employer->about = $request->AboutCompany;

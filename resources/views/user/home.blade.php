@@ -25,7 +25,7 @@
                                                 <label for="jobTitle">Title</label>
                                                 <select class="form-control job-dropdown" id="jobTitle" name="jobTitle">
                                                     <option disabled selected>Job Title</option>
-                                                    @foreach ($jobs as $jobTitle)
+                                                    @foreach ($title as $jobTitle)
                                                         <option name='{{ $jobTitle->title }}'>{{ $jobTitle->title }}</option>
                                                     @endforeach
                                                 </select>
@@ -46,7 +46,7 @@
                                                 <label for="jobLocation">Location</label>
                                                 <select class="form-control location-dropdown" id="jobLocation" name="country">
                                                     <option disabled selected>Location</option>
-                                                    @foreach ($jobs as $jobLocation)
+                                                    @foreach ($location as $jobLocation)
                                                         <option name={{ $jobLocation->country }}>{{ $jobLocation->country }}</option>
                                                     @endforeach
                                                 </select>
@@ -317,8 +317,8 @@
                                     <ul class="job-info">
                                         <li class="cmpny-name">{{ $job->employer->company_name }}</li>
                                         <li class="company-location">{{ $job->employer->country }}</li>
-                                        <li class="work-duration">{{ ucfirst($job->type) }}</li>
-                                        {{-- <li class="notification">3mins ago</li> --}}
+                                        <li class="work-duration">{{ ucfirst($job->type) }}</li><br>
+                                        <li class="notification">{{ $job->created_at->diffForHumans() }}</li>
                                     </ul>
                                      <span class="pay-dtls">
                                         <strong>${{ $job['salaryFrom'] }} - ${{ $job['salaryTo'] }}</strong> / week

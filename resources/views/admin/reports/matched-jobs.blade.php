@@ -10,52 +10,50 @@
                     <h6 class="card-title">Reports</h6>
 
                     <div class="table-responsive">
-                        <form  id="search-form-matched">
+                        {{-- <form  id="search-form-matched">
                             @csrf
-                        <div class="mb-3">
-                            <div class="row" id="mfilter">
-                                {{-- <div class="col-md-2 m-2">
-                                    <label for="">Category</label>
-                                    <select name="industry" class="form-control category-dropdown" id="mindustry" placeholder="Industry">
-                                        <option value=" ">--All--</option>
-                                            @foreach($industry as $indus)
-                                                <option value="{{$indus->name}}" {{Request::get('industry') == $indus->name ? 'selected': ''}}>{{$indus->name}}</option>
-                                            @endforeach 
-                                    </select>
-                                </div> --}}
-                                <div class="col-md-2 m-2" >
-                                    <label for="">Job Title</label>
-                                    <select name="title" class="form-control category-dropdown" id="mtitle" placeholder="Job Title">
-                                        <option value=" ">--All--</option>
-                                            @foreach($titles as $title)
-                                                <option value="{{$title->id}}" {{Request::get('title') == $title->title ? 'selected': ''}}>{{$title->title}}</option>
-                                                
-                                            @endforeach 
-                                    </select>
+                            <div class="mb-3">
+                                <div class="row" id="mfilter">
+                                    <div class="col-md-2 m-2">
+                                        <label for="">Category</label>
+                                        <select name="industry" class="form-control category-dropdown" id="mindustry" placeholder="Industry">
+                                            <option value=" ">--All--</option>
+                                                @foreach($industry as $indus)
+                                                    <option value="{{$indus->name}}" {{Request::get('industry') == $indus->name ? 'selected': ''}}>{{$indus->name}}</option>
+                                                @endforeach 
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 m-2" >
+                                        <label for="">Job Title</label>
+                                        <select name="title" class="form-control category-dropdown" id="mtitle" placeholder="Job Title">
+                                            <option value=" ">--All--</option>
+                                                @foreach($titles as $title)
+                                                    <option value="{{$title->id}}" {{Request::get('title') == $title->title ? 'selected': ''}}>{{$title->title}}</option>
+                                                    
+                                                @endforeach 
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 m-2">
+                                        <label for="">Employer</label>
+                                        <select name="employer" class="form-control category-dropdown" id="memployer" placeholder="Employer">
+                                            <option value=" ">--All--</option>
+                                                @foreach($employers as $employer)
+                                                    <option value="{{$employer->id}}" {{Request::get('employer') == $employer->id ? 'selected': ''}}>{{$employer->company_name}}</option>
+                                                    
+                                                @endforeach 
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 mt-5">
+                                        <input type="submit" value="Submit" name="submit" id="msubmit"  class="form-control btn btn-primary">
+                                    </div>
                                 </div>
-                                <div class="col-md-2 m-2">
-                                    <label for="">Employer</label>
-                                    <select name="employer" class="form-control category-dropdown" id="memployer" placeholder="Employer">
-                                        <option value=" ">--All--</option>
-                                            @foreach($employers as $employer)
-                                                <option value="{{$employer->id}}" {{Request::get('employer') == $employer->id ? 'selected': ''}}>{{$employer->company_name}}</option>
-                                                
-                                            @endforeach 
-                                    </select>
-                                </div>
-                                <div class="col-md-2 mt-5">
-                                    <input type="submit" value="Submit" name="submit" id="msubmit"  class="form-control btn btn-primary">
-                                </div>
+                                
                             </div>
-                            
-                        </div>
-                    </form>
-                        <div class="table-responsive" id="matchedjobtable">
+                        </form> --}}
+                        <div  id="matchedjobtable">
                             @include('admin.reports.matched-jobs-table')
                         </div>
                     </div>
-
-                    
                 </div>
             </div>
         </div>
@@ -91,7 +89,7 @@
                             },
                     success:function(data){
                         console.log(data);
-                        $('#mdataTableExample').html(data); 
+                        $('#dataTableExample').html(data); 
                         feather.replace();
                     }
                 });
