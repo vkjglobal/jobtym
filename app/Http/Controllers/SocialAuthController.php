@@ -105,4 +105,101 @@ class SocialAuthController extends Controller
             throw $th;
         }
     }
+    public function twitterRedirect(Request $request)
+    {
+        return Socialite::driver('twitter-oauth-2')->redirect();
+    }
+    public function twitterCallaback(Request $request)
+    {
+        try {
+            $userdata = Socialite::driver('twitter-oauth-2')->user(); 
+
+            //check login 
+            $user = User::where('email', $userdata->email)->first();
+            if($user)
+            {
+                Auth::login($user);
+                return Redirect("user")->with('message', 'Successfully logged in');
+            } else {
+                //do register
+                $uuid = Str::uuid()->toString();
+                $user =new User();
+                $user->first_name = $userdata->name;
+                $user->last_name = '    ';
+                $user->email  = $userdata->email;
+                $user->password =Hash::make($uuid.now());
+                $user->auth_type ='twitter';
+                $user->gender = 'male';
+                $user->date_of_birth = 'Enter your birth date';
+                $user->phone = 'Enter your phone number';
+                $user->secondary_phone = 'Enter your secondary phone number';
+                $user->country = 'Enter your country';
+                $user->isResident = 'yes';
+                $user->street = 'Enter your street';
+                $user->city = 'Enter your city';
+                $user->town = 'Enter your town';
+                $user->division = 'Enter your division';
+                $user->postal_address = 'Enter your postal code';
+                $user->tin = 'Enter your tin';
+                $user->vaccination_ref_number = 'Enter your vaccination number';
+                $user->image = 'Insert your image';                
+                $user->save();  
+                Auth::login($user);
+                return Redirect('user/dashboard');
+            }
+        } catch (\Throwable $th) {
+            return Redirect("user")->with('error', $th->getMessage());
+            // dd('Something Went Wrong'.$th->getMessage());
+        }
+    }
+
+    public function linkedinRedirect(Request $request)
+    {
+        return Socialite::driver('linkedin')->redirect();
+    }
+    public function linkedinCallaback(Request $request)
+    {
+        try {
+            $userdata = Socialite::driver('linkedin')->user(); 
+
+            //check login 
+            $user = User::where('email', $userdata->email)->first();
+            if($user)
+            {
+                Auth::login($user);
+                return Redirect("user")->with('message', 'Successfully logged in');
+            } else {
+                //do register
+                $uuid = Str::uuid()->toString();
+                $user =new User();
+                $user->first_name = $userdata->name;
+                $user->last_name = '    ';
+                $user->email  = $userdata->email;
+                $user->password =Hash::make($uuid.now());
+                $user->auth_type ='linkedin';
+                $user->gender = 'male';
+                $user->date_of_birth = 'Enter your birth date';
+                $user->phone = 'Enter your phone number';
+                $user->secondary_phone = 'Enter your secondary phone number';
+                $user->country = 'Enter your country';
+                $user->isResident = 'yes';
+                $user->street = 'Enter your street';
+                $user->city = 'Enter your city';
+                $user->town = 'Enter your town';
+                $user->division = 'Enter your division';
+                $user->postal_address = 'Enter your postal code';
+                $user->tin = 'Enter your tin';
+                $user->vaccination_ref_number = 'Enter your vaccination number';
+                $user->image = 'Insert your image';                
+                $user->save();  
+                Auth::login($user);
+                return Redirect('user/dashboard');
+            }
+        } catch (\Throwable $th) {
+            return Redirect("user")->with('error', $th->getMessage());
+            // dd('Something Went Wrong'.$th->getMessage());
+        }
+    }
+
+
 }

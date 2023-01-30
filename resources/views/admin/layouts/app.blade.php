@@ -29,15 +29,18 @@
 <body class="sidebar-dark">
     <div class="main-wrapper">
 
+    @if (auth()->guard('admin')->user())
         <!-- partial:partials/_sidebar -->
         @include('admin.layouts.partials.sidebar')
         <!-- partial -->
+        @endif
 
         <div class="page-wrapper">
-
+        @if (auth()->guard('admin')->user())
             <!-- partial:partials/_navbar -->
             @include('admin.layouts.partials.navbar')
             <!-- partial -->
+            @endif
 
             <div class="page-content">
                 <!-- Main Content -->
@@ -45,9 +48,11 @@
                 <!-- Main Content Ends -->
             </div>
 
+            @if (auth()->guard('admin')->user())
             <!-- partial:partials/_footer -->
             @include('admin.layouts.partials.footer')
             <!-- partial -->
+            @endif
 
         </div>
     </div>

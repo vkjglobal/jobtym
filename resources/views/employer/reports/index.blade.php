@@ -16,8 +16,9 @@
                                     <th>Date Posted</th>
                                     <th>Job Posted</th>
                                     <th>Due Date</th>
-                                    <th>Category of Industry</th>
+                                    <th>Industry</th>
                                     <th>Number of Applicant</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,11 @@
                                         <td>{{ $job->deadline }}</td>
                                         <td>{{ $job->industry }}</td>
                                         <td>{{$applicants}}</td>
+                                        <td>
+                                            <input data-id="{{ $job->id }}" class="toggle-class" type="checkbox"
+                                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                data-on="Active" data-off="InActive" {{ $job->status ? 'checked' : '' }}>
+                                        </td>
                                         <td>
                                             <div class="btn-toolbar" role="toolbar">
                                                 <!-- edit button -->

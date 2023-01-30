@@ -84,3 +84,5 @@ Route::get('/facebook/callback', [SocialAuthController::class, 'facebookCallabac
 Route::get('/twitterLogin', [SocialAuthController::class, 'twitterRedirect'])->name('twitterLogin');
 Route::get('/twitter/callback', [SocialAuthController::class, 'twitterCallaback'])->name('twitterCallaback');
 
+Route::get('/linkedinLogin', [SocialAuthController::class, 'linkedinRedirect'])->name('linkedinLogin');
+Route::get('/public/callback', [SocialAuthController::class, 'linkedinCallaback'])->name('linkedinCallaback');

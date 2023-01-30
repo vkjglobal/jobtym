@@ -198,7 +198,11 @@
                                     <a href="{{ route('user.category', $category->name) }}">
                                         <span class="cat-icon"><img src="{{ asset('user_assets/images/bd-icon.svg')}}"
                                                 alt=""></span>
+
                                         {{-- <span class="cat-count">Jobs</span> --}}
+
+                                        <span class="cat-count">9,185 Jobs</span>
+
                                         <span class="cat-name">{{ $category->name }}</span>
                                     </a>
                                 </li>
@@ -310,7 +314,7 @@
                 @foreach ($jobs as $job)
                     <a href="{{ url('user/job-detail',base64_encode($job['id'])) }}" class="col-md-6 job-box job-box-type1">
                         <span class="job-title-sec">
-                            <strong class="title-icon"> </strong>
+                            <strong class="title-icon">D</strong>
                             <span class="job-title">
                                 <h4>{{ $job->title }}</h4>
                                 <span class="job-info-sec">
@@ -320,7 +324,7 @@
                                         <li class="work-duration">{{ ucfirst($job->type) }}</li><br>
                                         <li class="notification">{{ $job->created_at->diffForHumans() }}</li>
                                     </ul>
-                                     <span class="pay-dtls">
+                                    <span class="pay-dtls">
                                         <strong>${{ $job['salaryFrom'] }} - ${{ $job['salaryTo'] }}</strong> / week
                                     </span>
                                 </span>
@@ -332,7 +336,7 @@
                         </span>
                         <span class="req-info-box">
                             <span class="urgent">Urgent</span>
-                            {{-- <span class="senior">Senior</span> --}}
+                            <span class="senior">Senior</span>
                             <span class="full-time">{{ ucfirst($job->type) }}</span>
                         </span>
                     </a>

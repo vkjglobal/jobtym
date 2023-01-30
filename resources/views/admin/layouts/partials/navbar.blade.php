@@ -1,3 +1,14 @@
+
+@if (Auth::guard('admin')->guest())
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a>
+    </li>
+    @if (Route::has('admin.register'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.register') }}">{{ __('Register') }}</a>
+        </li>
+    @endif
+@else
 <nav class="navbar">
     <a href="#" class="sidebar-toggler">
         <i data-feather="menu"></i>
@@ -50,3 +61,4 @@
         </ul>
     </div>
 </nav>
+@endguest
