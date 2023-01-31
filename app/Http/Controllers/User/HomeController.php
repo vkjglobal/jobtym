@@ -52,7 +52,7 @@ class HomeController extends Controller
                 return Redirect("user")->with('error', 'Something Went Wrong! Please try again');
             }
         }else{
-            return Redirect("user")->with('error', 'Oops! You are not Login! Please login and try again');
+            return Redirect("user")->with('error', 'Oops! You are not Logged in! Please login and try again');
         }
     }
     

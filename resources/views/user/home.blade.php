@@ -201,7 +201,7 @@
 
                                         {{-- <span class="cat-count">Jobs</span> --}}
 
-                                        <span class="cat-count">9,185 Jobs</span>
+                                        {{-- <span class="cat-count">9,185 Jobs</span> --}}
 
                                         <span class="cat-name">{{ $category->name }}</span>
                                     </a>
@@ -271,10 +271,11 @@
                         <div class="col-xl-5 col-md-12" data-aos="fade-up" data-aos-duration="2000">
                             <div class="cv-upload-sec">
                                 <div class="info-top-hd">Explore New Life</div>
-                                <div class="info-mid-hd">Don’t just find. be found put <br>your CV in front of great
-                                    employers</div>
-                                <div class="info-text">We have found Indeed very helpful <br>in finding the right candidate
+                                <div class="info-mid-hd">Don’t just find, be found.<br> Put your CV in front of great
+                                    employers.</div>
+                                <div class="info-text">We have indeed found this very helpful <br>in finding the right candidate
                                     for our <br>organization...</div>
+                                @if (Auth::check())
                                 <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
                                     @csrf
                                     <div class="file-icon">
@@ -282,9 +283,25 @@
                                     </div>
                                     <div class="upload-btn-wrapper">
                                         <input type="file" name="uploadResume" id="fileInput"/>
+                                        
                                         <button class="btn">Upload a file</button>
+                                        
                                     </div>
                                 </form>
+                                @else
+                                <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="file-icon">
+                                        <img src="{{ asset('user_assets/images/file-upload.svg')}}" alt="">
+                                    </div>
+                                    <div class="upload-btn-wrapper">
+                                        
+                                        
+                                        <button class="btn" type="submit">Upload a file</button>
+                                        
+                                    </div>
+                                </form>
+                                @endif
                                 <div class="cv-upload-bg d-none d-sm-block">
                                     <img src="{{ asset('user_assets/images/Lady-img2.png')}}" alt="">
                                 </div>
@@ -332,11 +349,10 @@
                         </span>
                         <span class="job-info-text">
                             {{ Str::limit($job->description, 200) }}
-                
                         </span>
                         <span class="req-info-box">
                             <span class="urgent">Urgent</span>
-                            <span class="senior">Senior</span>
+                            {{-- <span class="senior">Senior</span> --}}
                             <span class="full-time">{{ ucfirst($job->type) }}</span>
                         </span>
                     </a>

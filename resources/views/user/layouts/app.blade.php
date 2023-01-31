@@ -39,11 +39,12 @@
                                 <a class="nav-link" href="{{ url('user/find-job') }}">Find Jobs</a>
                             </li>
                             <li class="nav-item">
-                                <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
-                                    @csrf
-                                    <input id="upload" name="uploadResume" type="file" style="display: none"/>
-                                    <a class="nav-link" href="" id="upload_link">Upload Your Resume</a>
-                                </form>
+                                {{-- <form method="POST" action="{{ route('user.uploadFile') }}" class="cv-upload" enctype="multipart/form-data">
+                                        @csrf
+                                        <input id="upload" name="uploadResume" type="file" style="display: none"/>
+                                        <a class="nav-link" href="" id="upload_link">Upload Your Resume</a>
+                                    </form> --}}
+                                    <a class="nav-link" href="{{ url('user/dashboard') }}" >Dashboard</a>
                             </li>
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ url('user') }}">Hiring? Post a job for free</a>
@@ -78,7 +79,7 @@
                                                 <a class="" href="{{ url('user/logout') }}">Logout</a>
                                             </button>
                                         </li>
-                                        <li class="">
+                                        {{-- <li class="">
                                             <button class="nav-link">
                                                 <span>
                                                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,17 +88,62 @@
                                                 </span> 
                                                 Delete Account
                                             </button>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </li>
-                            @else
-                                <li>
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary login" data-toggle="modal"
-                                        data-target="#Login">
-                                        Login
-                                    </button>
-                                    <a href="{{ url('user/register') }}" class="btn btn-primary register">Register</a>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('user') }}">Hiring? Post a job for free</a>
+                                </li> --}}
+
+                                {{-- @auth
+                                    <li class="user-logo">
+                                        <a class="user-img" id="" href="{{ url('/user/dashboard') }}">
+                                            <img @if (Auth::user()->image)
+                                                src="{{ asset('user_assets/uploadProfile/'.Auth::user()->image)}}"
+                                            @else
+                                                src="{{ asset('user_assets/images/user_img.jpg')}}"
+                                            @endif alt="" style="width: 52px;height: 52px;border-radius: 50%;">
+                                        </a>     --}}
+                                        {{-- <a class="nav-link" id="" data-toggle="tab" href="{{ url('/user/dashboard') }}" role="tab" aria-controls="Profile" aria-selected="false"><img src="" alt=""></a> --}}
+                                    {{-- </li>
+                                    <li class="user-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</li>
+                                    <li class="user-menu-item">
+                                        <span class="user-drop-btn">
+                                            <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.75302 0.631683C6.83489 0.551738 6.94479 0.506982 7.05922 0.506982C7.17367 0.506982 7.28358 0.551755 7.36546 0.631727L7.62888 0.889033L7.49045 0.889033C7.49216 0.904477 7.49302 0.920034 7.49302 0.935635C7.49302 0.992321 7.48166 1.04843 7.45962 1.10066C7.43758 1.15287 7.40534 1.20012 7.36473 1.23966C7.36472 1.23967 7.36469 1.2397 7.36468 1.23971L4.15819 4.36479L4.15818 4.36479L4.05349 4.25737C3.99718 4.31226 3.92165 4.34298 3.84302 4.34298C3.76438 4.34298 3.68886 4.31226 3.63254 4.25737L6.75302 0.631683ZM6.75302 0.631683C6.75301 0.631697 6.75299 0.631712 6.75298 0.631727L3.84303 3.46833M6.75302 0.631683L3.84303 3.46833M3.84303 3.46833L0.933661 0.631727L3.84303 3.46833ZM0.321355 1.23971L3.52784 4.36479L0.828848 0.739032C0.774995 0.686431 0.702702 0.656982 0.627421 0.656982C0.552141 0.656982 0.479847 0.686431 0.425994 0.739032L0.321355 0.631559C0.321297 0.631615 0.32124 0.631671 0.321182 0.631727C0.280647 0.671238 0.248426 0.718459 0.226415 0.770612C0.204372 0.822837 0.193017 0.87895 0.193017 0.935635C0.193017 0.992319 0.204372 1.04843 0.226416 1.10066C0.248447 1.15286 0.28071 1.20012 0.321301 1.23966C0.321319 1.23968 0.321337 1.23969 0.321355 1.23971Z" fill="#8C8C8C" stroke="#8C8C8C" stroke-width="0.3"/>
+                                            </svg>
+                                        </span>
+                                        <ul class="user-drop-menu">
+                                            <li class="">
+                                                <button class="nav-link">
+                                                    <span>
+                                                        <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M16.4516 13.6047H14.9802C14.8797 13.6047 14.7856 13.6486 14.7228 13.7261C14.5763 13.904 14.4193 14.0756 14.2539 14.2388C13.5777 14.9158 12.7766 15.4553 11.8951 15.8274C10.9818 16.2132 10.0002 16.4111 9.00882 16.4093C8.00627 16.4093 7.0351 16.2126 6.12255 15.8274C5.24103 15.4553 4.43998 14.9158 3.76371 14.2388C3.08624 13.5642 2.54603 12.7645 2.17302 11.8842C1.78581 10.9716 1.59116 10.0026 1.59116 9.00002C1.59116 7.99746 1.7879 7.02839 2.17302 6.11584C2.54558 5.23467 3.08139 4.44142 3.76371 3.76119C4.44604 3.08096 5.23929 2.54514 6.12255 2.17259C7.0351 1.78747 8.00627 1.59073 9.00882 1.59073C10.0114 1.59073 10.9825 1.78538 11.8951 2.17259C12.7783 2.54514 13.5716 3.08096 14.2539 3.76119C14.4193 3.92654 14.5742 4.09816 14.7228 4.27398C14.7856 4.35142 14.8818 4.39537 14.9802 4.39537H16.4516C16.5835 4.39537 16.6651 4.24886 16.5918 4.13793C14.9865 1.64305 12.1777 -0.00834039 8.9858 3.16855e-05C3.97092 0.0125898 -0.0497669 4.08351 0.000465601 9.09211C0.0506981 14.0212 4.06511 18 9.00882 18C12.1923 18 14.9886 16.3507 16.5918 13.8621C16.663 13.7512 16.5835 13.6047 16.4516 13.6047ZM18.3123 8.86816L15.3423 6.52397C15.2314 6.43607 15.0702 6.5156 15.0702 6.65583V8.24653H8.49813C8.40603 8.24653 8.33068 8.32188 8.33068 8.41397V9.58606C8.33068 9.67815 8.40603 9.7535 8.49813 9.7535H15.0702V11.3442C15.0702 11.4844 15.2335 11.564 15.3423 11.4761L18.3123 9.13188C18.3323 9.11621 18.3485 9.0962 18.3596 9.07335C18.3708 9.05051 18.3765 9.02543 18.3765 9.00002C18.3765 8.9746 18.3708 8.94952 18.3596 8.92668C18.3485 8.90383 18.3323 8.88382 18.3123 8.86816Z" fill="#8599AD"/>
+                                                        </svg>
+                                                    </span> 
+                                                    <a class="" href="{{ url('user/logout') }}">Logout</a>
+                                                </button>
+                                            </li>
+                                            <li class="">
+                                                <button class="nav-link">
+                                                    <span>
+                                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M1.8 5.4H16.2V17.1C16.2 17.3387 16.1052 17.5676 15.9364 17.7364C15.7676 17.9052 15.5387 18 15.3 18H2.7C2.46131 18 2.23239 17.9052 2.0636 17.7364C1.89482 17.5676 1.8 17.3387 1.8 17.1V5.4ZM3.6 7.2V16.2H14.4V7.2H3.6ZM6.3 9H8.1V14.4H6.3V9ZM9.9 9H11.7V14.4H9.9V9ZM4.5 2.7V0.9C4.5 0.661305 4.59482 0.432387 4.7636 0.263604C4.93239 0.0948211 5.16131 0 5.4 0H12.6C12.8387 0 13.0676 0.0948211 13.2364 0.263604C13.4052 0.432387 13.5 0.661305 13.5 0.9V2.7H18V4.5H0V2.7H4.5ZM6.3 1.8V2.7H11.7V1.8H6.3Z" fill="#8599AD"></path>
+                                                        </svg>
+                                                    </span> 
+                                                    Delete Account
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </li> --}}
+                                @else
+                                    <li>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary login" data-toggle="modal"
+                                            data-target="#Login">
+                                            Login
+                                        </button>
+                                        <a href="{{ url('user/register') }}" class="btn btn-primary register">Register</a>
 
                                     <!-- Modal -->
                                     <form class="register-form-modal form-modal" method="POST"  action="{{ route('user.post-login') }}">
@@ -289,9 +335,9 @@
                     <ul class="footer-links">
                         <li class="link-title">For Candidates</li>
                         <li class="link-item"><a href="{{ route('user.job.find-job') }}">Browse Jobs</a></li>
-                        <li class="link-item"><a href="">Browse Candidates</a></li>
+                        {{-- <li class="link-item"><a href="">Browse Candidates</a></li> --}}
                         <li class="link-item"><a href="{{ route('user.index') }}">Candidate Dashboard</a></li>
-                        <li class="link-item"><a href="">Job Alerts</a></li>
+                        <li class="link-item"><a href="{{ route('user.job.find-job') }}">Job Alerts</a></li>
                     </ul>
                 </div>
                 {{-- @guest    
@@ -309,15 +355,15 @@
                         <li class="link-title">Quick Links</li>
                         <li class="link-item"><a href="{{ url('user/contactUs') }}">Contact Us</a></li>
                         <li class="link-item"><a href="{{ url('user/aboutUs') }}">About Us</a></li>
-                        <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms</a></li>
+                        {{-- <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms</a></li> --}}
                         <li class="link-item"><a href="{{ url('user/faq') }}">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
                     <ul class="footer-links">
                         <li class="link-title">Helpful Resources</li>
-                        <li class="link-item"><a href="">Site Map</a></li>
-                        <li class="link-item"><a href="">Terms of Use</a></li>
+                        <li class="link-item"><a href="#">Site Map</a></li>
+                        <li class="link-item"><a href="{{ url('user/terms-condition') }}">Terms of Use</a></li>
                         <li class="link-item"><a href="{{ url('user/privacy-policy') }}">Privacy Policy</a></li>
                     </ul>
                 </div>
