@@ -19,4 +19,9 @@ class JobPost extends Model
     {
         return $this->belongsTo(UserJobApply::class,'job_id');
     }
+
+    public function applicants()
+    {
+        return UserJobApply::where('job_id', $this->id)->count();
+    }
 }

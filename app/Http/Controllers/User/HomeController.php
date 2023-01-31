@@ -20,7 +20,7 @@ class HomeController extends Controller
     {
         $jobs = JobPost::where('status','=','1')->latest()->paginate(6);
         // dd($jobs);
-        $categories = Category::where('status','=','1')->latest()->paginate(8);
+        $categories = Category::where('status','=','1')->paginate(8);
         // dd($categories);
         $title = JobPost::select('title')->where('status','=','1')->orderBy('title', 'ASC')->distinct()->get();
         $location = JobPost::select('country')->where('status','=','1')->orderBy('country', 'ASC')->distinct()->get();

@@ -51,13 +51,7 @@ class ReportController extends Controller
         $employers = Employer::orderBy('company_name', 'ASC')->get();
 
         $industry= Category::all();
-/////////////
-        $job_id = JobPost::select('id')->get();
-        // dd($job_id);
 
-        $applicants = UserJobApply::select('user_id')->where('job_id', $job_id)->count();
-        // dd($applicants);
-////////////
         return view('admin.reports.all-jobs', compact('breadcrumbs', 'jobs', 'employers', 'industry'));
 
     }

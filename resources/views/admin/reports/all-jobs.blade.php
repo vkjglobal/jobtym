@@ -49,7 +49,8 @@
                                 <label for="">Due Date</label>
                                 <input type="date" value="{{date('y-m-d')}}" name="dateto" id="dateto" placeholder="Due" class="form-control">
                             </div> --}}
-                            <div class="col-md-2 mt-5">
+                            <div class="col-md-2 mt-3">
+                                <label for=""></label>
                                 <input type="submit" value="Submit" name="submit" id="submit"  class="form-control btn btn-primary">
                             </div>
                         </div>

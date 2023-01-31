@@ -14,6 +14,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if($jobs != NULL)
                                 @foreach ($jobs as $job)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -22,7 +23,7 @@
                                         <td>{{ $job->employer->company_name }}</td>
                                         <td>{{ $job->schedule_date }}</td>
                                         <td>{{ $job->deadline }}</td>
-                                        <td>45</td>
+                                        <td>{{ $job->applicants() }}</td>
                                         <td>free</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -37,6 +38,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                {{-- @else
+                                No jobs found --}}
+                                @endif
                             </tbody>
                         </table>
                  
