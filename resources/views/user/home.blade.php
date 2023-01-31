@@ -189,7 +189,7 @@
             <div class="row no-gutters">
                 <div class="cat-sec">
                     <h2 class="hd-typ2" data-aos="fade-up" data-aos-duration="2000">Jobs by Categories</h2>
-                    <h3 class="hd-typ3" data-aos="fade-up" data-aos-duration="2000">Choose Your Desire Category</h3>
+                    <h3 class="hd-typ3" data-aos="fade-up" data-aos-duration="2000">Choose Your Desired Category</h3>
                     <div class="row">
                         <div class="col-xl-7 col-md-12" data-aos="zoom-in" data-aos-duration="2000">
                             <ul class="cat-list row">
